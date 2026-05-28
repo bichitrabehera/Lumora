@@ -34,7 +34,12 @@ body {
   background:
     radial-gradient(circle at top left, var(--accent-glow), transparent 28%),
     radial-gradient(circle at top right, var(--accent-glow-2), transparent 30%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 48%, #111b2c 100%);
+    linear-gradient(
+      180deg,
+      var(--bg) 0%,
+      var(--bg-soft) 48%,
+      var(--palette-1) 100%
+    );
 }
 
 a {
@@ -71,7 +76,7 @@ main {
   display: grid;
   place-items: center;
   border-radius: 14px;
-  color: #071014;
+  color: var(--palette-1);
   font-weight: 800;
   letter-spacing: 0.06em;
   background: linear-gradient(
@@ -181,7 +186,7 @@ main {
   color: var(--text);
 }
 .primary-btn {
-  color: #071014;
+  color: var(--palette-1);
   background: linear-gradient(135deg, var(--accent), var(--palette-5));
   box-shadow: 0 18px 38px rgba(0, 246, 237, 0.12);
 }
