@@ -1,0 +1,325 @@
+{
+  "brand": {
+    "name": "lovey page",
+    "logo": "/assets/main%20logo%20lovey.png",
+    "tagline": "Mobile-first digital greeting cards and celebration microsites."
+  },
+  "hero": {
+    "eyebrow": "Config-driven greeting cards",
+    "title": "Build an interactive microsite for birthdays, apologies, and small moments that matter.",
+    "lead": "Choose a premium template, add photos, messages, and audio, then publish a mobile-first digital card that feels personal from the first tap.",
+    "primaryCta": "Explore templates",
+    "secondaryCta": "See how it works"
+  },
+  "stats": [
+    { "value": "7k+", "label": "pages shared" },
+    { "value": "15+", "label": "template styles" },
+    { "value": "30 sec", "label": "to launch" },
+    { "value": "4.9/5", "label": "average rating" }
+  ],
+  "highlights": [
+    "WEDDING INVITES",
+    "ANNIVERSARY SURPRISES",
+    "BIRTHDAY PAGES",
+    "APOLOGY NOTES",
+    "JUST BECAUSE",
+    "MEMORY ROOMS"
+  ],
+  "featureCards": [
+    { "label": "Music", "title": "Dedication card" },
+    { "label": "Photos", "title": "Polaroid wall" },
+    { "label": "Reveal", "title": "Letter moment" },
+    { "label": "Share", "title": "Single link" }
+  ],
+  "templates": [
+    {
+      "slug": "moonlit-birthday",
+      "title": "Moonlit Birthday",
+      "category": "Birthday",
+      "price": "From $19",
+      "schema": {
+        "fields": [
+          { "key": "title", "type": "text", "label": "Card title" },
+          { "key": "subtitle", "type": "text", "label": "Subheading" },
+          { "key": "message", "type": "textarea", "label": "Main message" },
+          { "key": "photos", "type": "gallery", "label": "Photo gallery" },
+          { "key": "audio_url", "type": "audio", "label": "Audio message URL" },
+          { "key": "cta_label", "type": "text", "label": "Button label" },
+          { "key": "cta_url", "type": "text", "label": "Button link" }
+        ]
+      },
+      "description": "A playful birthday landing page with a reveal moment, photo wall, and handwritten closing note.",
+      "summary": "Built for birthdays that should feel warm, personal, and easy to send in a single link.",
+      "bestFor": "Birthday surprises",
+      "features": ["Reveal moment", "Photo wall", "Closing note"],
+      "sections": ["Opening card", "Timeline", "Memory wall", "Gift reveal"],
+      "accent": "Cyan glow"
+    },
+    {
+      "slug": "afterglow-anniversary",
+      "title": "Afterglow Anniversary",
+      "category": "Anniversary",
+      "price": "From $29",
+      "schema": {
+        "fields": [
+          { "key": "title", "type": "text", "label": "Card title" },
+          { "key": "subtitle", "type": "text", "label": "Love note intro" },
+          { "key": "message", "type": "textarea", "label": "Story message" },
+          { "key": "photos", "type": "gallery", "label": "Memory photos" },
+          {
+            "key": "audio_url",
+            "type": "audio",
+            "label": "Song or voice note URL"
+          },
+          { "key": "cta_label", "type": "text", "label": "Button label" },
+          { "key": "cta_url", "type": "text", "label": "Button link" }
+        ]
+      },
+      "description": "Warm story blocks, a timeline, and a polished music section made for relationship milestones.",
+      "summary": "A soft, elegant layout that makes anniversaries feel thoughtful instead of templated.",
+      "bestFor": "Anniversary surprises",
+      "features": ["Timeline", "Music section", "Story blocks"],
+      "sections": [
+        "Opening hero",
+        "Our timeline",
+        "Song dedication",
+        "Closing promise"
+      ],
+      "accent": "Soft amber"
+    },
+    {
+      "slug": "soft-apology",
+      "title": "Soft Apology",
+      "category": "Apology",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          { "key": "title", "type": "text", "label": "Card title" },
+          { "key": "subtitle", "type": "text", "label": "Soft intro" },
+          { "key": "message", "type": "textarea", "label": "Apology message" },
+          { "key": "photos", "type": "gallery", "label": "Memory photos" },
+          { "key": "audio_url", "type": "audio", "label": "Voice note URL" },
+          { "key": "cta_label", "type": "text", "label": "Button label" },
+          { "key": "cta_url", "type": "text", "label": "Button link" }
+        ]
+      },
+      "description": "A calm, thoughtful page with a message reveal, memory cards, and a gentle call-to-action.",
+      "summary": "Designed for sincerity first, with nothing noisy getting in the way of the message.",
+      "bestFor": "Gentle apologies",
+      "features": ["Message reveal", "Memory cards", "Calm CTA"],
+      "sections": [
+        "Opening note",
+        "Memory cards",
+        "Heartfelt message",
+        "Response link"
+      ],
+      "accent": "Muted teal"
+    },
+    {
+      "slug": "wedding-invite",
+      "title": "Wedding Invite",
+      "category": "Wedding",
+      "price": "From $49",
+      "schema": {
+        "fields": [
+          { "key": "title", "type": "text", "label": "Card title" },
+          { "key": "subtitle", "type": "text", "label": "Invite subtitle" },
+          { "key": "message", "type": "textarea", "label": "Invite message" },
+          { "key": "photos", "type": "gallery", "label": "Photo gallery" },
+          { "key": "audio_url", "type": "audio", "label": "Music URL" },
+          { "key": "cta_label", "type": "text", "label": "Button label" },
+          { "key": "cta_url", "type": "text", "label": "Button link" }
+        ]
+      },
+      "description": "An elegant invite with venue details, RSVP section, countdown, and a memorable opening screen.",
+      "summary": "A polished wedding experience that handles the invite, the details, and the RSVP flow.",
+      "bestFor": "Wedding invites",
+      "features": ["Countdown", "Venue details", "RSVP section"],
+      "sections": ["Hero invite", "Ceremony details", "RSVP", "Guest notes"],
+      "accent": "Pearl white"
+    },
+    {
+      "slug": "love-note",
+      "title": "Love Note",
+      "category": "Just Because",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          { "key": "title", "type": "text", "label": "Card title" },
+          { "key": "subtitle", "type": "text", "label": "Short intro" },
+          { "key": "message", "type": "textarea", "label": "Note message" },
+          { "key": "photos", "type": "gallery", "label": "Photo strip" },
+          { "key": "audio_url", "type": "audio", "label": "Audio URL" },
+          { "key": "cta_label", "type": "text", "label": "Button label" },
+          { "key": "cta_url", "type": "text", "label": "Button link" }
+        ]
+      },
+      "description": "Minimal, intimate, and easy to personalize when the message matters more than the medium.",
+      "summary": "The simplest route when you want the message to stay centered and the layout to disappear.",
+      "bestFor": "Unexpected messages",
+      "features": ["Minimal layout", "Easy editing", "Quick share"],
+      "sections": ["Short intro", "Note card", "Photo strip", "Send button"],
+      "accent": "Quiet sand"
+    },
+    {
+      "slug": "milestone-story",
+      "title": "Milestone Story",
+      "category": "Special Day",
+      "price": "From $24",
+      "schema": {
+        "fields": [
+          { "key": "title", "type": "text", "label": "Card title" },
+          { "key": "subtitle", "type": "text", "label": "Intro line" },
+          { "key": "message", "type": "textarea", "label": "Story message" },
+          { "key": "photos", "type": "gallery", "label": "Memory gallery" },
+          { "key": "audio_url", "type": "audio", "label": "Audio message URL" },
+          { "key": "cta_label", "type": "text", "label": "Button label" },
+          { "key": "cta_url", "type": "text", "label": "Button link" }
+        ]
+      },
+      "description": "A layered page for birthdays, graduations, and the kind of wins you want to remember properly.",
+      "summary": "Flexible enough for any big moment while still feeling intentional and memorable.",
+      "bestFor": "Milestones and wins",
+      "features": ["Layered sections", "Memory gallery", "Milestone cards"],
+      "sections": [
+        "Header reveal",
+        "Memory gallery",
+        "Milestone cards",
+        "Celebration CTA"
+      ],
+      "accent": "Golden haze"
+    },
+    {
+      "slug": "birthday-template-1",
+      "title": "Birthday Template 1",
+      "category": "Birthday",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          { "key": "page_title", "type": "text", "label": "Browser title" },
+          {
+            "key": "welcome_title",
+            "type": "text",
+            "label": "Welcome heading"
+          },
+          {
+            "key": "welcome_message",
+            "type": "textarea",
+            "label": "Welcome message"
+          },
+          {
+            "key": "start_button_label",
+            "type": "text",
+            "label": "Start button label"
+          },
+          {
+            "key": "letter_greeting",
+            "type": "text",
+            "label": "Letter greeting"
+          },
+          {
+            "key": "letter_message",
+            "type": "textarea",
+            "label": "Letter message"
+          },
+          {
+            "key": "letter_prompt",
+            "type": "textarea",
+            "label": "Letter prompt"
+          },
+          {
+            "key": "unfold_button_label",
+            "type": "text",
+            "label": "Unfold button label"
+          },
+          {
+            "key": "recipient_name",
+            "type": "text",
+            "label": "Recipient name"
+          },
+          {
+            "key": "final_greeting",
+            "type": "text",
+            "label": "Final greeting"
+          },
+          { "key": "final_wish", "type": "textarea", "label": "Final wish" },
+          { "key": "signature", "type": "text", "label": "Signature" },
+          { "key": "music_url", "type": "audio", "label": "Music URL" }
+        ]
+      },
+      "description": "Imported built birthday microsite.",
+      "summary": "Interactive birthday experience built externally and embedded.",
+      "bestFor": "Birthday wishes",
+      "features": ["Envelope reveal", "Confetti", "Typewriter greeting"],
+      "sections": ["Welcome", "Envelope", "Letter", "Celebration"],
+      "accent": "Bright coral",
+      "assets": {
+        "bundle": "/assets/birthday-template-1/index.html",
+        "css": "/assets/birthday-template-1/style.css",
+        "js": "/assets/birthday-template-1/script.js",
+        "sample_audio": "/assets/birthday-template-1/birthday_song.mp3"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "number": "01",
+      "title": "Choose a mood",
+      "text": "Start with a template style that fits the moment: romantic, playful, soft, or elegant."
+    },
+    {
+      "number": "02",
+      "title": "Add your story",
+      "text": "Swap in photos, words, dates, and a song so the page feels like it belongs to one person."
+    },
+    {
+      "number": "03",
+      "title": "Preview and polish",
+      "text": "Check the flow, adjust the colors, and make sure every section feels right on desktop and phone."
+    },
+    {
+      "number": "04",
+      "title": "Share the link",
+      "text": "Send it in a chat, attach it to a QR card, or drop it into a surprise message at the right time."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "It felt like a boutique website, not a template. We edited it in minutes and shared it the same day.",
+      "name": "Aarohi S.",
+      "tag": "Birthday gift"
+    },
+    {
+      "quote": "The page looked polished on mobile, which mattered because we shared it straight through chat.",
+      "name": "Daniel K.",
+      "tag": "Anniversary surprise"
+    },
+    {
+      "quote": "The structure is simple, but the presentation feels premium. It made the moment feel bigger.",
+      "name": "Meera P.",
+      "tag": "Wedding invite"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What is this site for?",
+      "answer": "It is a landing page concept for personalized celebration websites that can be shared as a single link."
+    },
+    {
+      "question": "Can the pages be customized?",
+      "answer": "Yes. The idea is to swap colors, copy, photos, and a few sections so every page feels personal."
+    },
+    {
+      "question": "Is this mobile friendly?",
+      "answer": "The layout is built to stack cleanly on smaller screens so the experience stays polished on phones."
+    },
+    {
+      "question": "Can I turn this into a real product site?",
+      "answer": "Yes. You can replace the sample content with your own products, pricing, and checkout flow later."
+    }
+  ],
+  "contact": {
+    "title": "Start a custom page",
+    "lead": "Tell us the occasion, the mood, and the template you want. The backend records the request so you can connect it to email, CRM, or checkout later."
+  }
+}

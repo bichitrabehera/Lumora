@@ -1,165 +1,54 @@
-const templates = [
-  {
-    title: "Moonlit Birthday",
-    category: "Birthday",
-    price: "From $19",
-    description:
-      "A playful birthday landing page with a reveal moment, photo wall, and handwritten closing note.",
-  },
-  {
-    title: "Afterglow Anniversary",
-    category: "Anniversary",
-    price: "From $29",
-    description:
-      "Warm story blocks, a timeline, and a polished music section made for relationship milestones.",
-  },
-  {
-    title: "Soft Apology",
-    category: "Apology",
-    price: "Free",
-    description:
-      "A calm, thoughtful page with a message reveal, memory cards, and a gentle call-to-action.",
-  },
-  {
-    title: "Wedding Invite",
-    category: "Wedding",
-    price: "From $49",
-    description:
-      "An elegant invite with venue details, RSVP section, countdown, and a memorable opening screen.",
-  },
-  {
-    title: "Love Note",
-    category: "Just Because",
-    price: "Free",
-    description:
-      "Minimal, intimate, and easy to personalize when the message matters more than the medium.",
-  },
-  {
-    title: "Milestone Story",
-    category: "Special Day",
-    price: "From $24",
-    description:
-      "A layered page for birthdays, graduations, and the kind of wins you want to remember properly.",
-  },
-];
+import Link from "next/link";
+import Topbar from "@/components/topbar";
+import AuthAction from "@/components/auth-action";
 
-const testimonials = [
-  {
-    quote:
-      "It felt like a boutique website, not a template. We edited it in minutes and shared it the same day.",
-    name: "Aarohi S.",
-    tag: "Birthday gift",
-  },
-  {
-    quote:
-      "The page looked polished on mobile, which mattered because we shared it straight through chat.",
-    name: "Daniel K.",
-    tag: "Anniversary surprise",
-  },
-  {
-    quote:
-      "The structure is simple, but the presentation feels premium. It made the moment feel bigger.",
-    name: "Meera P.",
-    tag: "Wedding invite",
-  },
-];
+import { loadSiteData } from "@/lib/api";
 
-const steps = [
-  {
-    number: "01",
-    title: "Choose a mood",
-    text: "Start with a template style that fits the moment: romantic, playful, soft, or elegant.",
-  },
-  {
-    number: "02",
-    title: "Add your story",
-    text: "Swap in photos, words, dates, and a song so the page feels like it belongs to one person.",
-  },
-  {
-    number: "03",
-    title: "Preview and polish",
-    text: "Check the flow, adjust the colors, and make sure every section feels right on desktop and phone.",
-  },
-  {
-    number: "04",
-    title: "Share the link",
-    text: "Send it in a chat, attach it to a QR card, or drop it into a surprise message at the right time.",
-  },
-];
+export default async function Home() {
+  const data = await loadSiteData();
 
-const faqs = [
-  {
-    question: "What is this site for?",
-    answer:
-      "It is a landing page concept for personalized celebration websites that can be shared as a single link.",
-  },
-  {
-    question: "Can the pages be customized?",
-    answer:
-      "Yes. The idea is to swap colors, copy, photos, and a few sections so every page feels personal.",
-  },
-  {
-    question: "Is this mobile friendly?",
-    answer:
-      "The layout is built to stack cleanly on smaller screens so the experience stays polished on phones.",
-  },
-  {
-    question: "Can I turn this into a real product site?",
-    answer:
-      "Yes. You can replace the sample content with your own products, pricing, and checkout flow later.",
-  },
-];
-
-const stats = [
-  ["7k+", "pages shared"],
-  ["15+", "template styles"],
-  ["30 sec", "to launch"],
-  ["4.9/5", "average rating"],
-];
-
-export default function Home() {
   return (
     <main className="page-shell">
       <section className="hero">
         <div className="glow glow-a" />
         <div className="glow glow-b" />
 
-        <header className="topbar">
-          <div className="brand-mark">LL</div>
-          <nav>
-            <a href="#templates">Templates</a>
-            <a href="#how-it-works">How it works</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#faq">FAQ</a>
-          </nav>
-          <a className="ghost-btn" href="#templates">
-            View demos
-          </a>
-        </header>
+        {/* topbar */}
+        <Topbar
+          logo={data.brand.logo}
+          brandName={data.brand.name}
+          ghostHref="/contact"
+          ghostLabel="Start a page"
+          authAction={<AuthAction />}
+          nav={
+            <>
+              <a href="#templates">Templates</a>
+              <a href="#how-it-works">How it works</a>
+              <a href="#reviews">Reviews</a>
+              <a href="#faq">FAQ</a>
+            </>
+          }
+        />
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <span className="eyebrow">Premium websites for life moments</span>
-            <h1>Make a gift page that feels bespoke from the first scroll.</h1>
-            <p className="lead">
-              Build a beautiful one-page experience for birthdays,
-              anniversaries, proposals, apologies, and quiet celebrations. Start
-              with a polished design, then make it yours in minutes.
-            </p>
+            <span className="eyebrow">{data.hero.eyebrow}</span>
+            <h1>{data.hero.title}</h1>
+            <p className="lead">{data.hero.lead}</p>
             <div className="hero-actions">
               <a className="primary-btn" href="#templates">
-                Explore templates
+                {data.hero.primaryCta}
               </a>
               <a className="secondary-btn" href="#how-it-works">
-                See how it works
+                {data.hero.secondaryCta}
               </a>
             </div>
 
             <div className="trust-row">
-              {stats.map(([value, label]) => (
-                <div key={label} className="trust-pill">
-                  <strong>{value}</strong>
-                  <span>{label}</span>
+              {data.stats.map((stat) => (
+                <div key={stat.label} className="trust-pill">
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
                 </div>
               ))}
             </div>
@@ -182,22 +71,12 @@ export default function Home() {
               </div>
             </div>
             <div className="hero-mini-grid">
-              <div>
-                <span>Music</span>
-                <strong>Dedication card</strong>
-              </div>
-              <div>
-                <span>Photos</span>
-                <strong>Polaroid wall</strong>
-              </div>
-              <div>
-                <span>Reveal</span>
-                <strong>Letter moment</strong>
-              </div>
-              <div>
-                <span>Share</span>
-                <strong>Single link</strong>
-              </div>
+              {data.featureCards.map((card) => (
+                <div key={card.title}>
+                  <span>{card.label}</span>
+                  <strong>{card.title}</strong>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -205,16 +84,9 @@ export default function Home() {
 
       <section className="ticker" aria-label="Highlights">
         <div className="ticker-track">
-          <span>WEDDING INVITES</span>
-          <span>ANNIVERSARY SURPRISES</span>
-          <span>BIRTHDAY PAGES</span>
-          <span>APOLOGY NOTES</span>
-          <span>JUST BECAUSE</span>
-          <span>MEMORY ROOMS</span>
-          <span>WEDDING INVITES</span>
-          <span>ANNIVERSARY SURPRISES</span>
-          <span>BIRTHDAY PAGES</span>
-          <span>APOLOGY NOTES</span>
+          {data.highlights.concat(data.highlights).map((item, index) => (
+            <span key={`${item}-${index}`}>{item}</span>
+          ))}
         </div>
       </section>
 
@@ -223,15 +95,15 @@ export default function Home() {
           <span className="eyebrow">Templates</span>
           <h2>Clean, emotional layouts that you can adapt to any occasion.</h2>
           <p>
-            This is a fresh design system inspired by gift pages and celebration
-            microsites, but built with its own mood, spacing, and visual
-            language.
+            This is a full-stack rebuild with a shared data source, template
+            detail pages, and a backend lead form so the site behaves like a
+            real product instead of a static mockup.
           </p>
         </div>
 
         <div className="template-grid">
-          {templates.map((template) => (
-            <article key={template.title} className="template-card">
+          {data.templates.map((template) => (
+            <article key={template.slug} className="template-card">
               <div className="template-top">
                 <span>{template.category}</span>
                 <span>{template.price}</span>
@@ -239,8 +111,10 @@ export default function Home() {
               <h3>{template.title}</h3>
               <p>{template.description}</p>
               <div className="template-actions">
-                <a href="#faq">Preview flow</a>
-                <a href="#how-it-works">Use this style</a>
+                <Link href={`/templates/${template.slug}`}>View details</Link>
+                <Link href={`/editor?template=${template.slug}`}>
+                  Use this style
+                </Link>
               </div>
             </article>
           ))}
@@ -262,7 +136,7 @@ export default function Home() {
         </div>
 
         <div className="steps-grid">
-          {steps.map((step) => (
+          {data.steps.map((step) => (
             <div key={step.number} className="step-card">
               <span className="step-number">{step.number}</span>
               <h3>{step.title}</h3>
@@ -283,7 +157,7 @@ export default function Home() {
         </div>
 
         <div className="testimonial-grid">
-          {testimonials.map((item) => (
+          {data.testimonials.map((item) => (
             <blockquote key={item.name} className="testimonial-card">
               <p>{item.quote}</p>
               <footer>
@@ -301,12 +175,9 @@ export default function Home() {
           <h2>Make it personal without touching code.</h2>
         </div>
         <div className="feature-list">
-          <span>Mobile-first layouts</span>
-          <span>Elegant typography</span>
-          <span>Story-led sections</span>
-          <span>Fast launch</span>
-          <span>Custom colors</span>
-          <span>Single-link sharing</span>
+          {data.templates.slice(0, 6).map((template) => (
+            <span key={template.slug}>{template.bestFor}</span>
+          ))}
         </div>
       </section>
 
@@ -319,7 +190,7 @@ export default function Home() {
         </div>
 
         <div className="faq-grid">
-          {faqs.map((faq) => (
+          {data.faqs.map((faq) => (
             <details key={faq.question} className="faq-card">
               <summary>{faq.question}</summary>
               <p>{faq.answer}</p>
@@ -337,9 +208,9 @@ export default function Home() {
             product or checkout flow when you are ready.
           </p>
         </div>
-        <a className="primary-btn" href="#templates">
+        <Link className="primary-btn" href="/contact">
           Start with a template
-        </a>
+        </Link>
       </section>
     </main>
   );
