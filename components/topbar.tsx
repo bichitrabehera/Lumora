@@ -17,6 +17,8 @@ export default function Topbar({
   nav,
   authAction,
 }: Props) {
+  const safeGhostHref = ghostHref.startsWith("/") ? ghostHref : "/contact";
+
   return (
     <header className="topbar">
       <div className="brand-mark">
@@ -56,7 +58,7 @@ export default function Topbar({
 
       {authAction}
 
-      <Link className="ghost-btn" href={ghostHref}>
+      <Link className="ghost-btn" href={safeGhostHref as never}>
         {ghostLabel}
       </Link>
     </header>

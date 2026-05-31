@@ -1,8 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<main style={{ padding: 24 }}>Loading...</main>}>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -23,7 +31,8 @@ export default function LoginPage() {
     if (!res.ok) return alert("Login failed");
     const data = await res.json();
     localStorage.setItem("token", data.access_token);
-    router.push(next);
+    const nextRoute = next.startsWith("/") ? next : "/";
+    router.push(nextRoute as never);
   }
 
   return (
