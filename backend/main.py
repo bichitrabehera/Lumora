@@ -44,16 +44,9 @@ app.include_router(templates_router)
 def on_startup():
     init_db()
 
-cors_origins_raw = os.getenv("CORS_ORIGINS", "*").strip()
-allowed_origins = [
-    origin.strip()
-    for origin in cors_origins_raw.split(",")
-    if origin.strip()
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if cors_origins_raw == "*" else (allowed_origins or ["*"]),
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,6 +1,7 @@
 "use client";
 import React, { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getBackendBaseUrl } from "@/lib/api";
 
 export default function RegisterPage() {
   return (
@@ -19,15 +20,11 @@ function RegisterForm() {
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch(
-      (process.env.NEXT_PUBLIC_BACKEND_URL ?? process.env.BACKEND_URL ?? "") +
-        "/api/auth/register",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      },
-    );
+    const res = await fetch(`${getBackendBaseUrl()}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
     if (!res.ok) return alert("Register failed");
     const data = await res.json();
     localStorage.setItem("token", data.access_token);

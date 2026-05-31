@@ -1,6 +1,7 @@
 "use client";
 import React, { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getBackendBaseUrl } from "@/lib/api";
 
 export default function LoginPage() {
   return (
@@ -19,15 +20,11 @@ function LoginForm() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch(
-      (process.env.NEXT_PUBLIC_BACKEND_URL ?? process.env.BACKEND_URL ?? "") +
-        "/api/auth/login",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      },
-    );
+    const res = await fetch(`${getBackendBaseUrl()}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
     if (!res.ok) return alert("Login failed");
     const data = await res.json();
     localStorage.setItem("token", data.access_token);

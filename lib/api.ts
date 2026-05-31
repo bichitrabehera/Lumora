@@ -5,7 +5,25 @@ import {
   type Template,
 } from "@/lib/site-data";
 
-const backendBaseUrl = (
+const DEFAULT_BACKEND_URL = "https://loveypage.onrender.com";
+
+export function getBackendBaseUrl() {
+  const raw = (
+    process.env.NEXT_PUBLIC_BACKEND_URL ??
+    process.env.BACKEND_URL ??
+    ""
+  ).replace(/\/$/, "");
+
+  if (!raw) return DEFAULT_BACKEND_URL;
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(raw)) {
+    return DEFAULT_BACKEND_URL;
+  }
+  return raw;
+}
+
+const backendBaseUrl = getBackendBaseUrl();
+
+const configuredBackendBaseUrl = (
   process.env.NEXT_PUBLIC_BACKEND_URL ??
   process.env.BACKEND_URL ??
   ""
@@ -48,7 +66,7 @@ export async function loadTemplate(slug: string): Promise<Template | null> {
 }
 
 export async function submitLead(payload: LeadSubmission) {
-  if (!backendBaseUrl) {
+  if (!configuredBackendBaseUrl && !backendBaseUrl) {
     throw new Error(
       "Set NEXT_PUBLIC_BACKEND_URL or BACKEND_URL to submit leads.",
     );
@@ -178,7 +196,7 @@ export async function confirmRazorpayPayment(payload: {
 }
 
 export async function savePage(payload: any, token?: string) {
-  if (!process.env.NEXT_PUBLIC_BACKEND_URL && !process.env.BACKEND_URL)
+  if (!configuredBackendBaseUrl && !backendBaseUrl)
     throw new Error("BACKEND_URL not set");
   const base = (
     process.env.NEXT_PUBLIC_BACKEND_URL ??
