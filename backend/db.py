@@ -2,7 +2,15 @@ from sqlmodel import create_engine, SQLModel, Session
 import os
 from sqlalchemy import text
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./backend.db")
+
+def normalize_database_url(raw_url: str | None) -> str:
+    url = (raw_url or "sqlite:///./backend.db").strip()
+    if len(url) >= 2 and url[0] == url[-1] and url[0] in {'"', "'"}:
+        url = url[1:-1].strip()
+    return url
+
+
+DATABASE_URL = normalize_database_url(os.getenv("DATABASE_URL"))
 
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 engine = create_engine(DATABASE_URL, echo=False, connect_args=connect_args)
