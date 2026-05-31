@@ -8,26 +8,12 @@ import {
 const DEFAULT_BACKEND_URL = "https://loveypage.onrender.com";
 
 export function getBackendBaseUrl() {
-  const raw = (
-    process.env.NEXT_PUBLIC_BACKEND_URL ??
-    process.env.BACKEND_URL ??
-    ""
-  ).replace(/\/$/, "");
-
-  if (!raw) return DEFAULT_BACKEND_URL;
-  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(raw)) {
-    return DEFAULT_BACKEND_URL;
-  }
-  return raw;
+  return DEFAULT_BACKEND_URL;
 }
 
-const backendBaseUrl = getBackendBaseUrl();
+const backendBaseUrl = DEFAULT_BACKEND_URL;
 
-const configuredBackendBaseUrl = (
-  process.env.NEXT_PUBLIC_BACKEND_URL ??
-  process.env.BACKEND_URL ??
-  ""
-).replace(/\/$/, "");
+const configuredBackendBaseUrl = DEFAULT_BACKEND_URL;
 
 async function fetchJson<T>(path: string): Promise<T | null> {
   if (!backendBaseUrl) {
