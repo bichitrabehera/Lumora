@@ -33,19 +33,37 @@ export async function generateMetadata({
 
 export default async function TemplateDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ preview?: string }>;
 }) {
   const { slug } = await params;
+  const query = (await searchParams) ?? {};
   const template = await loadTemplate(slug);
 
   if (!template) {
     notFound();
   }
 
-  const isFreeTemplate = String(template.price ?? "")
-    .toLowerCase()
-    .includes("free");
+  let previewValues: Record<string, any> = {
+    title: template.title,
+    subtitle: template.summary,
+    message: template.description,
+    photos: [`/assets/generated/${template.slug}.png`],
+    audio_url: "",
+  };
+
+  if (query.preview) {
+    try {
+      const parsed = JSON.parse(decodeURIComponent(query.preview));
+      if (parsed && typeof parsed === "object") {
+        previewValues = { ...previewValues, ...parsed };
+      }
+    } catch (error) {
+      // fall back to the default preview values
+    }
+  }
 
   return (
     <main className="page-shell">
@@ -77,21 +95,9 @@ export default async function TemplateDetailPage({
           <h2>
             See how this template renders as a mobile-first greeting card.
           </h2>
+          {query.preview && <p>Showing the live editor state in this tab.</p>}
         </div>
-        <TemplatePreview
-          template={template}
-          values={{
-            title: template.title,
-            subtitle: template.summary,
-            message: template.description,
-            photos: [
-              `/assets/generated/${template.slug}.png`,
-            ],
-            audio_url: "",
-            cta_label: isFreeTemplate ? "Claim for free" : "Make it yours",
-            cta_url: `/editor?template=${template.slug}`,
-          }}
-        />
+        <TemplatePreview template={template} values={previewValues} />
       </section>
 
       <section className="split-section">
@@ -132,18 +138,20 @@ export default async function TemplateDetailPage({
       <section className="cta-panel">
         <div>
           <span className="eyebrow">Next step</span>
-          <h2>Send the request to the FastAPI backend.</h2>
+          <h2>Open the live preview in a new tab.</h2>
           <p>
-            The lead form stores the template choice, occasion, and message so
-            you can connect it to email or a CRM later.
+            Use a separate tab to inspect the full template without the editor
+            controls around it.
           </p>
         </div>
-        <Link
+        <a
           className="primary-btn"
-          href={`/editor?template=${template.slug}`}
+          href={`/templates/${template.slug}`}
+          target="_blank"
+          rel="noreferrer"
         >
-          {isFreeTemplate ? "Claim for free" : "Make it yours"}
-        </Link>
+          Open live preview in new tab
+        </a>
       </section>
     </main>
   );

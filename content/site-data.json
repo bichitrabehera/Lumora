@@ -89,31 +89,77 @@
             "label": "Audio message URL"
           },
           {
-            "key": "cta_label",
+            "key": "hero_button_label",
             "type": "text",
-            "label": "Button label"
+            "label": "Hero button label"
           },
           {
-            "key": "cta_url",
+            "key": "celebration_heading",
             "type": "text",
-            "label": "Button link"
+            "label": "Celebration section heading"
+          },
+          {
+            "key": "celebration_message",
+            "type": "textarea",
+            "label": "Celebration section message"
+          },
+          {
+            "key": "featured_story_title",
+            "type": "text",
+            "label": "Featured story title"
+          },
+          {
+            "key": "featured_story_message",
+            "type": "textarea",
+            "label": "Featured story message"
+          },
+          {
+            "key": "secondary_story_title",
+            "type": "text",
+            "label": "Secondary story title"
+          },
+          {
+            "key": "secondary_story_message",
+            "type": "textarea",
+            "label": "Secondary story message"
+          },
+          {
+            "key": "milestones_heading",
+            "type": "text",
+            "label": "Milestones heading"
+          },
+          {
+            "key": "milestones_intro",
+            "type": "textarea",
+            "label": "Milestones intro"
+          },
+          {
+            "key": "milestones",
+            "type": "list",
+            "label": "Milestones",
+            "itemFields": [
+              { "key": "year", "type": "text", "label": "Year" },
+              { "key": "title", "type": "text", "label": "Milestone title" },
+              {
+                "key": "description",
+                "type": "textarea",
+                "label": "Short description"
+              },
+              { "key": "image", "type": "image", "label": "Image (optional)" }
+            ]
+          },
+          {
+            "key": "messages_heading",
+            "type": "text",
+            "label": "Messages heading"
           }
         ]
       },
       "description": "A playful birthday landing page with a reveal moment, photo wall, and handwritten closing note.",
       "summary": "Built for birthdays that should feel warm, personal, and easy to send in a single link.",
       "bestFor": "Birthday surprises",
-      "features": [
-        "Reveal moment",
-        "Photo wall",
-        "Closing note"
-      ],
-      "sections": [
-        "Opening card",
-        "Timeline",
-        "Memory wall",
-        "Gift reveal"
-      ],
+      "features": ["Reveal moment", "Photo wall", "Closing note"],
+      "sections": ["Opening card", "Timeline", "Memory wall", "Gift reveal"],
       "accent": "Cyan glow",
       "assets": {
         "bundle": "/templates/moonlit-birthday/index.html",
@@ -152,27 +198,13 @@
             "key": "audio_url",
             "type": "audio",
             "label": "Song or voice note URL"
-          },
-          {
-            "key": "cta_label",
-            "type": "text",
-            "label": "Button label"
-          },
-          {
-            "key": "cta_url",
-            "type": "text",
-            "label": "Button link"
           }
         ]
       },
       "description": "Warm story blocks, a timeline, and a polished music section made for relationship milestones.",
       "summary": "A soft, elegant layout that makes anniversaries feel thoughtful instead of templated.",
       "bestFor": "Anniversary surprises",
-      "features": [
-        "Timeline",
-        "Music section",
-        "Story blocks"
-      ],
+      "features": ["Timeline", "Music section", "Story blocks"],
       "sections": [
         "Opening hero",
         "Our timeline",
@@ -217,27 +249,13 @@
             "key": "audio_url",
             "type": "audio",
             "label": "Voice note URL"
-          },
-          {
-            "key": "cta_label",
-            "type": "text",
-            "label": "Button label"
-          },
-          {
-            "key": "cta_url",
-            "type": "text",
-            "label": "Button link"
           }
         ]
       },
       "description": "A calm, thoughtful page with a message reveal, memory cards, and a gentle call-to-action.",
       "summary": "Designed for sincerity first, with nothing noisy getting in the way of the message.",
       "bestFor": "Gentle apologies",
-      "features": [
-        "Message reveal",
-        "Memory cards",
-        "Calm CTA"
-      ],
+      "features": ["Message reveal", "Memory cards", "Calm CTA"],
       "sections": [
         "Opening note",
         "Memory cards",
@@ -282,33 +300,14 @@
             "key": "audio_url",
             "type": "audio",
             "label": "Music URL"
-          },
-          {
-            "key": "cta_label",
-            "type": "text",
-            "label": "Button label"
-          },
-          {
-            "key": "cta_url",
-            "type": "text",
-            "label": "Button link"
           }
         ]
       },
       "description": "An elegant invite with venue details, RSVP section, countdown, and a memorable opening screen.",
       "summary": "A polished wedding experience that handles the invite, the details, and the RSVP flow.",
       "bestFor": "Wedding invites",
-      "features": [
-        "Countdown",
-        "Venue details",
-        "RSVP section"
-      ],
-      "sections": [
-        "Hero invite",
-        "Ceremony details",
-        "RSVP",
-        "Guest notes"
-      ],
+      "features": ["Countdown", "Venue details", "RSVP section"],
+      "sections": ["Hero invite", "Ceremony details", "RSVP", "Guest notes"],
       "accent": "Pearl white",
       "assets": {
         "bundle": "/templates/wedding-invite/index.html",
@@ -347,33 +346,14 @@
             "key": "audio_url",
             "type": "audio",
             "label": "Audio URL"
-          },
-          {
-            "key": "cta_label",
-            "type": "text",
-            "label": "Button label"
-          },
-          {
-            "key": "cta_url",
-            "type": "text",
-            "label": "Button link"
           }
         ]
       },
       "description": "Minimal, intimate, and easy to personalize when the message matters more than the medium.",
       "summary": "The simplest route when you want the message to stay centered and the layout to disappear.",
       "bestFor": "Unexpected messages",
-      "features": [
-        "Minimal layout",
-        "Easy editing",
-        "Quick share"
-      ],
-      "sections": [
-        "Short intro",
-        "Note card",
-        "Photo strip",
-        "Send button"
-      ],
+      "features": ["Minimal layout", "Easy editing", "Quick share"],
+      "sections": ["Short intro", "Note card", "Photo strip", "Send button"],
       "accent": "Quiet sand",
       "assets": {
         "bundle": "/templates/love-note/index.html",
@@ -412,27 +392,13 @@
             "key": "audio_url",
             "type": "audio",
             "label": "Audio message URL"
-          },
-          {
-            "key": "cta_label",
-            "type": "text",
-            "label": "Button label"
-          },
-          {
-            "key": "cta_url",
-            "type": "text",
-            "label": "Button link"
           }
         ]
       },
       "description": "A layered page for birthdays, graduations, and the kind of wins you want to remember properly.",
       "summary": "Flexible enough for any big moment while still feeling intentional and memorable.",
       "bestFor": "Milestones and wins",
-      "features": [
-        "Layered sections",
-        "Memory gallery",
-        "Milestone cards"
-      ],
+      "features": ["Layered sections", "Memory gallery", "Milestone cards"],
       "sections": [
         "Header reveal",
         "Memory gallery",
@@ -523,17 +489,8 @@
       "description": "Imported built birthday microsite.",
       "summary": "Interactive birthday experience built externally and embedded.",
       "bestFor": "Birthday wishes",
-      "features": [
-        "Envelope reveal",
-        "Confetti",
-        "Typewriter greeting"
-      ],
-      "sections": [
-        "Welcome",
-        "Envelope",
-        "Letter",
-        "Celebration"
-      ],
+      "features": ["Envelope reveal", "Confetti", "Typewriter greeting"],
+      "sections": ["Welcome", "Envelope", "Letter", "Celebration"],
       "accent": "Bright coral",
       "assets": {
         "bundle": "/assets/birthday-template-1/index.html",

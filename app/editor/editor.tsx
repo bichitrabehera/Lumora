@@ -60,6 +60,53 @@ function buildTemplateDefaults(template: any | null, slug: string | null) {
       else if (field.key === "music_url")
         defaults[field.key] = template?.assets?.sample_audio ?? "";
       else defaults[field.key] = "";
+    } else if (template?.slug === "moonlit-birthday") {
+      if (field.key === "title")
+        defaults[field.key] = template?.title ?? "My Page";
+      else if (field.key === "subtitle")
+        defaults[field.key] =
+          template?.summary ?? "A moonlit surprise awaits...";
+      else if (field.key === "message")
+        defaults[field.key] =
+          template?.description ??
+          "A playful birthday landing page with a reveal moment, photo wall, and handwritten closing note.";
+      else if (field.key === "photos") defaults[field.key] = [];
+      else if (field.key === "audio_url")
+        defaults[field.key] = template?.assets?.sample_audio ?? "";
+      else if (field.key === "hero_button_label")
+        defaults[field.key] = "Join The Gala";
+      else if (field.key === "celebration_heading")
+        defaults[field.key] = "The Art of Celebration";
+      else if (field.key === "celebration_message")
+        defaults[field.key] =
+          "Every moment of the past three decades has been a brushstroke on a celestial canvas. We gather to honor the light you bring to our world.";
+      else if (field.key === "featured_story_title")
+        defaults[field.key] = "Midnight Musings";
+      else if (field.key === "featured_story_message")
+        defaults[field.key] =
+          "Reflecting on the quiet nights that shaped a loud and beautiful spirit.";
+      else if (field.key === "secondary_story_title")
+        defaults[field.key] = "Celestial Soul";
+      else if (field.key === "secondary_story_message")
+        defaults[field.key] =
+          "A spirit that orbits the hearts of everyone she meets, bringing a unique luminescence.";
+      else if (field.key === "milestones_heading")
+        defaults[field.key] = "Lunar Milestones";
+      else if (field.key === "milestones_intro")
+        defaults[field.key] =
+          "The phases of growth, mapped across three decades of discovery.";
+      else if (field.key === "milestones")
+        defaults[field.key] = [
+          {
+            year: "1994",
+            title: "New Moon",
+            description: "The beginning of a celestial journey.",
+            image: "",
+          },
+        ];
+      else if (field.key === "messages_heading")
+        defaults[field.key] = "Starlit Messages";
+      else defaults[field.key] = "";
     } else {
       if (field.key === "title")
         defaults[field.key] = template?.title ?? "My Page";
@@ -70,12 +117,6 @@ function buildTemplateDefaults(template: any | null, slug: string | null) {
       else if (field.key === "photos") defaults[field.key] = [];
       else if (field.key === "audio_url")
         defaults[field.key] = template?.assets?.sample_audio ?? "";
-      else if (field.key === "cta_label")
-        defaults[field.key] = template?.price?.toLowerCase?.().includes("free")
-          ? "Claim for free"
-          : "Make it yours";
-      else if (field.key === "cta_url")
-        defaults[field.key] = slug ? `/editor?template=${slug}` : "#";
       else if (field.type === "image") defaults[field.key] = "";
       else defaults[field.key] = "";
     }
@@ -162,6 +203,17 @@ export default function Editor({ initial }: { initial?: any }) {
     requested_slug: "",
   });
 
+  const previewValues = {
+    ...fields,
+    title: fields.title ?? title,
+    body: fields.body ?? body,
+    image_url: fields.image_url ?? imageUrl,
+    subtitle: fields.subtitle ?? templateMeta?.summary ?? "",
+    message: fields.message ?? fields.body ?? body,
+    photos: fields.photos ?? [],
+    audio_url: fields.audio_url ?? "",
+  };
+
   useEffect(() => {
     setFields((f) => {
       const next = { ...f };
@@ -207,11 +259,39 @@ export default function Editor({ initial }: { initial?: any }) {
         else if (field.key === "photos") next[field.key] = [];
         else if (field.key === "audio_url")
           next[field.key] = templateMeta.assets?.sample_audio ?? "";
-        else if (field.key === "cta_label") next[field.key] = "Make it yours";
-        else if (field.key === "cta_url")
-          next[field.key] = templateSlug
-            ? `/editor?template=${templateSlug}`
-            : "#";
+        else if (field.key === "hero_button_label")
+          next[field.key] = "Join The Gala";
+        else if (field.key === "celebration_heading")
+          next[field.key] = "The Art of Celebration";
+        else if (field.key === "celebration_message")
+          next[field.key] =
+            "Every moment of the past three decades has been a brushstroke on a celestial canvas. We gather to honor the light you bring to our world.";
+        else if (field.key === "featured_story_title")
+          next[field.key] = "Midnight Musings";
+        else if (field.key === "featured_story_message")
+          next[field.key] =
+            "Reflecting on the quiet nights that shaped a loud and beautiful spirit.";
+        else if (field.key === "secondary_story_title")
+          next[field.key] = "Celestial Soul";
+        else if (field.key === "secondary_story_message")
+          next[field.key] =
+            "A spirit that orbits the hearts of everyone she meets, bringing a unique luminescence.";
+        else if (field.key === "milestones_heading")
+          next[field.key] = "Lunar Milestones";
+        else if (field.key === "milestones_intro")
+          next[field.key] =
+            "The phases of growth, mapped across three decades of discovery.";
+        else if (field.key === "milestones")
+          next[field.key] = [
+            {
+              year: "1994",
+              title: "New Moon",
+              description: "The beginning of a celestial journey.",
+              image: "",
+            },
+          ];
+        else if (field.key === "messages_heading")
+          next[field.key] = "Starlit Messages";
         else next[field.key] = "";
       }
       return next;
@@ -412,6 +492,16 @@ export default function Editor({ initial }: { initial?: any }) {
     }
   }
 
+  function handleOpenLivePreview() {
+    if (!templateSlug) return;
+    const payload = encodeURIComponent(JSON.stringify(previewValues));
+    window.open(
+      `/templates/${templateSlug}?preview=${payload}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  }
+
   return (
     <div className="editor">
       <div style={{ display: "flex", gap: 24 }}>
@@ -530,6 +620,131 @@ export default function Editor({ initial }: { initial?: any }) {
                     ))}
                   </div>
                 </div>
+              ) : f.type === "list" ? (
+                <div style={{ display: "grid", gap: 8 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label>{f.label || f.key}</label>
+                    <button
+                      onClick={() =>
+                        setFields((s) => ({
+                          ...s,
+                          [f.key]: [
+                            ...(Array.isArray(s[f.key]) ? s[f.key] : []),
+                            { year: "", title: "", description: "", image: "" },
+                          ],
+                        }))
+                      }
+                    >
+                      Add milestone
+                    </button>
+                  </div>
+                  {(Array.isArray(fields[f.key]) ? fields[f.key] : []).map(
+                    (item: any, idx: number) => (
+                      <div
+                        key={idx}
+                        style={{
+                          border: "1px solid #eee",
+                          padding: 8,
+                          borderRadius: 8,
+                        }}
+                      >
+                        {(f.itemFields ?? []).map((ifield: any) => (
+                          <div key={ifield.key} style={{ marginBottom: 8 }}>
+                            <label>{ifield.label || ifield.key}</label>
+                            {ifield.type === "textarea" ? (
+                              <textarea
+                                value={item[ifield.key] ?? ""}
+                                rows={3}
+                                onChange={(e) =>
+                                  setFields((s) => {
+                                    const arr = Array.isArray(s[f.key])
+                                      ? [...s[f.key]]
+                                      : [];
+                                    arr[idx] = {
+                                      ...(arr[idx] ?? {}),
+                                      [ifield.key]: e.target.value,
+                                    };
+                                    return { ...s, [f.key]: arr };
+                                  })
+                                }
+                              />
+                            ) : ifield.type === "image" ? (
+                              <div style={{ display: "grid", gap: 8 }}>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={async (e) => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+                                    try {
+                                      const url = await uploadFile(file);
+                                      setFields((s) => {
+                                        const arr = Array.isArray(s[f.key])
+                                          ? [...s[f.key]]
+                                          : [];
+                                        arr[idx] = {
+                                          ...(arr[idx] ?? {}),
+                                          [ifield.key]: url,
+                                        };
+                                        return { ...s, [f.key]: arr };
+                                      });
+                                    } catch (err) {
+                                      alert("Image upload failed");
+                                    }
+                                  }}
+                                />
+                                {item[ifield.key] && (
+                                  <img
+                                    src={item[ifield.key]}
+                                    alt="milestone"
+                                    style={{ width: 120, borderRadius: 8 }}
+                                  />
+                                )}
+                              </div>
+                            ) : (
+                              <input
+                                value={item[ifield.key] ?? ""}
+                                onChange={(e) =>
+                                  setFields((s) => {
+                                    const arr = Array.isArray(s[f.key])
+                                      ? [...s[f.key]]
+                                      : [];
+                                    arr[idx] = {
+                                      ...(arr[idx] ?? {}),
+                                      [ifield.key]: e.target.value,
+                                    };
+                                    return { ...s, [f.key]: arr };
+                                  })
+                                }
+                              />
+                            )}
+                          </div>
+                        ))}
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <button
+                            onClick={() =>
+                              setFields((s) => {
+                                const arr = Array.isArray(s[f.key])
+                                  ? [...s[f.key]]
+                                  : [];
+                                arr.splice(idx, 1);
+                                return { ...s, [f.key]: arr };
+                              })
+                            }
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    ),
+                  )}
+                </div>
               ) : f.type === "image" ? (
                 <>
                   <input type="file" accept="image/*" onChange={handleFile} />
@@ -622,18 +837,22 @@ export default function Editor({ initial }: { initial?: any }) {
         </div>
 
         <div style={{ flex: 1, borderLeft: "1px solid #eee", paddingLeft: 24 }}>
-          <h3>Live Preview</h3>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <h3 style={{ margin: 0 }}>Live Preview</h3>
+            <button onClick={handleOpenLivePreview} disabled={!templateSlug}>
+              Open live preview in new tab
+            </button>
+          </div>
           {templateMeta && (
-            <TemplatePreview
-              template={templateMeta}
-              values={{
-                ...fields,
-                title: fields.title ?? title,
-                subtitle: fields.subtitle,
-                message: fields.message ?? fields.body ?? body,
-                photos: fields.photos,
-              }}
-            />
+            <TemplatePreview template={templateMeta} values={previewValues} />
           )}
         </div>
       </div>
