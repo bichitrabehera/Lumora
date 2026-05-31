@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Love Note | An Intimate Experience</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f2f1ec",
+                        "surface-bright": "#fbf9f4",
+                        "secondary-container": "#f4dfcb",
+                        "on-primary-fixed": "#2c160c",
+                        "surface-container": "#f0eee9",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#eae8e3",
+                        "on-secondary-container": "#716252",
+                        "on-tertiary-fixed": "#1f1b16",
+                        "primary": "#715246",
+                        "error": "#ba1a1a",
+                        "tertiary": "#5e5851",
+                        "on-secondary-fixed-variant": "#524436",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#504440",
+                        "inverse-primary": "#e7beae",
+                        "tertiary-container": "#777069",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#d7c3b0",
+                        "error-container": "#ffdad6",
+                        "surface": "#fbf9f4",
+                        "primary-container": "#8c6a5d",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-primary-container": "#fff6f3",
+                        "surface-container-low": "#f5f3ee",
+                        "on-surface": "#1b1c19",
+                        "on-tertiary-fixed-variant": "#4c463f",
+                        "on-secondary-fixed": "#241a0e",
+                        "outline": "#82746f",
+                        "background": "#fbf9f4",
+                        "surface-tint": "#77574b",
+                        "inverse-surface": "#30312e",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#fff5ed",
+                        "primary-fixed": "#ffdbce",
+                        "surface-dim": "#dbdad5",
+                        "surface-variant": "#e4e2dd",
+                        "primary-fixed-dim": "#e7beae",
+                        "tertiary-fixed-dim": "#cec5bc",
+                        "secondary": "#6b5c4c",
+                        "secondary-fixed": "#f4dfcb",
+                        "on-background": "#1b1c19",
+                        "outline-variant": "#d4c3bd",
+                        "on-primary-fixed-variant": "#5d4034",
+                        "tertiary-fixed": "#ebe1d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "container-max": "1120px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "stack-lg": "48px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "caption": ["Inter"],
+                        "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "caption": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .heartbeat {
+            animation: heart-pulse 2s infinite ease-in-out;
+        }
+        @keyframes heart-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            15% { transform: scale(1.15); opacity: 1; }
+            30% { transform: scale(1); opacity: 0.8; }
+            45% { transform: scale(1.15); opacity: 1; }
+            70% { transform: scale(1); opacity: 0.8; }
+        }
+        .grain {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+        .perspective-container {
+            perspective: 1200px;
+        }
+        .envelope-card {
+            transform: rotateX(10deg) rotateY(-5deg);
+            transition: transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+        .envelope-card:hover {
+            transform: rotateX(0deg) rotateY(0deg) scale(1.02);
+        }
+        .polaroid-slide {
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .envelope-card:hover .polaroid-slide {
+            transform: translateY(-80px) rotate(-3deg);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed-dim selection:text-on-primary-fixed overflow-x-hidden">
+<!-- Subtle Grain Overlay -->
+<div class="fixed inset-0 grain opacity-20 z-[60]"></div>
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-xl text-primary dark:text-primary-fixed-dim border-b border-primary/10 dark:border-primary-fixed-dim/10 shadow-sm shadow-primary/5 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 w-full z-50">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim italic">Love Note</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-100 transition-opacity duration-300">favorite</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-100 transition-opacity duration-300">settings</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-28 pb-32 flex items-center justify-center relative overflow-hidden bg-[radial-gradient(circle_at_center,_#fbf9f4_0%,_#f5f3ee_100%)]">
+<!-- Decorative Background Elements -->
+<div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-fixed/30 rounded-full blur-[120px] opacity-40"></div>
+<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-secondary-fixed/30 rounded-full blur-[120px] opacity-40"></div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center">
+<!-- Animated Title Section -->
+<div class="text-center mb-16 space-y-2 opacity-0 animate-[fadeIn_1s_ease-out_forwards]">
+<span class="font-label-caps text-label-caps text-primary opacity-60 tracking-widest block mb-4 uppercase">Private Recollection</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary italic leading-tight">
+                    The Summer of Us
+                </h1>
+</div>
+<!-- Central Composition: Envelope & Polaroid -->
+<div class="perspective-container relative w-full max-w-lg mx-auto">
+<!-- Polaroid Photo (Sliding out) -->
+<div class="polaroid-slide absolute -top-12 left-1/2 -translate-x-1/2 w-64 md:w-72 z-10">
+<div class="bg-white p-4 shadow-[0_12px_40px_-10px_rgba(113,82,70,0.3)] border border-white/50">
+<img alt="A nostalgic polaroid photo capturing two people holding hands against a warm beach sunset, featuring soft focus and vintage film grain textures to evoke a sense of cherished memory and intimate connection." class="w-full aspect-square object-cover mb-4 grayscale-[0.2] sepia-[0.2]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA5qdIlHrjCK6MxxpwOfc1MtZcpqF-spxN1skGUt3bjzVvq1e8wzHS7Q1vaz7AAoehJrDYAaaviWEx7cr-rkCNjKMgM3vJdpa9lgF6GUOW90-H0Q3x0TyTNIkd_fhZ1UoNNf1PMFksIkp0Bo1DBM0Ce5kvKrIjkurYU_HZa9vEJLoHZ6AaKHvW-58ob2fkG7gNifSO27pqTHYvQHC0zgX0TWfpsmYfpAG-rYSzFdPTdgRGLJNPya-9zmnEJT84srQouVXgrVpu-E0"/>
+<p class="font-headline-sm text-center text-[#2a2a2a] italic text-lg">August 24, 2024</p>
+</div>
+</div>
+<!-- Envelope Container -->
+<div class="envelope-card relative z-20 group">
+<img alt="A high-resolution image of a vintage brown kraft paper envelope lying on a textured white fabric background, illuminated by soft golden afternoon light that creates long cinematic shadows and emphasizes the tactile paper quality." class="w-full h-auto shadow-2xl rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmjhgRaz8tStmD_f1lsFVb41VaZ-vq3FzBNxJvi2FbomniiY0V_3NPomZU09rZIGvzf3FJ5DIEsGJNIH_uvJ_eKdVoQ-DFLTmgCEo4RROXfk8u62sBuECwaj4bY4PHXYoWilfpn3C4OyWww9ZLtKbdMMHUQA71G_DRsSJywlYC-zRkYoqLGPkisq1QF-p74ompUI5SS69DUKfrS85DHFHspOeH9hzuUrNLRG-tF22X8T4E7BFler16bG-LSjfaqzuhMpBnVr5vXPU"/>
+<!-- Heart Overlay Interactivity -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-surface/40 backdrop-blur-md p-6 rounded-full border border-white/30 shadow-lg cursor-pointer hover:bg-surface/60 transition-all duration-500">
+<span class="material-symbols-outlined text-primary text-4xl heartbeat" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Glassmorphism Reflection Panel -->
+<div class="mt-20 w-full max-w-2xl bg-tertiary/70 backdrop-blur-2xl p-stack-lg rounded-xl border border-primary/20 shadow-xl shadow-primary/10 relative">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-primary-container">Reflection #402</h2>
+<span class="font-caption text-caption text-on-primary-container/70">Captured in the golden hour stillness.</span>
+</div>
+<span class="font-label-caps text-label-caps px-4 py-2 bg-on-primary-container/10 rounded-full text-on-primary-container">Archived</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-primary-container/90 leading-relaxed italic">
+                    "I remember the way the sand felt under our feet that evening. The world seemed to stop for a moment, and everything else—the noise, the rush, the distance—just faded away into the tide."
+                </p>
+<div class="mt-8 flex items-center gap-2 border-t border-on-primary-container/10 pt-6">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-primary-container">A. Sterling</span>
+<span class="font-caption text-caption text-on-primary-container/60">Sent via Love Note</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-safe bg-surface/80 dark:bg-surface-container/80 backdrop-blur-2xl border-t border-primary/10 shadow-[0_-4px_24px_rgba(113,82,70,0.08)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-secondary-fixed-variant/60 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-caps text-label-caps mt-1">Letters</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-secondary-fixed-variant/60 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">photo_library</span>
+<span class="font-label-caps text-label-caps mt-1">Gallery</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-label-caps mt-1">Moments</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-secondary-fixed-variant/60 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+<!-- Fade In Animation -->
+<style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<script>
+        // Micro-interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            const heartIcon = document.querySelector('.heartbeat').parentElement;
+            
+            heartIcon.addEventListener('click', () => {
+                heartIcon.classList.add('scale-150', 'bg-primary', 'text-white');
+                setTimeout(() => {
+                    heartIcon.classList.remove('scale-150', 'bg-primary', 'text-white');
+                }, 400);
+            });
+
+            // Parallax effect on mouse move
+            document.addEventListener('mousemove', (e) => {
+                const amount = 15;
+                const x = (e.clientX / window.innerWidth - 0.5) * amount;
+                const y = (e.clientY / window.innerHeight - 0.5) * amount;
+                
+                const envelope = document.querySelector('.envelope-card');
+                if (window.innerWidth > 1024) {
+                    envelope.style.transform = `rotateX(${10 - y}deg) rotateY(${-5 + x}deg)`;
+                }
+            });
+        });
+    </script>
+
+<script>
+    // Universal Data Binding for Stitch Generated Layouts
+    window.addEventListener('message', (e) => {
+        if (e.data?.type === 'lovey:preview:update') {
+            const v = e.data.values;
+            
+            // 1. Title -> Main H1
+            if (v.title) {
+                const h1s = document.querySelectorAll('h1');
+                if (h1s.length > 0) h1s[0].innerText = v.title;
+            }
+            
+            // 2. Subtitle -> Paragraph near H1
+            if (v.subtitle) {
+                const p = document.querySelector('h1 ~ p, p');
+                if (p) p.innerText = v.subtitle;
+            }
+
+            // 3. Message -> Second paragraph or specific text blocks
+            if (v.message) {
+                const ps = document.querySelectorAll('p');
+                if (ps.length > 1) {
+                    const target = Array.from(ps).find(el => el.innerText.length > 30) || ps[1];
+                    if (target) target.innerText = v.message;
+                }
+            }
+            
+            // 4. Photos -> Swap images
+            if (v.photos && v.photos.length > 0) {
+                const imgs = document.querySelectorAll('img');
+                const photosToUse = Array.isArray(v.photos) ? v.photos : v.photos.split('\n').filter(p=>p.trim());
+                
+                if (imgs.length > 0 && photosToUse[0]) {
+                    imgs[0].src = photosToUse[0];
+                    imgs[0].style.objectFit = 'cover';
+                }
+                
+                let photoIdx = 1;
+                for (let i = 1; i < imgs.length; i++) {
+                    if (photosToUse[photoIdx]) {
+                        imgs[i].src = photosToUse[photoIdx];
+                        photoIdx++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            // 5. Audio
+            if (v.audio_url) {
+                let audio = document.getElementById('audio-player-injected');
+                if(!audio) {
+                    audio = document.createElement('audio');
+                    audio.id = 'audio-player-injected';
+                    audio.controls = true;
+                    audio.style.position = 'fixed';
+                    audio.style.bottom = '20px';
+                    audio.style.left = '50%';
+                    audio.style.transform = 'translateX(-50%)';
+                    audio.style.zIndex = '9999';
+                    audio.style.opacity = '0.7';
+                    audio.style.transition = 'opacity 0.3s';
+                    audio.onmouseover = () => { audio.style.opacity = '1'; };
+                    audio.onmouseout = () => { audio.style.opacity = '0.7'; };
+                    document.body.appendChild(audio);
+                }
+                if(audio.src !== v.audio_url) {
+                    audio.src = v.audio_url;
+                    audio.play().catch(e=>console.log('Autoplay prevented'));
+                }
+            }
+            
+            // 6. Buttons
+            if (v.cta_label) {
+                const btns = document.querySelectorAll('button, a.button');
+                if (btns.length > 0) btns[0].innerText = v.cta_label;
+            }
+        }
+    });
+
+    // Premium Interaction Additions
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.glass, .rounded-xl, .rounded-2xl, .shadow-lg');
+        cards.forEach(card => {
+            card.style.transition = 'transform 0.1s ease-out';
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width/2;
+                const y = e.clientY - rect.top - rect.height/2;
+                card.style.transform = "perspective(1000px) rotateX(" + (-y/20) + "deg) rotateY(" + (x/20) + "deg) scale3d(1.02, 1.02, 1.02)";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+    });
+</script>
+</body>
+</html>
+</html>

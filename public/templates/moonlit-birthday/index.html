@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lumora | A Celestial Celebration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#c5c4df",
+                    "tertiary-fixed": "#e1e2e8",
+                    "surface": "#131315",
+                    "surface-container": "#201f21",
+                    "on-primary-fixed": "#191a2d",
+                    "on-surface-variant": "#c8c5cd",
+                    "on-surface": "#e5e1e3",
+                    "on-tertiary-fixed-variant": "#44474c",
+                    "surface-bright": "#3a393b",
+                    "on-secondary-container": "#006a70",
+                    "on-secondary-fixed-variant": "#004f54",
+                    "primary-fixed-dim": "#c5c4df",
+                    "surface-variant": "#353436",
+                    "on-tertiary-fixed": "#191c20",
+                    "background": "#131315",
+                    "primary": "#c5c4df",
+                    "surface-dim": "#131315",
+                    "inverse-primary": "#5c5c73",
+                    "error": "#ffb4ab",
+                    "on-error": "#690005",
+                    "outline-variant": "#47464c",
+                    "secondary-fixed": "#74f5ff",
+                    "on-tertiary-container": "#787b80",
+                    "tertiary-container": "#0a0d11",
+                    "outline": "#919097",
+                    "surface-container-low": "#1c1b1d",
+                    "on-background": "#e5e1e3",
+                    "on-tertiary": "#2e3135",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#2a2a2b",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#002022",
+                    "on-primary-container": "#797991",
+                    "primary-container": "#0a0b1e",
+                    "on-primary": "#2e2f43",
+                    "secondary": "#ddfcff",
+                    "tertiary": "#c5c6cc",
+                    "secondary-container": "#00f1fe",
+                    "surface-container-lowest": "#0e0e10",
+                    "secondary-fixed-dim": "#00dbe7",
+                    "on-secondary": "#00363a",
+                    "surface-container-highest": "#353436",
+                    "on-primary-fixed-variant": "#44455b",
+                    "inverse-on-surface": "#313032",
+                    "inverse-surface": "#e5e1e3",
+                    "primary-fixed": "#e1e0fb",
+                    "tertiary-fixed-dim": "#c5c6cc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "margin-desktop": "64px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Playfair Display"],
+                    "body-lg": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "headline-md": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "label-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0a0b1e;
+            color: #e5e1e3;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .moon-glow {
+            box-shadow: 0 0 80px rgba(0, 241, 254, 0.3), inset 0 0 40px rgba(255, 255, 255, 0.2);
+        }
+
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shimmer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+
+        .shimmer-btn:hover::before {
+            left: 150%;
+        }
+
+        @keyframes pulse-celestial {
+            0%, 100% { transform: scale(1); opacity: 0.8; filter: blur(2px); }
+            50% { transform: scale(1.05); opacity: 1; filter: blur(0px); }
+        }
+
+        .pulse-animation {
+            animation: pulse-celestial 8s ease-in-out infinite;
+        }
+
+        .lunar-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 241, 254, 0.5), transparent);
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(0,241,254,0.1)]">
+<div class="flex justify-between items-center px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-secondary tracking-widest uppercase">Lumora</div>
+<div class="hidden md:flex gap-8">
+<a class="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1 hover:text-secondary hover:transition-colors duration-300" href="#">The Moon</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary hover:transition-colors duration-300" href="#">Gallery</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary hover:transition-colors duration-300" href="#">RSVP</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary hover:transition-colors duration-300" href="#">Schedule</a>
+</div>
+<button class="shimmer-btn bg-secondary-container text-on-secondary px-6 py-2 rounded-full font-label-md text-label-md transition-transform active:scale-95">
+                Gift Registry
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
+<!-- Celestial Background Stars -->
+<div class="absolute inset-0 z-0 opacity-40 pointer-events-none">
+<div class="absolute top-1/4 left-1/4 w-1 h-1 bg-white rounded-full"></div>
+<div class="absolute top-1/3 right-1/3 w-2 h-2 bg-secondary/40 rounded-full blur-sm"></div>
+<div class="absolute bottom-1/4 left-1/2 w-1 h-1 bg-white rounded-full"></div>
+</div>
+<div class="relative z-10 text-center flex flex-col items-center">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-4 text-on-surface">Elena's 30th Orbit</h1>
+<p class="font-headline-sm text-headline-sm text-secondary-fixed-dim max-w-2xl mx-auto mb-12 opacity-80">A decade of light, gathered under a single moon.</p>
+<!-- The Moon CTA -->
+<div class="relative group cursor-pointer" id="hero-moon">
+<div class="absolute inset-0 bg-secondary-container/20 rounded-full blur-3xl pulse-animation"></div>
+<div class="w-64 h-64 md:w-80 md:h-80 rounded-full glass moon-glow flex items-center justify-center border-white/20 transition-transform duration-700 group-hover:scale-105">
+<img alt="Moon Surface" class="absolute inset-0 w-full h-full object-cover rounded-full opacity-40 mix-blend-screen" data-alt="A hyper-realistic close-up of a glowing, ethereal full moon with visible craters and soft lunar textures. The moon radiates a cool cyan and silver light against a deep midnight blue sky. The lighting is cinematic and moody, creating a sense of wonder and celestial elegance consistent with a premium celebration theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg5jgdPsXgEZsg-YR7CA0lG9piweaGfxRyNOZIroUwK9OLvEixB_J6rDtce_44hfOJN0mEqiulId2aR_LyACdiON7xCL75nxhHqw9lCa-NVOf14v_LYJxz03iI3xVjdxwTLAI9uHJnj8a7NLLYnzyg8QXuigonnf7to01mP3SBdmw8ErpLQl1J7wvIhpTV9y7uhVRvXM0a5EEO3vNbd2RlDH9llRLinwxmO6XBVhNp_hRheEfXtM046kC7d9FOa4pyRUVvmNxxrQ8"/>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">nightlight</span>
+<span class="font-label-md text-label-md uppercase tracking-[0.3em] text-secondary">Join The Gala</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- The Art of Celebration Section -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-gutter">
+<div class="max-w-xl">
+<h2 class="font-headline-lg text-headline-lg mb-4">The Art of Celebration</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Every moment of the past three decades has been a brushstroke on a celestial canvas. We gather to honor the light Elena brings to our world.</p>
+</div>
+<div class="font-label-md text-label-md text-secondary border border-secondary/30 px-4 py-2 rounded-lg">Est. 1994</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Glassmorphic Bento Cards -->
+<div class="md:col-span-8 h-[400px] rounded-xl glass p-8 flex flex-col justify-end group transition-all hover:bg-white/10">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity" data-alt="A candid, high-end photography shot of a woman laughing during a night celebration, softly backlit by warm string lights and cool blue ambient light. The atmosphere is intimate and joyful, with shallow depth of field and a rich cinematic color grade of midnight blues and cyan highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLaMH6Tqv7kJeMet-186l5SqHPcDSphdafTD0-OYIusSElJ-tKLBk-iFC8dYNqlksQu1vh6gLm6evD4POtWpTXRLfLJumhVUM7z0RxqyEp_O1tcleKXb9yoEKyko9-w4f_598JP4QuD8WCvX9u-2czp5FOBsRRxcsLy_7I9roRVq3KjrfSUBdTe_RjIHxFt0LfBLm5JggeMxMlbUCTPfIAQIBOMpMR1vzS37_6LOCMT-7Hz5IH_ph0uugNF0BJNBcUmY5kdXHcx1E"/>
+<div class="relative z-10">
+<span class="font-label-md text-label-md text-secondary-container mb-2 block">Memoir 01</span>
+<h3 class="font-headline-md text-headline-md mb-2">Midnight Musings</h3>
+<p class="text-on-surface-variant max-w-md">Reflecting on the quiet nights that shaped a loud and beautiful spirit.</p>
+</div>
+</div>
+<div class="md:col-span-4 h-[400px] rounded-xl glass p-8 flex flex-col items-center justify-center text-center group">
+<div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-3xl">auto_awesome</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-4">Celestial Soul</h3>
+<p class="text-on-surface-variant text-body-md">A spirit that orbits the hearts of everyone she meets, bringing a unique luminescence.</p>
+</div>
+<div class="md:col-span-4 h-[300px] rounded-xl glass p-8 group">
+<div class="text-secondary font-headline-md text-headline-md mb-2">30</div>
+<p class="text-on-surface-variant font-label-md text-label-md uppercase">Laps Around the Sun</p>
+<div class="mt-12 h-1 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-3/4 shadow-[0_0_10px_rgba(0,241,254,0.8)]"></div>
+</div>
+</div>
+<div class="md:col-span-8 h-[300px] rounded-xl glass p-8 overflow-hidden">
+<div class="flex gap-4 h-full">
+<div class="w-1/3 rounded-lg bg-surface-container-high relative overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 transition-all duration-500" data-alt="An atmospheric indoor venue shot with blue neon accents and elegant table settings under a dim moonlight-inspired glow. The visual style is premium and festive, using high-contrast lighting to emphasize the 'nocturnal elegance' theme of the Lumora event." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmfnCmBNOPj_HKAIjSWQMUnl66a2MNI-jhvvPFvgAV3czQohqsSemklBJPqQhmAyEn4xQwMZxCROAGHMPE5WaITBSJ7H8RqP4vW6b797F-dPeGi8qXVXKwWZwYyL058ES4_sAQM35UrRk2gpORCqTdQDmNLA0SAOfYR4PysC2WwGdFd4trzTB5_yYPYuAw6q8iaaVb08Ru2_EjN_25fWKxuh_IsoLMq1Xk21aS8okaPYtICUtiJ4sBbn9qyJ5wN8tJzj6dtS-hxq4"/>
+</div>
+<div class="w-2/3 flex flex-col justify-center">
+<h3 class="font-headline-sm text-headline-sm mb-2">The Night Ahead</h3>
+<p class="text-on-surface-variant text-body-md">Join us for a multi-sensory experience designed to elevate the traditional birthday gala into a starlit journey.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Lunar Cycle Section (Interactive Milestones) -->
+<section class="py-32 bg-surface-container-lowest relative">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+<div class="text-center mb-20">
+<h2 class="font-headline-lg text-headline-lg mb-4">Lunar Milestones</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">The phases of growth, mapped across three decades of discovery.</p>
+</div>
+<div class="relative lunar-track flex justify-between items-center py-20 overflow-x-auto no-scrollbar gap-12">
+<!-- Milestone 1 -->
+<div class="flex-shrink-0 w-48 flex flex-col items-center group cursor-pointer">
+<div class="w-12 h-12 rounded-full border border-secondary/40 glass flex items-center justify-center mb-6 group-hover:bg-secondary group-hover:text-surface transition-colors duration-500">
+<span class="font-label-md text-label-md">1994</span>
+</div>
+<div class="w-3 h-3 rounded-full bg-secondary-container mb-4 shadow-[0_0_10px_#00f1fe]"></div>
+<h4 class="font-headline-sm text-headline-sm text-center">New Moon</h4>
+<p class="text-on-tertiary-container text-body-md text-center text-xs mt-2">The beginning of a celestial journey.</p>
+</div>
+<!-- Milestone 2 -->
+<div class="flex-shrink-0 w-48 flex flex-col items-center group cursor-pointer">
+<div class="w-12 h-12 rounded-full border border-secondary/40 glass flex items-center justify-center mb-6 group-hover:bg-secondary group-hover:text-surface transition-colors duration-500">
+<span class="font-label-md text-label-md">2012</span>
+</div>
+<div class="w-3 h-3 rounded-full bg-secondary-container mb-4 shadow-[0_0_10px_#00f1fe]"></div>
+<h4 class="font-headline-sm text-headline-sm text-center">Waxing</h4>
+<p class="text-on-tertiary-container text-body-md text-center text-xs mt-2">Finding the rhythm of her own light.</p>
+</div>
+<!-- Milestone 3 -->
+<div class="flex-shrink-0 w-48 flex flex-col items-center group cursor-pointer">
+<div class="w-16 h-16 rounded-full border-2 border-secondary glass flex items-center justify-center mb-6 bg-secondary-container/10">
+<span class="font-label-md text-label-md text-secondary">2024</span>
+</div>
+<div class="w-5 h-5 rounded-full bg-secondary shadow-[0_0_20px_#ddfcff] mb-4"></div>
+<h4 class="font-headline-sm text-headline-sm text-center">Full Orbit</h4>
+<p class="text-on-tertiary-container text-body-md text-center text-xs mt-2">The celebration of peak brilliance.</p>
+</div>
+<!-- Milestone 4 -->
+<div class="flex-shrink-0 w-48 flex flex-col items-center group cursor-pointer">
+<div class="w-12 h-12 rounded-full border border-secondary/40 glass flex items-center justify-center mb-6 group-hover:bg-secondary group-hover:text-surface transition-colors duration-500">
+<span class="font-label-md text-label-md">Next</span>
+</div>
+<div class="w-3 h-3 rounded-full bg-white/20 mb-4"></div>
+<h4 class="font-headline-sm text-headline-sm text-center">Eclipse</h4>
+<p class="text-on-tertiary-container text-body-md text-center text-xs mt-2">Unknown horizons and future dreams.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Starlit Messages Section -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<h2 class="font-headline-lg text-headline-lg mb-16 text-center">Starlit Messages</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Message Card 1 -->
+<div class="glass p-8 rounded-xl relative">
+<span class="material-symbols-outlined text-secondary-container text-4xl mb-6 opacity-40">format_quote</span>
+<p class="font-body-lg text-body-lg italic mb-8 leading-relaxed">
+                    "Elena, your light is like a star in the dark—constant, guiding, and incredibly beautiful. Happy 30th!"
+                </p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container"></div>
+<div>
+<div class="font-label-md text-label-md text-secondary">Julianne Vance</div>
+<div class="text-on-tertiary-container text-xs">Childhood Friend</div>
+</div>
+</div>
+</div>
+<!-- Message Card 2 -->
+<div class="glass p-8 rounded-xl relative border-secondary/30 scale-105 shadow-[0_0_30px_rgba(0,241,254,0.05)]">
+<span class="material-symbols-outlined text-secondary-container text-4xl mb-6 opacity-40">format_quote</span>
+<p class="font-body-lg text-body-lg italic mb-8 leading-relaxed">
+                    "Watching you grow over these three decades has been the greatest joy of my life. To many more orbits!"
+                </p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim"></div>
+<div>
+<div class="font-label-md text-label-md text-secondary">David Sterling</div>
+<div class="text-on-tertiary-container text-xs">Father</div>
+</div>
+</div>
+</div>
+<!-- Message Card 3 -->
+<div class="glass p-8 rounded-xl relative">
+<span class="material-symbols-outlined text-secondary-container text-4xl mb-6 opacity-40">format_quote</span>
+<p class="font-body-lg text-body-lg italic mb-8 leading-relaxed">
+                    "To the one who makes every room feel like it's glowing. Happy birthday to our favorite celestial body!"
+                </p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container"></div>
+<div>
+<div class="font-label-md text-label-md text-secondary">The Crew</div>
+<div class="text-on-tertiary-container text-xs">Design Studio</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-20 flex justify-center">
+<button class="bg-transparent border border-white/20 px-8 py-3 rounded-full text-secondary font-label-md text-label-md hover:bg-white/5 transition-colors flex items-center gap-2">
+                Send Your Message <span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest py-12 border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-gutter">
+<div class="font-headline-sm text-headline-sm text-secondary">Lumora</div>
+<div class="flex gap-8 my-6 md:my-0">
+<a class="font-label-md text-label-md text-on-tertiary-container hover:text-primary transition-all duration-300 active:opacity-80" href="#">Contact</a>
+<a class="font-label-md text-label-md text-on-tertiary-container hover:text-primary transition-all duration-300 active:opacity-80" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-tertiary-container hover:text-primary transition-all duration-300 active:opacity-80" href="#">Invitation Details</a>
+</div>
+<p class="font-body-md text-body-md text-tertiary opacity-60">© 2024 Lumora. A Celestial Celebration.</p>
+</div>
+</footer>
+<script>
+        // Micro-interaction for the Moon Hero element
+        const moon = document.getElementById('hero-moon');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
+            moon.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Simple scroll reveal for glass cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.glass').forEach(el => {
+            el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
+            observer.observe(el);
+        });
+    </script>
+
+<script>
+    // Universal Data Binding for Stitch Generated Layouts
+    window.addEventListener('message', (e) => {
+        if (e.data?.type === 'lovey:preview:update') {
+            const v = e.data.values;
+            
+            // 1. Title -> Main H1
+            if (v.title) {
+                const h1s = document.querySelectorAll('h1');
+                if (h1s.length > 0) h1s[0].innerText = v.title;
+            }
+            
+            // 2. Subtitle -> Paragraph near H1
+            if (v.subtitle) {
+                const p = document.querySelector('h1 ~ p, p');
+                if (p) p.innerText = v.subtitle;
+            }
+
+            // 3. Message -> Second paragraph or specific text blocks
+            if (v.message) {
+                const ps = document.querySelectorAll('p');
+                if (ps.length > 1) {
+                    const target = Array.from(ps).find(el => el.innerText.length > 30) || ps[1];
+                    if (target) target.innerText = v.message;
+                }
+            }
+            
+            // 4. Photos -> Swap images
+            if (v.photos && v.photos.length > 0) {
+                const imgs = document.querySelectorAll('img');
+                const photosToUse = Array.isArray(v.photos) ? v.photos : v.photos.split('\n').filter(p=>p.trim());
+                
+                if (imgs.length > 0 && photosToUse[0]) {
+                    imgs[0].src = photosToUse[0];
+                    imgs[0].style.objectFit = 'cover';
+                }
+                
+                let photoIdx = 1;
+                for (let i = 1; i < imgs.length; i++) {
+                    if (photosToUse[photoIdx]) {
+                        imgs[i].src = photosToUse[photoIdx];
+                        photoIdx++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            // 5. Audio
+            if (v.audio_url) {
+                let audio = document.getElementById('audio-player-injected');
+                if(!audio) {
+                    audio = document.createElement('audio');
+                    audio.id = 'audio-player-injected';
+                    audio.controls = true;
+                    audio.style.position = 'fixed';
+                    audio.style.bottom = '20px';
+                    audio.style.left = '50%';
+                    audio.style.transform = 'translateX(-50%)';
+                    audio.style.zIndex = '9999';
+                    audio.style.opacity = '0.7';
+                    audio.style.transition = 'opacity 0.3s';
+                    audio.onmouseover = () => { audio.style.opacity = '1'; };
+                    audio.onmouseout = () => { audio.style.opacity = '0.7'; };
+                    document.body.appendChild(audio);
+                }
+                if(audio.src !== v.audio_url) {
+                    audio.src = v.audio_url;
+                    audio.play().catch(e=>console.log('Autoplay prevented'));
+                }
+            }
+            
+            // 6. Buttons
+            if (v.cta_label) {
+                const btns = document.querySelectorAll('button, a.button');
+                if (btns.length > 0) btns[0].innerText = v.cta_label;
+            }
+        }
+    });
+
+    // Premium Interaction Additions
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.glass, .rounded-xl, .rounded-2xl, .shadow-lg');
+        cards.forEach(card => {
+            card.style.transition = 'transform 0.1s ease-out';
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width/2;
+                const y = e.clientY - rect.top - rect.height/2;
+                card.style.transform = "perspective(1000px) rotateX(" + (-y/20) + "deg) rotateY(" + (x/20) + "deg) scale3d(1.02, 1.02, 1.02)";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+    });
+</script>
+</body>
+</html>
+</html>

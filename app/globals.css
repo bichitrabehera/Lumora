@@ -1,22 +1,22 @@
 :root {
   /* User color scheme: background, text, accent */
   --palette-1: #ffeff0; /* background */
-  --palette-2: #f7dde0; /* soft background */
+  --palette-2: #ffe4e6; /* soft background */
   --palette-3: #bc535b; /* accent */
   --palette-4: #f3848b; /* text */
-  --palette-5: #b46a6c; /* warm accent variant */
+  --palette-5: #d3646d; /* warm accent variant */
 
   --bg: var(--palette-1);
   --bg-soft: var(--palette-2);
   --accent: var(--palette-3);
   --text: var(--palette-4);
-  --muted: rgba(243, 132, 139, 0.64);
-  --line: rgba(179, 83, 89, 0.12);
-  --surface: rgba(180, 100, 102, 0.06);
-  --surface-strong: rgba(188, 83, 91, 0.08);
+  --muted: rgba(188, 83, 91, 0.8);
+  --line: rgba(188, 83, 91, 0.2);
+  --surface: rgba(255, 255, 255, 0.6);
+  --surface-strong: rgba(255, 255, 255, 0.8);
   --accent-glow: rgba(188, 83, 91, 0.12);
   --accent-glow-2: rgba(180, 106, 108, 0.08);
-  --shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+  --shadow: 0 30px 80px rgba(188, 83, 91, 0.15);
 }
 
 * {
@@ -31,15 +31,15 @@ body {
   margin: 0;
   color: var(--text);
   font-family: "Segoe UI", "Trebuchet MS", sans-serif;
-  background:
-    radial-gradient(circle at top left, var(--accent-glow), transparent 28%),
-    radial-gradient(circle at top right, var(--accent-glow-2), transparent 30%),
-    linear-gradient(
-      180deg,
-      var(--bg) 0%,
-      var(--bg-soft) 48%,
-      var(--palette-1) 100%
-    );
+  background: linear-gradient(135deg, var(--bg), var(--bg-soft), #fff5f5, var(--bg));
+  background-size: 400% 400%;
+  animation: ambientBg 15s ease infinite;
+}
+
+@keyframes ambientBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 a {
@@ -65,7 +65,7 @@ main {
   padding: 16px 18px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(5, 10, 12, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow);
 }
@@ -85,7 +85,7 @@ main {
 
 .topbar nav a:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(188, 83, 91, 0.05);
 }
 
 .brand-mark {
@@ -162,7 +162,7 @@ main {
 }
 .hero h1 {
   font-size: clamp(3.3rem, 6vw, 6.4rem);
-  color: var(--text);
+  color: var(--accent);
 }
 .lead,
 .section-heading p,
@@ -200,18 +200,19 @@ main {
 .ghost-btn,
 .secondary-btn {
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(188, 83, 91, 0.05);
   color: var(--text);
 }
 .primary-btn {
   color: var(--palette-1);
   background: linear-gradient(135deg, var(--accent), var(--palette-5));
-  box-shadow: 0 18px 38px rgba(0, 246, 237, 0.12);
+  box-shadow: 0 18px 38px rgba(188, 83, 91, 0.3);
 }
 .ghost-btn:hover,
 .primary-btn:hover,
 .secondary-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(188, 83, 91, 0.2);
 }
 
 .trust-row {
@@ -239,12 +240,12 @@ main {
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 30px;
-  background: linear-gradient(
-    180deg,
-    var(--surface-strong),
-    rgba(9, 17, 22, 0.6)
-  );
+  background: linear-gradient(180deg, var(--surface-strong), rgba(255, 239, 240, 0.6));
   box-shadow: var(--shadow);
+  transition: transform 0.4s ease;
+}
+.hero-card:hover {
+  transform: scale(1.02) translateY(-5px);
 }
 .hero-card-top,
 .template-top {
@@ -267,10 +268,10 @@ main {
   border-radius: 22px;
   background: linear-gradient(
     160deg,
-    rgba(10, 12, 14, 0.45),
-    rgba(6, 8, 9, 0.65)
+    rgba(255, 239, 240, 0.45),
+    rgba(255, 239, 240, 0.65)
   );
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(188, 83, 91, 0.08);
 }
 .poster-orb {
   position: absolute;
@@ -298,8 +299,8 @@ main {
   bottom: 24px;
   padding: 18px;
   border-radius: 18px;
-  background: rgba(5, 10, 12, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(188, 83, 91, 0.08);
   backdrop-filter: blur(8px);
 }
 .poster-note p {
@@ -322,7 +323,7 @@ main {
   padding: 16px;
   border-radius: 12px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(188, 83, 91, 0.05);
 }
 .hero-mini-grid span,
 .template-card span,
@@ -347,7 +348,7 @@ main {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.01);
+  background: rgba(188, 83, 91, 0.02);
 }
 .ticker-track {
   display: flex;
@@ -387,6 +388,18 @@ main {
 .template-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+
+@media (min-width: 1025px) {
+  .template-grid article:nth-child(2) {
+    transform: translateY(40px);
+  }
+  .template-grid article:nth-child(3) {
+    transform: translateY(80px);
+  }
+  .template-grid {
+    padding-bottom: 80px;
+  }
+}
 .template-card,
 .step-card,
 .testimonial-card,
@@ -396,6 +409,15 @@ main {
   border-radius: 18px;
   background: var(--surface);
   box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.template-card:hover,
+.step-card:hover,
+.testimonial-card:hover,
+.faq-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(188, 83, 91, 0.15);
 }
 .template-card h3,
 .step-card h3 {
@@ -430,8 +452,8 @@ main {
   width: fit-content;
   padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 246, 237, 0.18);
-  background: rgba(0, 246, 237, 0.06);
+  border: 1px solid rgba(188, 83, 91, 0.3);
+  background: rgba(188, 83, 91, 0.1);
 }
 .step-card p {
   margin: 12px 0 0;
@@ -473,7 +495,7 @@ main {
   padding: 12px 14px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  background: rgba(100, 88, 83, 0.12);
+  background: rgba(188, 83, 91, 0.1);
   color: var(--text);
 }
 
@@ -502,8 +524,8 @@ main {
   border-radius: 32px;
   background: linear-gradient(
     135deg,
-    rgba(8, 17, 20, 0.9),
-    rgba(16, 27, 34, 0.95)
+    rgba(255, 228, 230, 0.9),
+    rgba(255, 200, 205, 0.95)
   );
   box-shadow: var(--shadow);
 }
@@ -534,7 +556,7 @@ main {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 16px;
-  background: rgba(5, 10, 12, 0.58);
+  background: rgba(255, 255, 255, 0.58);
   color: var(--text);
   padding: 14px 16px;
   font: inherit;
@@ -548,8 +570,8 @@ main {
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: rgba(0, 246, 237, 0.52);
-  box-shadow: 0 0 0 4px rgba(0, 246, 237, 0.08);
+  border-color: rgba(188, 83, 91, 0.6);
+  box-shadow: 0 0 0 4px rgba(188, 83, 91, 0.15);
 }
 
 .field textarea {
@@ -584,7 +606,7 @@ main {
 
 .status-banner.success {
   color: var(--text);
-  background: rgba(0, 246, 237, 0.08);
+  background: rgba(188, 83, 91, 0.15);
 }
 
 .status-banner.error {
@@ -610,7 +632,7 @@ main {
   padding: 10px 12px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(188, 83, 91, 0.05);
   color: var(--text);
 }
 
@@ -643,7 +665,7 @@ main {
 .birthday-open-card {
   border: 1px solid var(--line);
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(188, 83, 91, 0.06);
   box-shadow: var(--shadow);
 }
 
@@ -706,7 +728,7 @@ main {
   height: 160px;
   background: radial-gradient(
     circle,
-    rgba(0, 246, 237, 0.18),
+    rgba(188, 83, 91, 0.3),
     rgba(0, 246, 237, 0)
   );
 }
@@ -721,7 +743,7 @@ main {
   margin-top: 14px;
   padding: 18px;
   color: var(--text);
-  background: rgba(17, 17, 17, 0.5);
+  background: rgba(255, 239, 240, 0.8);
 }
 
 .birthday-cover-copy p {
@@ -749,8 +771,8 @@ main {
   display: inline-flex;
   padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 246, 237, 0.14);
-  background: rgba(0, 246, 237, 0.06);
+  border: 1px solid rgba(188, 83, 91, 0.2);
+  background: rgba(188, 83, 91, 0.1);
   color: var(--text);
   font-size: 0.78rem;
   letter-spacing: 0.12em;
@@ -767,8 +789,8 @@ main {
   border: 1px solid var(--line);
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.02)
+    rgba(188, 83, 91, 0.1),
+    rgba(188, 83, 91, 0.05)
   );
 }
 
@@ -1049,7 +1071,7 @@ main {
   z-index: 100;
   display: flex;
   flex-direction: column;
-  background: rgba(7, 16, 12, 0.88);
+  background: rgba(255, 239, 240, 0.88);
   backdrop-filter: blur(14px);
 }
 
@@ -1060,7 +1082,7 @@ main {
   gap: 14px;
   padding: 16px 18px;
   border-bottom: 1px solid var(--line);
-  background: rgba(5, 10, 12, 0.7);
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .birthday-modal-title {
@@ -1217,4 +1239,49 @@ main {
   .birthday-light-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
+}
+
+
+.fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* --- Moonlit Birthday Animations --- */
+@keyframes pulseMoon {
+  0% { box-shadow: 0 0 30px rgba(145,242,255,0.3); transform: scale(1); }
+  50% { box-shadow: 0 0 60px rgba(145,242,255,0.6); transform: scale(1.05); }
+  100% { box-shadow: 0 0 30px rgba(145,242,255,0.3); transform: scale(1); }
+}
+
+@keyframes fireflyFloat {
+  0% { transform: translateY(10vh) translateX(0) scale(1); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-80vh) translateX(30px) scale(0.5); opacity: 0; }
+}
+
+.fade-in-scale {
+  animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }

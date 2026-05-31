@@ -45,8 +45,7 @@ export default async function TemplatesPage() {
                     subtitle: template.summary,
                     message: template.description,
                     photos: [
-                      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80",
-                      "https://images.unsplash.com/photo-1523438097201-512ae7d59b92?auto=format&fit=crop&w=900&q=80",
+                      `/assets/generated/${template.slug}.png`,
                     ],
                     audio_url: "",
                     cta_label: "Open preview",

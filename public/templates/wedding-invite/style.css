@@ -1,0 +1,16 @@
+
+body { margin: 0; font-family: 'Playfair Display', serif; background: #faf9f7; color: #333; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.step { position: absolute; opacity: 0; transform: translateY(20px); transition: all 1s; pointer-events: none; text-align: center; width: 100%; max-width: 600px; padding: 20px; box-sizing: border-box; }
+.step.active { opacity: 1; transform: translateY(0); pointer-events: all; }
+.wax-seal { width: 100px; height: 100px; background: #800000; border-radius: 50%; margin: 0 auto; color: gold; font-size: 24px; line-height: 100px; cursor: pointer; box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s; }
+.wax-seal:hover { transform: scale(1.05); }
+.click-hint { margin-top: 20px; font-family: 'Manrope', sans-serif; letter-spacing: 2px; text-transform: uppercase; font-size: 12px; color: #888; animation: pulse 2s infinite; }
+@keyframes pulse { 50% { opacity: 0.5; } }
+.card-glass { background: #fff; border: 1px solid #eaeaea; padding: 50px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+.title-small { font-size: 2.5rem; margin-bottom: 10px; color: #444; }
+.subtitle { font-family: 'Manrope', sans-serif; font-size: 1rem; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
+.message { font-size: 1.2rem; line-height: 1.8; color: #555; font-style: italic; }
+.btn { display: inline-block; margin-top: 30px; padding: 15px 40px; background: #444; color: #fff; text-decoration: none; font-family: 'Manrope', sans-serif; letter-spacing: 1px; transition: background 0.3s; }
+.btn:hover { background: #000; }
+.gallery { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+.gallery img { width: 100%; height: 200px; object-fit: cover; }

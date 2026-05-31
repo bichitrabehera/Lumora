@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Union | A Wedding Invitation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=EB+Garamond:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#1e1c11",
+                      "on-secondary-fixed": "#1d1d03",
+                      "on-primary-fixed": "#241a00",
+                      "outline": "#7f7663",
+                      "on-primary-container": "#554300",
+                      "on-tertiary-container": "#45444c",
+                      "surface-container-low": "#faf3e2",
+                      "outline-variant": "#d0c5af",
+                      "tertiary-fixed": "#e4e1ec",
+                      "surface-dim": "#e0dac9",
+                      "secondary-container": "#e6e5b9",
+                      "on-tertiary-fixed-variant": "#47464e",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#574500",
+                      "inverse-primary": "#e9c349",
+                      "on-secondary-fixed-variant": "#484828",
+                      "on-secondary-container": "#666643",
+                      "secondary": "#60603e",
+                      "on-background": "#1e1c11",
+                      "background": "#fff9ec",
+                      "primary-fixed": "#ffe088",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#735c00",
+                      "on-surface-variant": "#4d4635",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#f7f0df",
+                      "tertiary-container": "#b4b1bb",
+                      "primary": "#735c00",
+                      "tertiary-fixed-dim": "#c8c5cf",
+                      "primary-container": "#d4af37",
+                      "primary-fixed-dim": "#e9c349",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#fff9ec",
+                      "tertiary": "#5f5d66",
+                      "on-primary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-container": "#f4eddd",
+                      "surface": "#fff9ec",
+                      "secondary-fixed-dim": "#cac99f",
+                      "inverse-surface": "#333025",
+                      "surface-container-highest": "#e9e2d1",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-variant": "#e9e2d1",
+                      "on-tertiary-fixed": "#1b1b22",
+                      "surface-container-high": "#eee8d7",
+                      "secondary-fixed": "#e6e5b9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "32px",
+                      "stack-sm": "12px",
+                      "container-max": "1120px",
+                      "stack-md": "24px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "24px",
+                      "unit": "4px",
+                      "stack-lg": "48px"
+              },
+              "fontFamily": {
+                      "body-md": ["EB Garamond"],
+                      "accent-italic": ["Playfair Display"],
+                      "label-sm": ["EB Garamond"],
+                      "body-lg": ["EB Garamond"],
+                      "display-lg": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "headline-md": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "accent-italic": ["24px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"letterSpacing": "0.1em", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                      "headline-md": ["28px", {"lineHeight": "1.3", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .gold-border {
+            border: 0.5px solid #d4af37;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(to right, #735c00, #d4af37, #735c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .wax-seal-hover:hover {
+            transform: scale(1.05) rotate(5deg);
+            filter: brightness(1.1);
+        }
+        .hidden-content {
+            display: none;
+            opacity: 0;
+        }
+        .visible-content {
+            display: block;
+            animation: fadeIn 1s forwards;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #735c00;
+            transition: width 0.3s ease;
+        }
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        .mask-gradient {
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- HERO SECTION: THE ENTRY -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-surface-bright" id="hero-entry">
+<!-- Background Decor -->
+<div class="absolute inset-0 z-0 opacity-40">
+<img class="w-full h-full object-cover grayscale-[20%] brightness-110" data-alt="A soft-focus ethereal landscape of blooming white flowers and delicate golden vines under a high-key pearl white morning light. The atmosphere is romantic and dreamlike, featuring a timeless and sophisticated wedding aesthetic with a bright, clean light-mode palette and hints of champagne gold shimmer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTQVPYWdeo2PYygUzyY7rfePCR94303ROIsgSn04pcCMvg8jzMPl2t8C4ckZ3wJ0gLcHULsiOJkOKaw5GW1-p0G8gtCbdqPQYKKbvuB7E-GLsoISaboq56fg7ueBRzs7bwc6zukvr-3z99Hxy1wpLJqS4fagsAm6VCPcrjqpdVjI9bxsiFVIku6n31xs4wQFAHctqb69JbTClMBzAnwvDrHEbzug9RNdOOkxoelfAhprg2em6F-KZMPtl6IWPRSyJZVraOP0FVXKE"/>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center px-margin-mobile">
+<div class="mb-stack-lg">
+<span class="font-accent-italic text-accent-italic text-primary block mb-stack-sm fade-in italic">Save the Date</span>
+<h1 class="font-display-lg text-display-lg md:text-[80px] text-on-surface tracking-tight mb-stack-md leading-none">
+                    Evelyn <span class="italic font-accent-italic">&amp;</span> Julian
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto tracking-wide">
+                    request the honor of your presence at the celebration of their ethereal union
+                </p>
+</div>
+<!-- The Wax Seal Button -->
+<button class="relative transition-all duration-700 ease-in-out wax-seal-hover cursor-pointer group" id="wax-seal-btn" onclick="revealInvitation()">
+<img alt="Gold Wax Seal" class="w-40 h-40 md:w-56 md:h-56 drop-shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoeOdEDmHYItqxjDU02lZPeqPiFNSW9zX9lCN2H3631w7d00GFh51fevdJA1hvYxl4gz-aUqGNPnHYoQsLkxMUe75bRcF9igJC8N-DLjmd2bmmonyMDTZHfAnGW5FSHvuceDsbKu5YtBmlDnrzN_Y73qosIts7Bw7_1GmFof8o_qM-xjMNGMV0k2VvXfGutCLsOYlFx6TQda6UbJ3eR_JyFu3IqSlo-SUMia8XQo-XNacobLocjM2ZZvs_ztxs-jTRKjuLHi0pJ4Y"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="font-label-sm text-label-sm text-white uppercase tracking-[0.2em] bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full">Break to Enter</span>
+</div>
+</button>
+<div class="mt-stack-lg">
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-[0.3em]">Autumn Equinox 2024</p>
+</div>
+</div>
+</section>
+<!-- MAIN CONTENT (Initially Hidden) -->
+<main class="hidden-content relative z-20" id="main-content">
+<!-- Top Navigation -->
+<nav class="w-full top-0 sticky z-50 bg-surface/40 backdrop-blur-xl border-b border-white/20 h-20 flex justify-between items-center max-w-container-max mx-auto px-margin-desktop">
+<div class="font-accent-italic text-accent-italic text-primary tracking-widest text-[20px]">E.U.</div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 relative nav-item" href="#story">Our Story</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 relative nav-item" href="#details">Event Details</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 relative nav-item" href="#travel">Travel</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 relative nav-item" href="#rsvp">RSVP</a>
+</div>
+<button class="px-6 py-2 bg-primary-container text-on-primary-container font-label-sm text-label-sm rounded-full hover:brightness-105 transition-all active:scale-95 border border-primary/20">
+                Gift Registry
+            </button>
+</nav>
+<!-- Our Story Section -->
+<section class="py-stack-lg px-margin-mobile max-w-container-max mx-auto" id="story">
+<div class="text-center mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Our Story</h2>
+<div class="w-24 h-[1px] bg-primary-container mx-auto"></div>
+</div>
+<div class="grid md:grid-cols-2 gap-gutter items-center">
+<div class="glass-panel gold-border p-10 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">heart_broken</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-6">
+                        It began under the starlit canopy of the Amalfi Coast, where a chance encounter turned into a lifelong promise. What started as shared whispers over espresso grew into a symphony of adventures across three continents.
+                    </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        Julian's quiet strength found its perfect match in Evelyn's vibrant spirit. Together, they have built a world defined by art, kindness, and an unwavering devotion to one another.
+                    </p>
+<div class="mt-8 flex gap-4 italic font-accent-italic text-primary">
+<span>The Beginning</span>
+<span class="opacity-30">•</span>
+<span>The Promise</span>
+<span class="opacity-30">•</span>
+<span>The Union</span>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden shadow-2xl gold-border transform rotate-1">
+<img class="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-700" data-alt="A romantic, candid shot of a couple in elegant wedding attire walking hand-in-hand through a sun-drenched olive grove. The lighting is warm and golden, with high-key whites and soft shadows. The overall mood is intimate and sophisticated, reflecting a high-end editorial wedding style with a focus on natural beauty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnev1Ugn3P-frJ4TWDFumU_FAjiJT-LUs8q--3hrID-mPfgRnl3d0XfK5dJ_2XpQagVxwOUM1d_ZUdFuEKSmwlHGJwXQlweelVCb1V44Nt7O-gsZVPmjwjmXTEyGvomts--lUxyR0zP9whSdQx3DWRn2qlolRuz5QYJz7waXQ3RqdjaXgqb29VQjhdCS3HLwqved2RGXJXwTJ9qmeS9ReEI6R8KJRjCEknndHdskQKQvvWTbtt5CPMZGtqI0VPxCcjy9sRJZPSlr8"/>
+</div>
+</div>
+</section>
+<!-- Event Details: Bento Grid -->
+<section class="py-stack-lg bg-surface-container-low/30" id="details">
+<div class="max-w-container-max mx-auto px-margin-mobile">
+<div class="text-center mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">The Celebration</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Ceremony -->
+<div class="md:col-span-2 glass-panel gold-border p-8 rounded-xl flex flex-col justify-between min-h-[300px]">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">church</span>
+<h3 class="font-headline-md text-headline-md">The Ceremony</h3>
+</div>
+<p class="font-body-md text-body-md mb-6">Four o'clock in the afternoon<br/>The Glass Chapel at Sterling Woods</p>
+</div>
+<div class="flex justify-between items-end">
+<button class="text-primary font-label-sm text-label-sm uppercase tracking-widest flex items-center gap-2 hover:translate-x-1 transition-transform">
+                                View Location <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</button>
+<span class="text-[60px] font-accent-italic text-primary/10 select-none">16:00</span>
+</div>
+</div>
+<!-- Date Card -->
+<div class="bg-primary-container p-8 rounded-xl flex flex-col items-center justify-center text-on-primary-container text-center border border-primary/20">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.4em] mb-2">September</span>
+<span class="text-6xl font-display-lg leading-none">21</span>
+<span class="font-label-sm text-label-sm uppercase tracking-[0.4em] mt-2">Saturday</span>
+<div class="w-12 h-[1px] bg-on-primary-container/30 my-4"></div>
+<span class="font-body-md text-body-md">2024</span>
+</div>
+<!-- Reception -->
+<div class="glass-panel gold-border p-8 rounded-xl min-h-[300px]">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">wine_bar</span>
+<h3 class="font-headline-md text-headline-md">The Reception</h3>
+</div>
+<p class="font-body-md text-body-md mb-8">Cocktails &amp; Dinner to follow<br/>The Grand Atrium</p>
+<ul class="space-y-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Cocktails at 6PM</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Dinner at 8PM</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Dancing until late</li>
+</ul>
+</div>
+<!-- Travel -->
+<div class="md:col-span-2 glass-panel gold-border p-8 rounded-xl flex gap-8 items-center" id="travel">
+<div class="w-1/3 hidden md:block rounded-lg overflow-hidden h-40">
+<img class="w-full h-full object-cover" data-alt="A vintage luxury car parked in front of a grand, classical stone estate entrance. The lighting is soft evening light, casting long shadows. The style is timeless and wealthy, with a pearl-white and gold leaf aesthetic consistent with an upscale wedding invitation. The mood is expectant and refined." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEn7ZiFwHHx2vdfMJ6-CtCCUbkqipgiXyBCM76FivAxGS8Rl2KxpdODidxHhgnGS74jZYbWyUzMrsaeWTJEdzsvQ1ddK098MavCiySs_yEXHLWjcApovjZn5Tplsmj6lcbUOj6nr1k41mMq7oKF-wjjJwIHZDMpWbRmFUW-xCZGfzjlIGzN626d-1xSRdqjbXNr3vvWJN7GfLQBcB4ERclOdcAFXLqd3yuSBkLCyQIJx7h3qO4rCpiezDuxOfYkD2B-URm4k3KWI4"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md mb-2">Travel &amp; Stay</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Room blocks are reserved at The Gilded Lily Resort. Mention "Ethereal Union" for special rates.</p>
+<div class="flex gap-4">
+<button class="px-5 py-2 border border-outline-variant text-on-surface-variant font-label-sm text-label-sm rounded-full hover:bg-white/50 transition-all">Hotel Info</button>
+<button class="px-5 py-2 border border-outline-variant text-on-surface-variant font-label-sm text-label-sm rounded-full hover:bg-white/50 transition-all">Parking</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Digital RSVP Form -->
+<section class="py-stack-lg px-margin-mobile relative" id="rsvp">
+<div class="max-w-xl mx-auto glass-panel gold-border p-12 rounded-2xl relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-background border border-primary/20 p-3 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-primary text-3xl">mail</span>
+</div>
+<div class="text-center mb-10">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Digital RSVP</h2>
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mt-2">Kindly respond by August 1st</p>
+</div>
+<form class="space-y-8" onsubmit="event.preventDefault(); alert('Your response has been sent to Evelyn &amp; Julian.');">
+<div class="relative group">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-3 focus:ring-0 focus:border-primary font-body-lg text-body-lg placeholder:text-outline-variant transition-all" placeholder="Full Name" required="" type="text"/>
+</div>
+<div class="relative group">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant py-3 focus:ring-0 focus:border-primary font-body-lg text-body-lg placeholder:text-outline-variant transition-all" placeholder="Email Address" required="" type="email"/>
+</div>
+<div class="flex flex-col gap-4 pt-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Will you attend?</span>
+<div class="flex gap-8">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="attending" type="radio"/>
+<span class="font-body-md text-body-md group-hover:text-primary transition-colors">Happily Attend</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="attending" type="radio"/>
+<span class="font-body-md text-body-md group-hover:text-primary transition-colors">Regretfully Decline</span>
+</label>
+</div>
+</div>
+<div class="relative group">
+<textarea class="w-full bg-transparent border-0 border-b border-outline-variant py-3 focus:ring-0 focus:border-primary font-body-lg text-body-lg placeholder:text-outline-variant transition-all resize-none" placeholder="Dietary Requirements or Note to Couple" rows="3"></textarea>
+</div>
+<button class="w-full py-4 bg-primary-container text-on-primary-container font-label-sm text-label-sm uppercase tracking-[0.3em] rounded-full hover:shadow-xl hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2" type="submit">
+                        Send Response
+                    </button>
+</form>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-low/60 backdrop-blur-md border-t border-outline-variant/30 w-full py-stack-lg mt-stack-lg">
+<div class="flex flex-col items-center gap-stack-md px-margin-mobile text-center max-w-container-max mx-auto">
+<div class="font-accent-italic text-accent-italic text-on-surface-variant text-[32px] tracking-widest mb-2">E &amp; J</div>
+<div class="flex gap-8 mb-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all" href="#">Leave a Message</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all" href="#">Contact Us</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all" href="#">Gallery</a>
+</div>
+<div class="w-full max-w-md h-[0.5px] bg-gradient-to-r from-transparent via-outline-variant to-transparent my-4"></div>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80">© 2024 Ethereal Union. All Rights Reserved.</p>
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-[0.2em] mt-2 italic">With love and light.</p>
+</div>
+</footer>
+</main>
+<script>
+        function revealInvitation() {
+            const hero = document.getElementById('hero-entry');
+            const main = document.getElementById('main-content');
+            const seal = document.getElementById('wax-seal-btn');
+
+            // Animation sequence
+            seal.style.transform = "scale(0.8) rotate(360deg)";
+            seal.style.opacity = "0";
+            
+            setTimeout(() => {
+                hero.classList.add('transition-all', 'duration-1000', 'ease-in-out');
+                hero.style.opacity = "0";
+                hero.style.transform = "translateY(-50px)";
+                
+                setTimeout(() => {
+                    hero.style.display = "none";
+                    main.classList.remove('hidden-content');
+                    main.classList.add('visible-content');
+                    window.scrollTo(0, 0);
+                }, 800);
+            }, 600);
+        }
+
+        // Floating particle effect for hero (Canvas-less CSS particles)
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.getElementById('hero-entry');
+            for(let i = 0; i < 20; i++) {
+                const p = document.createElement('div');
+                p.className = 'absolute pointer-events-none rounded-full bg-primary-container/20 blur-sm';
+                const size = Math.random() * 8 + 4;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
+                hero.appendChild(p);
+            }
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translate(0, 0); opacity: 0; }
+                50% { opacity: 0.5; }
+                100% { transform: translate(${Math.random() * 100 - 50}px, -200px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+<script>
+    // Universal Data Binding for Stitch Generated Layouts
+    window.addEventListener('message', (e) => {
+        if (e.data?.type === 'lovey:preview:update') {
+            const v = e.data.values;
+            
+            // 1. Title -> Main H1
+            if (v.title) {
+                const h1s = document.querySelectorAll('h1');
+                if (h1s.length > 0) h1s[0].innerText = v.title;
+            }
+            
+            // 2. Subtitle -> Paragraph near H1
+            if (v.subtitle) {
+                const p = document.querySelector('h1 ~ p, p');
+                if (p) p.innerText = v.subtitle;
+            }
+
+            // 3. Message -> Second paragraph or specific text blocks
+            if (v.message) {
+                const ps = document.querySelectorAll('p');
+                if (ps.length > 1) {
+                    const target = Array.from(ps).find(el => el.innerText.length > 30) || ps[1];
+                    if (target) target.innerText = v.message;
+                }
+            }
+            
+            // 4. Photos -> Swap images
+            if (v.photos && v.photos.length > 0) {
+                const imgs = document.querySelectorAll('img');
+                const photosToUse = Array.isArray(v.photos) ? v.photos : v.photos.split('\n').filter(p=>p.trim());
+                
+                if (imgs.length > 0 && photosToUse[0]) {
+                    imgs[0].src = photosToUse[0];
+                    imgs[0].style.objectFit = 'cover';
+                }
+                
+                let photoIdx = 1;
+                for (let i = 1; i < imgs.length; i++) {
+                    if (photosToUse[photoIdx]) {
+                        imgs[i].src = photosToUse[photoIdx];
+                        photoIdx++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            // 5. Audio
+            if (v.audio_url) {
+                let audio = document.getElementById('audio-player-injected');
+                if(!audio) {
+                    audio = document.createElement('audio');
+                    audio.id = 'audio-player-injected';
+                    audio.controls = true;
+                    audio.style.position = 'fixed';
+                    audio.style.bottom = '20px';
+                    audio.style.left = '50%';
+                    audio.style.transform = 'translateX(-50%)';
+                    audio.style.zIndex = '9999';
+                    audio.style.opacity = '0.7';
+                    audio.style.transition = 'opacity 0.3s';
+                    audio.onmouseover = () => { audio.style.opacity = '1'; };
+                    audio.onmouseout = () => { audio.style.opacity = '0.7'; };
+                    document.body.appendChild(audio);
+                }
+                if(audio.src !== v.audio_url) {
+                    audio.src = v.audio_url;
+                    audio.play().catch(e=>console.log('Autoplay prevented'));
+                }
+            }
+            
+            // 6. Buttons
+            if (v.cta_label) {
+                const btns = document.querySelectorAll('button, a.button');
+                if (btns.length > 0) btns[0].innerText = v.cta_label;
+            }
+        }
+    });
+
+    // Premium Interaction Additions
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.glass, .rounded-xl, .rounded-2xl, .shadow-lg');
+        cards.forEach(card => {
+            card.style.transition = 'transform 0.1s ease-out';
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width/2;
+                const y = e.clientY - rect.top - rect.height/2;
+                card.style.transform = "perspective(1000px) rotateX(" + (-y/20) + "deg) rotateY(" + (x/20) + "deg) scale3d(1.02, 1.02, 1.02)";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+    });
+</script>
+</body>
+</html>
+</html>

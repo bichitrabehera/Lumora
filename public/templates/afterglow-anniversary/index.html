@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Afterglow Anniversary | Our Eternal Afterglow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#4d4635",
+                        "tertiary-container": "#ff9687",
+                        "inverse-surface": "#e8e3cd",
+                        "surface-variant": "#373526",
+                        "on-tertiary-fixed": "#410000",
+                        "surface-tint": "#e9c349",
+                        "secondary-fixed": "#ffdcc5",
+                        "on-primary-fixed-variant": "#574500",
+                        "background": "#151407",
+                        "outline": "#99907c",
+                        "surface-container": "#222013",
+                        "tertiary-fixed-dim": "#ffb4a9",
+                        "on-error-container": "#ffdad6",
+                        "surface-dim": "#151407",
+                        "secondary-fixed-dim": "#ffb783",
+                        "primary": "#f2ca50",
+                        "primary-fixed": "#ffe088",
+                        "surface-container-lowest": "#100e04",
+                        "on-secondary": "#4f2500",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#301400",
+                        "on-primary-fixed": "#241a00",
+                        "on-primary-container": "#554300",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#ffdad5",
+                        "tertiary": "#ffbfb5",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#451f00",
+                        "surface-container-highest": "#373526",
+                        "secondary": "#ffb783",
+                        "primary-fixed-dim": "#e9c349",
+                        "on-primary": "#3c2f00",
+                        "surface-bright": "#3c392b",
+                        "inverse-on-surface": "#333122",
+                        "on-tertiary": "#690001",
+                        "inverse-primary": "#735c00",
+                        "primary-container": "#d4af37",
+                        "on-background": "#e8e3cd",
+                        "surface-container-low": "#1e1c0f",
+                        "secondary-container": "#db7619",
+                        "on-tertiary-fixed-variant": "#8e130c",
+                        "on-surface": "#e8e3cd",
+                        "on-surface-variant": "#d0c5af",
+                        "surface-container-high": "#2c2a1c",
+                        "on-tertiary-container": "#8b110a",
+                        "on-secondary-fixed-variant": "#713700",
+                        "surface": "#151407"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-md": ["DM Sans"],
+                        "label-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #151407;
+            color: #e8e3cd;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(232, 227, 205, 0.05);
+            border: 1px solid rgba(232, 227, 205, 0.15);
+        }
+        .silk-border {
+            border: 0.5px solid rgba(242, 202, 80, 0.2);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #f2ca50 0%, #d4af37 100%);
+        }
+        .envelope-wrapper {
+            perspective: 1500px;
+        }
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: #2c2a1c;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+        .envelope.open .letter {
+            transform: translateY(-120px);
+            z-index: 2;
+        }
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #373526;
+            clip-path: polygon(0 0, 50% 50%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 3;
+            border-bottom: 1px solid rgba(242, 202, 80, 0.1);
+        }
+        .letter {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            height: 200px;
+            background: #e8e3cd;
+            color: #151407;
+            padding: 20px;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .sunset-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(242, 202, 80, 0.15) 0%, transparent 70%);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="selection:bg-primary/30">
+<canvas class="particle-canvas" id="petalCanvas"></canvas>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-on-surface/15 shadow-[0_40px_40px_rgba(44,30,18,0.4)]">
+<div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="font-headline-lg text-headline-lg text-primary tracking-tight">Afterglow</div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-on-surface/70 hover:text-on-surface transition-colors font-body-md text-body-md" href="#story">Our Story</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-body-md text-body-md" href="#milestones">Milestones</a>
+<a class="text-on-surface/70 hover:text-on-surface transition-colors font-body-md text-body-md" href="#gallery">Gallery</a>
+<a class="text-on-surface/70 hover:text-on-surface transition-colors font-body-md text-body-md" href="#memories">Memories</a>
+<button class="gold-gradient text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:scale-105 transition-transform active:scale-95">Celebrate</button>
+</div>
+<div class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 mix-blend-luminosity" data-alt="A breathtaking cinematic landscape of a serene lake at golden hour, with the sun dipping below the horizon casting a deep orange and amber glow across the water. The scene is romantic and ethereal, with soft hazy light and a warm color palette of golds, deep browns, and soft yellows. The atmosphere is quiet, timeless, and emotionally resonant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyPnnKm0kASWztGWzIAXKVYuFxd-rBSEOwuUKr93u6vFVLeVg9wvyKOf2d-rUXC0y6NWzfWrr8eJIowtRIpzo4pwAHIny7sC1msvQ3UrhRfqcq3_plup_tn-PtOdKmNEc_ndJr4PJM9TW-kvaI9AXtXnNftmsk-n2y5i2nrTDdsI6Frt8HUOK49uXTwn-FG4pODSZU870idqqas6Fx0mIAtLJwnA6nmRmpShMdK0pd43S9Ku2vYjDsoGpvg4_7MnWsJrWFv_Q2uxs"/>
+<div class="absolute inset-0 sunset-glow"></div>
+</div>
+<div class="relative z-10 text-center px-gutter flex flex-col items-center">
+<div class="envelope-wrapper mb-12">
+<div class="envelope shadow-2xl rounded-sm" id="mainEnvelope" onclick="this.classList.toggle('open')">
+<div class="flap"></div>
+<div class="letter flex flex-col items-center justify-center text-center">
+<span class="font-label-md text-label-md tracking-[0.2em] text-primary/80 uppercase mb-2">Private Invitation</span>
+<h2 class="font-headline-md text-headline-md text-surface-container-lowest">Our Eternal Afterglow</h2>
+<div class="w-12 h-[1px] bg-primary-container my-4"></div>
+<p class="font-body-md text-body-md italic text-surface-container-low">Click to open our story</p>
+</div>
+</div>
+</div>
+<div class="reveal max-w-2xl" id="heroText">
+<h1 class="font-display-lg text-display-lg md:text-display-lg text-primary mb-6">Ten Years of Light.</h1>
+<p class="font-body-lg text-body-lg text-on-surface/80 leading-relaxed">
+                    Like the lingering warmth of a perfect sunset, our love has only grown deeper as the shadows lengthen. 
+                    This is a celebration of every second we've spent in the glow.
+                </p>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+<span class="material-symbols-outlined text-primary text-4xl">keyboard_double_arrow_down</span>
+</div>
+</header>
+<!-- Narrative Sections -->
+<main class="max-w-container-max mx-auto px-gutter py-24 space-y-48">
+<!-- The Beginning -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center" id="story">
+<div class="md:col-span-5 reveal">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-4 block">The Beginning</span>
+<h2 class="font-display-lg text-headline-lg text-on-surface mb-8">A Spark in the Dusk</h2>
+<div class="space-y-6 font-body-lg text-body-lg text-on-surface/70">
+<p>It started as a simple conversation under a fading sky. Neither of us knew that this particular evening would become the blueprint for the rest of our lives.</p>
+<p>In those first moments, time seemed to decelerate. The world outside the glass of that small café ceased to exist, leaving only the warmth of your smile and the promise of something timeless.</p>
+</div>
+</div>
+<div class="md:col-span-7 relative reveal" style="transition-delay: 200ms;">
+<div class="glass-panel p-4 rounded-xl silk-border overflow-hidden">
+<img class="rounded-lg w-full aspect-video object-cover filter contrast-125 sepia-[0.2]" data-alt="A nostalgic close-up of two people's hands gently touching on a rustic wooden table in a dimly lit, warm cafe. Soft amber light catches the edges of vintage coffee cups and a small candle. The mood is intimate, romantic, and deeply personal, captured in a high-end cinematic style with heavy focus on light and shadow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0pTphExj_XfcwzsQqLk3UbYvNtwQ40jvEvwmT4t7w46RjyBeoLTESRH35CCqOMPlHi1Hdtib1c37Y6izOoc2lKUbDzwQjKB392eTL2Egjr8sBSYC6f_HnaDmZSJrMaTtx0D_rfN7XW3HpXCIgUaSs5AzbMsFf75vd8_ixX566AYyENl0-gNlVsoTzzI87FfGJUC60TJa9not3RnPkXdZseDIkgmMRBENbC54mUInQUJhkkb5lThMbvSBvdk_O5mZpD1i2MLNJ0c0"/>
+</div>
+<div class="absolute -bottom-6 -left-6 glass-panel p-6 rounded-lg silk-border hidden md:block">
+<p class="font-headline-md text-headline-md text-primary italic">"The moment the stars aligned."</p>
+</div>
+</div>
+</section>
+<!-- The Journey (Bento Style) -->
+<section class="space-y-12">
+<div class="text-center max-w-2xl mx-auto mb-16 reveal">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-4 block">The Journey</span>
+<h2 class="font-display-lg text-headline-lg text-on-surface">Building Our World</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[700px]">
+<div class="md:col-span-2 md:row-span-2 glass-panel p-8 rounded-2xl silk-border relative overflow-hidden flex flex-col justify-end reveal" style="transition-delay: 100ms;">
+<img class="absolute inset-0 w-full h-full object-cover opacity-30" data-alt="A wide cinematic shot of a couple walking along a rugged coastline during the golden hour. The sky is filled with hues of orange, purple, and deep amber. Their silhouettes are sharp against the setting sun. The atmosphere is adventurous yet peaceful, symbolizing a long shared journey through nature's beauty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh36wM_JcUBnwqc_ZME03gV11bbs3tuJ9JuVPIrLos4IySS8OdkDDxwC49vCdN8syQHR_9awJtxh16Wxfj0tD0zJMiBibIc1CVIsGbktfxNCDPY0VyHIP7KkJlUuCnZwBASX8hxMuHCJ3YfOePPr9-dXoTcSAaLijo5nvGVWFKmGjbO9EzsXvA6GQHicRoss1RC8CSRvDgn3Ocuf5PknWY0Vh7vqWw7Ws9QeGK55hwSsk86hJ9-mIEKD8FtFuNbTELAfEBCwyGWoY"/>
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Uncharted Paths</h3>
+<p class="font-body-md text-body-md text-on-surface/80">Every trip, every move, and every quiet Sunday morning has been a brick in the foundation of us.</p>
+</div>
+</div>
+<div class="md:col-span-2 glass-panel p-8 rounded-2xl silk-border flex items-center gap-6 reveal" style="transition-delay: 200ms;">
+<div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-4xl" data-weight="fill">home</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface">Finding Home</h4>
+<p class="font-body-md text-body-md text-on-surface/60">Not a place, but a person. 3,650 days of coming home to you.</p>
+</div>
+</div>
+<div class="glass-panel p-8 rounded-2xl silk-border reveal flex flex-col justify-center" style="transition-delay: 300ms;">
+<span class="text-4xl font-headline-lg text-primary mb-2">12</span>
+<p class="font-label-md text-label-md text-on-surface/60 uppercase">Countries Explored</p>
+</div>
+<div class="glass-panel p-8 rounded-2xl silk-border reveal flex flex-col justify-center" style="transition-delay: 400ms;">
+<span class="text-4xl font-headline-lg text-primary mb-2">∞</span>
+<p class="font-label-md text-label-md text-on-surface/60 uppercase">Memories Created</p>
+</div>
+</div>
+</section>
+<!-- Vertical Timeline (Milestones) -->
+<section class="relative py-20" id="milestones">
+<div class="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-primary/30 to-transparent hidden md:block"></div>
+<div class="space-y-32">
+<!-- Milestone 1 -->
+<div class="relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center reveal">
+<div class="md:text-right">
+<span class="font-headline-lg text-primary/40 block mb-2">2014</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">The First Date</h3>
+<p class="font-body-lg text-body-lg text-on-surface/60 mt-4">A rainy Tuesday that changed everything. We talked until the restaurant closed and the streetlights flickered to life.</p>
+</div>
+<div class="flex justify-center md:justify-start">
+<div class="w-4 h-4 rounded-full bg-primary shadow-[0_0_20px_rgba(242,202,80,0.8)] absolute left-1/2 -translate-x-1/2 hidden md:block"></div>
+<div class="glass-panel p-2 rounded-lg silk-border w-full max-w-sm">
+<img class="rounded w-full aspect-square object-cover" data-alt="A vintage-style photograph of a rainy city street at night. Neon signs reflect in the puddles on the pavement, creating a romantic blur of light. The focus is soft, and the colors are warm and moody, capturing the feeling of a first date in a timeless urban setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLskKFTygsBYgoG2HNY1la_XncUZezR2ZxqAmCGiwcm09OBfVMFCDIyxPKyZuJw_fUobCd5w3VrRzCo-ouE26syxW28Q4L90-tMT-8wIE9KiGY2GMOC3s5CF7ad4Pf0SjDXRqR9-2pBwkKuue4ZzPrnhWeuO0S5VJUvI7T_c_mW2ldABYYHXjXhrRqDTRu2KBTKRYeNKb8JsyW2lutLb5x-ZXlyTpBphjtvQ1mG5m2AbJOUfJRAP6SmLhQvWBau1sOL7q6cy5sxOQ"/>
+</div>
+</div>
+</div>
+<!-- Milestone 2 -->
+<div class="relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center reveal">
+<div class="order-2 md:order-1 flex justify-center md:justify-end">
+<div class="w-4 h-4 rounded-full bg-primary shadow-[0_0_20px_rgba(242,202,80,0.8)] absolute left-1/2 -translate-x-1/2 hidden md:block"></div>
+<div class="glass-panel p-2 rounded-lg silk-border w-full max-w-sm">
+<img class="rounded w-full aspect-square object-cover" data-alt="An elegant black and white wedding photograph with a subtle gold tint. The focus is on two rings resting on a piece of delicate lace. The lighting is soft and directional, highlighting the intricate details of the jewelry and the texture of the fabric. The aesthetic is luxurious and deeply emotional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcQr4tEMYmEcSsT_1KAPywV2Eta-BOTl09zZ3z-9MbZNDudG6tUT6zm27JB49eR8noJroQAh4QLstq-TxZg2GhfdEjOe1N5RA7qE4ahzhGpDYY-3Jxda_xo9anJ-HcA5punZQd4wlI2jdWtT53FYiDdb33raXkHOhXzEAWZEF6mqJaHkixkjtErfN9IGd_L9BpbeWyWerlCsnZGndtDX-_Ss45-BoZ9L-0XOr8dy-DjhBDiiDMZPoJILIwgZtdZpSZ4NRdY0hUU-E"/>
+</div>
+</div>
+<div class="order-1 md:order-2">
+<span class="font-headline-lg text-primary/40 block mb-2">2019</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">The "I Do"</h3>
+<p class="font-body-lg text-body-lg text-on-surface/60 mt-4">Surrounded by those who loved us most, we made a promise that we've kept every single day since.</p>
+</div>
+</div>
+<!-- Milestone 3 -->
+<div class="relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center reveal">
+<div class="md:text-right">
+<span class="font-headline-lg text-primary/40 block mb-2">Today</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">The Afterglow</h3>
+<p class="font-body-lg text-body-lg text-on-surface/60 mt-4">Celebrating ten years of growth, laughter, and the kind of love that feels like a permanent sunrise.</p>
+</div>
+<div class="flex justify-center md:justify-start">
+<div class="w-4 h-4 rounded-full bg-primary shadow-[0_0_20px_rgba(242,202,80,0.8)] absolute left-1/2 -translate-x-1/2 hidden md:block"></div>
+<div class="glass-panel p-2 rounded-lg silk-border w-full max-w-sm">
+<img class="rounded w-full aspect-square object-cover" data-alt="A cinematic photo of two champagne glasses clinking in front of a warm fireplace. The fire light creates a cozy, golden atmosphere. The focus is on the bubbles in the glass and the warm glow of the embers in the background. The mood is celebratory, intimate, and high-end." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOFl8Mzcqz_WBh57tUXk5doNUJbj2_LdNTdE72be9qLIlpsd8fhhKtFDWoZs4WhW7GuNgmprXkInsWsTq5p9nCqaq02BGmxUuIE3a95S5kdJIm_OpX_7v5x_tEwiirItxGKqQioTnfPXoD6OK3K9xlS1hWtHo2DnOLrahRn2vb1A-0BzGQhrkcbZtCQyNhyHeLlL_b5IN8CYn3MBLs7-2sm66Ej2zgSDOKQ1og9Kwj-VZ-1ckWJf3bO9Yd6pg7qQAMHMxxlZYoFiQ"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- The Future -->
+<section class="reveal bg-surface-container/30 rounded-3xl p-12 md:p-24 text-center border border-primary/10 overflow-hidden relative">
+<div class="absolute inset-0 opacity-10">
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-3xl mx-auto">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-4 block">The Future</span>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-8 italic">"The best is yet to be."</h2>
+<p class="font-body-lg text-body-lg text-on-surface/70 leading-relaxed mb-12">
+                    As we look toward the horizon, we don't see an end, but a continuation. More laughter, more quiet moments, and more light. We are just getting started on our next decade of magic.
+                </p>
+<div class="flex flex-col md:flex-row gap-6 justify-center">
+<button class="gold-gradient text-on-primary px-10 py-4 rounded-full font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_0_30px_rgba(242,202,80,0.4)] transition-all">Write Your Wish</button>
+<button class="glass-panel text-on-surface px-10 py-4 rounded-full font-label-md text-label-md uppercase tracking-widest silk-border hover:bg-white/10 transition-all">View Memory Wall</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-background border-t border-on-surface/5">
+<div class="flex flex-col items-center space-y-6 max-w-container-max mx-auto px-gutter">
+<div class="bg-gradient-to-r from-transparent via-on-surface/20 to-transparent h-[0.5px] w-full mb-8"></div>
+<div class="font-headline-md text-headline-md text-primary/80">Afterglow</div>
+<div class="flex space-x-8">
+<a class="text-on-surface/40 hover:text-on-surface transition-colors font-body-md text-body-md" href="#">The Beginning</a>
+<a class="text-primary font-bold font-body-md text-body-md" href="#">The Journey</a>
+<a class="text-on-surface/40 hover:text-on-surface transition-colors font-body-md text-body-md" href="#">The Future</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface/60 text-center italic">© 2024 Afterglow. A story written in light.</p>
+</div>
+</footer>
+<script>
+        // Particle System: Falling Rose Petals
+        const canvas = document.getElementById('petalCanvas');
+        const ctx = canvas.getContext('2d');
+        let petals = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Petal {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = -20;
+                this.w = 5 + Math.random() * 10;
+                this.h = 5 + Math.random() * 8;
+                this.opacity = 0.2 + Math.random() * 0.5;
+                this.color = Math.random() > 0.5 ? '#f2ca50' : '#ffb783';
+                this.speedX = -1 + Math.random() * 2;
+                this.speedY = 0.5 + Math.random() * 1.5;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = -1 + Math.random() * 2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                if (this.y > canvas.height) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, this.w, this.h, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) {
+            petals.push(new Petal());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            petals.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Reveal on Scroll Logic
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Interaction for Envelope
+        const envelope = document.getElementById('mainEnvelope');
+        const heroText = document.getElementById('heroText');
+        
+        envelope.addEventListener('click', () => {
+            if(envelope.classList.contains('open')) {
+                setTimeout(() => {
+                    heroText.classList.add('active');
+                }, 800);
+            }
+        });
+    </script>
+
+<script>
+    // Universal Data Binding for Stitch Generated Layouts
+    window.addEventListener('message', (e) => {
+        if (e.data?.type === 'lovey:preview:update') {
+            const v = e.data.values;
+            
+            // 1. Title -> Main H1
+            if (v.title) {
+                const h1s = document.querySelectorAll('h1');
+                if (h1s.length > 0) h1s[0].innerText = v.title;
+            }
+            
+            // 2. Subtitle -> Paragraph near H1
+            if (v.subtitle) {
+                const p = document.querySelector('h1 ~ p, p');
+                if (p) p.innerText = v.subtitle;
+            }
+
+            // 3. Message -> Second paragraph or specific text blocks
+            if (v.message) {
+                const ps = document.querySelectorAll('p');
+                if (ps.length > 1) {
+                    const target = Array.from(ps).find(el => el.innerText.length > 30) || ps[1];
+                    if (target) target.innerText = v.message;
+                }
+            }
+            
+            // 4. Photos -> Swap images
+            if (v.photos && v.photos.length > 0) {
+                const imgs = document.querySelectorAll('img');
+                const photosToUse = Array.isArray(v.photos) ? v.photos : v.photos.split('\n').filter(p=>p.trim());
+                
+                if (imgs.length > 0 && photosToUse[0]) {
+                    imgs[0].src = photosToUse[0];
+                    imgs[0].style.objectFit = 'cover';
+                }
+                
+                let photoIdx = 1;
+                for (let i = 1; i < imgs.length; i++) {
+                    if (photosToUse[photoIdx]) {
+                        imgs[i].src = photosToUse[photoIdx];
+                        photoIdx++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            // 5. Audio
+            if (v.audio_url) {
+                let audio = document.getElementById('audio-player-injected');
+                if(!audio) {
+                    audio = document.createElement('audio');
+                    audio.id = 'audio-player-injected';
+                    audio.controls = true;
+                    audio.style.position = 'fixed';
+                    audio.style.bottom = '20px';
+                    audio.style.left = '50%';
+                    audio.style.transform = 'translateX(-50%)';
+                    audio.style.zIndex = '9999';
+                    audio.style.opacity = '0.7';
+                    audio.style.transition = 'opacity 0.3s';
+                    audio.onmouseover = () => { audio.style.opacity = '1'; };
+                    audio.onmouseout = () => { audio.style.opacity = '0.7'; };
+                    document.body.appendChild(audio);
+                }
+                if(audio.src !== v.audio_url) {
+                    audio.src = v.audio_url;
+                    audio.play().catch(e=>console.log('Autoplay prevented'));
+                }
+            }
+            
+            // 6. Buttons
+            if (v.cta_label) {
+                const btns = document.querySelectorAll('button, a.button');
+                if (btns.length > 0) btns[0].innerText = v.cta_label;
+            }
+        }
+    });
+
+    // Premium Interaction Additions
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.glass, .rounded-xl, .rounded-2xl, .shadow-lg');
+        cards.forEach(card => {
+            card.style.transition = 'transform 0.1s ease-out';
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width/2;
+                const y = e.clientY - rect.top - rect.height/2;
+                card.style.transform = "perspective(1000px) rotateX(" + (-y/20) + "deg) rotateY(" + (x/20) + "deg) scale3d(1.02, 1.02, 1.02)";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+    });
+</script>
+</body>
+</html>
+</html>

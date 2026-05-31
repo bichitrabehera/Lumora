@@ -85,8 +85,7 @@ export default async function TemplateDetailPage({
             subtitle: template.summary,
             message: template.description,
             photos: [
-              "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80",
-              "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+              `/assets/generated/${template.slug}.png`,
             ],
             audio_url: "",
             cta_label: isFreeTemplate ? "Claim for free" : "Make it yours",

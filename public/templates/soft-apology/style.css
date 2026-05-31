@@ -1,0 +1,70 @@
+
+body {
+    margin: 0; padding: 0;
+    font-family: 'Manrope', sans-serif;
+    background: linear-gradient(180deg, #d8e3e7, #b2c8cf, #8cabba);
+    color: #2c414a;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.rain {
+    position: absolute;
+    width: 100%; height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><line x1="10" y1="0" x2="10" y2="20" stroke="rgba(255,255,255,0.4)" stroke-width="1"/><line x1="50" y1="50" x2="50" y2="70" stroke="rgba(255,255,255,0.3)" stroke-width="1"/></svg>');
+    animation: rainFall 0.8s linear infinite;
+    pointer-events: none;
+    opacity: 0.8;
+}
+@keyframes rainFall { 0% { background-position: 0 0; } 100% { background-position: 10px 100px; } }
+
+.step {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 2s ease-in-out;
+    pointer-events: none;
+    text-align: center;
+    width: 100%; max-width: 600px; padding: 20px; box-sizing: border-box;
+}
+.step.active {
+    opacity: 1; transform: scale(1); pointer-events: all;
+}
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #1a2f38;
+    margin-bottom: 30px;
+    animation: slowFade 3s ease-in;
+}
+@keyframes slowFade { from { opacity: 0; } to { opacity: 1; } }
+
+.btn {
+    border: 1px solid rgba(44,65,74,0.4);
+    border-radius: 50px;
+    padding: 15px 30px;
+    background: rgba(255,255,255,0.4);
+    color: #1a2f38;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.5s;
+    backdrop-filter: blur(5px);
+}
+.btn:hover { background: rgba(255,255,255,0.8); }
+
+.card-glass {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: left;
+}
+.title-small { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 0 0 15px; }
+.message { font-size: 1.1rem; line-height: 1.8; color: #3c545e; }
+.gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+.gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; filter: grayscale(20%); transition: filter 0.5s; }
+.gallery img:hover { filter: grayscale(0%); }

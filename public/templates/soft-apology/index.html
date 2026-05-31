@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soft Apology | A Quiet Reflection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&amp;family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#41484a",
+                    "surface": "#0d1518",
+                    "inverse-primary": "#45636c",
+                    "on-background": "#dbe4e8",
+                    "on-tertiary-fixed-variant": "#41484a",
+                    "on-primary-container": "#9bbac5",
+                    "on-tertiary-fixed": "#161d1e",
+                    "on-secondary-container": "#a0b8ca",
+                    "on-secondary-fixed": "#031e2c",
+                    "background": "#0d1518",
+                    "tertiary-fixed": "#dde4e6",
+                    "surface-container-highest": "#2e3639",
+                    "primary-fixed": "#c8e8f3",
+                    "on-surface-variant": "#c1c7ca",
+                    "on-primary-fixed": "#001f27",
+                    "surface-variant": "#2e3639",
+                    "surface-container-lowest": "#070f12",
+                    "secondary-fixed": "#cde6f9",
+                    "surface-container-low": "#151d20",
+                    "on-primary": "#15343d",
+                    "surface-container": "#192124",
+                    "primary-container": "#2d4b54",
+                    "tertiary-fixed-dim": "#c1c8ca",
+                    "secondary-container": "#324a59",
+                    "error-container": "#93000a",
+                    "surface-dim": "#0d1518",
+                    "on-tertiary": "#2b3233",
+                    "on-tertiary-container": "#afb6b8",
+                    "on-primary-fixed-variant": "#2d4b54",
+                    "primary": "#acccd6",
+                    "secondary": "#b1cadc",
+                    "outline": "#8b9294",
+                    "secondary-fixed-dim": "#b1cadc",
+                    "on-error": "#690005",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#acccd6",
+                    "surface-bright": "#323a3e",
+                    "on-surface": "#dbe4e8",
+                    "surface-container-high": "#232b2e",
+                    "on-error-container": "#ffdad6",
+                    "outline-variant": "#41484a",
+                    "on-secondary": "#1b3341",
+                    "on-secondary-fixed-variant": "#324a59",
+                    "surface-tint": "#acccd6",
+                    "inverse-surface": "#dbe4e8",
+                    "inverse-on-surface": "#2a3235",
+                    "tertiary": "#c1c8ca"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-padding-mobile": "24px",
+                    "gutter": "24px",
+                    "container-padding-desktop": "64px",
+                    "section-gap": "120px"
+            },
+            "fontFamily": {
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-bg {
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBxHwrvfsu1tXIyiXsHX7RkFDI4dfjkZal5YAkgkOLnZldZF8pAdxSahnnKbOeiKt3MnGLLCfEK7Ku-cQ5cxsJjDzerPHgSKIxCFp3ptFCfHeLLfxWuLyXatxWB8TS2gUslm58L3pp8YIJcX50Lh0BSSPktLWIRMI-RemsJE06L1aO-jGx5TVmdzhEwAinnGYWuKYknfAZKpDL2X9jHac0Pvq3yHPyqB1SzcPKApbGEHrIu59CMJiWE0Sk-Uz0uo6ki_CCuer18MvU');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1518;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(172, 204, 214, 0.3);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary/30 overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-container-desktop py-unit backdrop-blur-xl border-b border-white/20 bg-white/10 dark:bg-black/10 transition-all duration-500">
+<div class="font-display-lg text-headline-lg text-on-surface dark:text-on-surface-variant">Soft Apology</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="font-label-md text-label-md tracking-widest text-primary font-bold border-b-2 border-primary pb-1 transition-all duration-500" href="#">The Letter</a>
+<a class="font-label-md text-label-md tracking-widest text-on-surface/70 dark:text-on-surface-variant/70 hover:text-primary transition-all duration-500" href="#">Memories</a>
+<a class="font-label-md text-label-md tracking-widest text-on-surface/70 dark:text-on-surface-variant/70 hover:text-primary transition-all duration-500" href="#">Reflection</a>
+</div>
+<button class="bg-white/10 hover:bg-white/20 px-6 py-2 rounded-full font-label-md text-label-md tracking-widest text-primary border border-white/20 transition-all duration-500 Active:opacity-80">
+            Reach Out
+        </button>
+</nav>
+<!-- Hero Section -->
+<section class="relative h-screen w-full flex items-center justify-center hero-bg overflow-hidden">
+<div class="absolute inset-0 bg-black/40"></div>
+<div class="relative z-10 text-center px-container-padding-mobile max-w-4xl fade-in" id="hero-content">
+<h1 class="font-display-lg text-display-lg text-white mb-6 italic">Sometimes, words aren't enough.</h1>
+<p class="font-body-lg text-body-lg text-on-surface/90 tracking-widest">A quiet space for reflection and reconciliation.</p>
+<div class="mt-12">
+<span class="material-symbols-outlined text-primary text-4xl animate-bounce">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Content Sections Wrapper -->
+<main class="relative z-20 px-container-padding-mobile md:px-container-desktop py-section-gap space-y-section-gap">
+<!-- Section 1: The Unspoken -->
+<section class="max-w-4xl mx-auto fade-in" id="the-letter">
+<div class="glass-panel p-10 md:p-16 rounded-lg text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-12 tracking-wide">The Unspoken</h2>
+<div class="space-y-8 font-body-lg text-body-lg leading-relaxed text-on-surface/80 tracking-wide text-left">
+<p>There is a weight in the silence that sits between us, a texture like velvet and dust. I've spent long nights tracing the edges of conversations we never finished, trying to find the point where the thread snapped.</p>
+<p>It wasn't a single storm, but a slow erosion. A series of quiet departures from the truth of what we were. I'm writing this not to demand a return, but to offer a softening. An acknowledgment of the parts I let fray.</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Shared Echoes (Bento Memory Grid) -->
+<section class="max-w-6xl mx-auto space-y-12 fade-in">
+<div class="text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-wide">Shared Echoes</h2>
+<p class="font-body-md text-body-md text-on-surface/60 mt-4">Fragmented moments, preserved in the mist.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter h-auto md:h-[600px]">
+<!-- Memory 1 -->
+<div class="md:col-span-8 relative overflow-hidden rounded-lg group">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="A moody, high-contrast photograph of two silhouettes walking along a rainy city street at night. The ground reflects the soft blue and teal neon lights of the surrounding buildings. The atmosphere is quiet, introspective, and cinematic, captured through a window with rain droplets." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSyM3BGXeDVBWGN5MwuQGqxUw-w_v_Vi1bOvclT9mWxuXFCVX8s4vqJkD33h-yGvNbgwSaJGlf4W6C2AVxh4qtzQPrZ4NIfNP2ln853qEnjEnhMyiYZ1ZTEJuA_17n5g6e-pFyqCxN0zUbWDmBko2jzcHOQsnlZEbfqlo6lxNveeBy8cPz6e-qN8SFXd6VmmITx8LLSFhbrwJiI-71j6qCEGIWfXqKYNL98KfYQ-5FiW_8NQ87f2xmuNtJG0qoRwz6J4387071ldA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase mb-2 block">November 14</span>
+<h3 class="font-headline-md text-headline-md text-white">The walk by the river when the rain wouldn't stop.</h3>
+</div>
+</div>
+<!-- Memory 2 -->
+<div class="md:col-span-4 glass-panel p-8 rounded-lg flex flex-col justify-center text-center">
+<span class="material-symbols-outlined text-secondary text-5xl mb-6" style="font-variation-settings: 'FILL' 1;">cloudy_snowing</span>
+<p class="font-body-md text-body-md italic text-on-surface/70">"Some things are only beautiful because they didn't last."</p>
+</div>
+<!-- Memory 3 -->
+<div class="md:col-span-4 relative overflow-hidden rounded-lg group">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="A tranquil landscape featuring a misty lake at twilight, with deep teal and soft blue hues reflecting on the still water. The scene is incredibly calm and minimalist, evoking a sense of vulnerability and deep peace, consistent with a cinematic soft apology aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1iFn9NmiTp3xisOYXmJBHX8BTOuS5hxyGPtefDXUlQBzcYCFbw-_AhaaEn8RUQcJhvad6gkmARHi-0g3fQmU-2On4hMWqJASznKw_Hxr7ItoSKKrdiwH0Se2Gaytp1TZFuFiOfAnRsMFlG7Pq35f5W7yNM1Au1x3iq6oh8ITicYwhEvXToEwnt2joLA9sC1teLdwG4NppPuteNE3iTfWk-8HkYmhAF4h17SNX9Ow39YAM6dCz2KMf2Hoawi6EEPICVgMovB8YkuM"/>
+<div class="absolute inset-0 bg-black/30"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-label-md text-label-md text-white border border-white/40 px-4 py-2 rounded-full backdrop-blur-md">Quietude</span>
+</div>
+</div>
+<!-- Memory 4 -->
+<div class="md:col-span-8 glass-panel p-8 rounded-lg flex items-center gap-8">
+<div class="w-24 h-24 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-4xl">history</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">The Archive of Us</h4>
+<p class="font-body-md text-body-md text-on-surface/60">A collection of 124 moments that remain, even if the bridge has collapsed.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: A New Chapter -->
+<section class="max-w-4xl mx-auto py-12 fade-in">
+<div class="text-center space-y-12">
+<div class="w-px h-24 bg-gradient-to-b from-transparent via-primary/50 to-transparent mx-auto"></div>
+<h2 class="font-display-lg text-headline-lg text-on-surface italic">A New Chapter</h2>
+<p class="font-body-lg text-body-lg text-on-surface/80 leading-relaxed max-w-2xl mx-auto">
+                    The door isn't locked, but it is heavy. I'm stepping back to let you breathe, to let the air clear. When you're ready, if you're ready, I'll be here—not as I was, but as someone who learned to listen to the silence.
+                </p>
+<div class="flex flex-col md:flex-row gap-6 justify-center pt-8">
+<button class="px-12 py-4 rounded-full bg-primary text-on-primary font-label-md text-label-md tracking-widest hover:opacity-90 transition-all duration-500 shadow-xl shadow-primary/20">
+                        REPLY PRIVATELY
+                    </button>
+<button class="px-12 py-4 rounded-full glass-panel text-on-surface font-label-md text-label-md tracking-widest hover:bg-white/20 transition-all duration-500">
+                        LEAVE A REFLECTION
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-white/10 bg-transparent flex flex-col md:flex-row justify-between items-center px-container-desktop py-section-gap w-full">
+<div class="font-display-lg text-body-lg text-on-surface mb-8 md:mb-0">Soft Apology</div>
+<div class="flex flex-col items-center md:items-end gap-4">
+<div class="flex gap-8">
+<a class="font-body-md text-body-md text-on-surface/40 hover:text-on-surface transition-colors duration-700" href="#">Privacy</a>
+<a class="font-body-md text-body-md text-on-surface/40 hover:text-on-surface transition-colors duration-700" href="#">Terms</a>
+<a class="font-body-md text-body-md text-on-surface/40 hover:text-on-surface transition-colors duration-700" href="#">Archive</a>
+</div>
+<p class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim">© 2024 Soft Apology. A quiet reflection.</p>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hero fade in
+            const hero = document.getElementById('hero-content');
+            setTimeout(() => {
+                hero.classList.add('visible');
+            }, 500);
+
+            // Scroll reveal animation
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Parallax effect for hero
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const heroText = document.getElementById('hero-content');
+                heroText.style.transform = `translateY(${scrolled * 0.3}px)`;
+                heroText.style.opacity = 1 - (scrolled / 700);
+            });
+        });
+    </script>
+
+<script>
+    // Universal Data Binding for Stitch Generated Layouts
+    window.addEventListener('message', (e) => {
+        if (e.data?.type === 'lovey:preview:update') {
+            const v = e.data.values;
+            
+            // 1. Title -> Main H1
+            if (v.title) {
+                const h1s = document.querySelectorAll('h1');
+                if (h1s.length > 0) h1s[0].innerText = v.title;
+            }
+            
+            // 2. Subtitle -> Paragraph near H1
+            if (v.subtitle) {
+                const p = document.querySelector('h1 ~ p, p');
+                if (p) p.innerText = v.subtitle;
+            }
+
+            // 3. Message -> Second paragraph or specific text blocks
+            if (v.message) {
+                const ps = document.querySelectorAll('p');
+                if (ps.length > 1) {
+                    const target = Array.from(ps).find(el => el.innerText.length > 30) || ps[1];
+                    if (target) target.innerText = v.message;
+                }
+            }
+            
+            // 4. Photos -> Swap images
+            if (v.photos && v.photos.length > 0) {
+                const imgs = document.querySelectorAll('img');
+                const photosToUse = Array.isArray(v.photos) ? v.photos : v.photos.split('\n').filter(p=>p.trim());
+                
+                if (imgs.length > 0 && photosToUse[0]) {
+                    imgs[0].src = photosToUse[0];
+                    imgs[0].style.objectFit = 'cover';
+                }
+                
+                let photoIdx = 1;
+                for (let i = 1; i < imgs.length; i++) {
+                    if (photosToUse[photoIdx]) {
+                        imgs[i].src = photosToUse[photoIdx];
+                        photoIdx++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            // 5. Audio
+            if (v.audio_url) {
+                let audio = document.getElementById('audio-player-injected');
+                if(!audio) {
+                    audio = document.createElement('audio');
+                    audio.id = 'audio-player-injected';
+                    audio.controls = true;
+                    audio.style.position = 'fixed';
+                    audio.style.bottom = '20px';
+                    audio.style.left = '50%';
+                    audio.style.transform = 'translateX(-50%)';
+                    audio.style.zIndex = '9999';
+                    audio.style.opacity = '0.7';
+                    audio.style.transition = 'opacity 0.3s';
+                    audio.onmouseover = () => { audio.style.opacity = '1'; };
+                    audio.onmouseout = () => { audio.style.opacity = '0.7'; };
+                    document.body.appendChild(audio);
+                }
+                if(audio.src !== v.audio_url) {
+                    audio.src = v.audio_url;
+                    audio.play().catch(e=>console.log('Autoplay prevented'));
+                }
+            }
+            
+            // 6. Buttons
+            if (v.cta_label) {
+                const btns = document.querySelectorAll('button, a.button');
+                if (btns.length > 0) btns[0].innerText = v.cta_label;
+            }
+        }
+    });
+
+    // Premium Interaction Additions
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.glass, .rounded-xl, .rounded-2xl, .shadow-lg');
+        cards.forEach(card => {
+            card.style.transition = 'transform 0.1s ease-out';
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width/2;
+                const y = e.clientY - rect.top - rect.height/2;
+                card.style.transform = "perspective(1000px) rotateX(" + (-y/20) + "deg) rotateY(" + (x/20) + "deg) scale3d(1.02, 1.02, 1.02)";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+    });
+</script>
+</body>
+</html>
+</html>

@@ -3,6 +3,7 @@ import Topbar from "@/components/topbar";
 import AuthAction from "@/components/auth-action";
 
 import { loadSiteData } from "@/lib/api";
+import RevealOnScroll from "@/components/reveal-on-scroll";
 
 export default async function Home() {
   const data = await loadSiteData();
@@ -32,10 +33,10 @@ export default async function Home() {
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <span className="eyebrow">{data.hero.eyebrow}</span>
-            <h1>{data.hero.title}</h1>
-            <p className="lead">{data.hero.lead}</p>
-            <div className="hero-actions">
+            <span className="eyebrow fade-in-up">{data.hero.eyebrow}</span>
+            <h1 className="fade-in-up delay-100">{data.hero.title}</h1>
+            <p className="lead fade-in-up delay-200">{data.hero.lead}</p>
+            <div className="hero-actions fade-in-up delay-300">
               <a className="primary-btn" href="#templates">
                 {data.hero.primaryCta}
               </a>
@@ -54,7 +55,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="hero-card">
+          <div className="hero-card fade-in-up delay-300">
             <div className="hero-card-top">
               <span>Featured moment</span>
               <span className="status-dot">Live preview</span>
@@ -90,7 +91,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section" id="templates">
+      <RevealOnScroll><section className="section" id="templates">
         <div className="section-heading">
           <span className="eyebrow">Templates</span>
           <h2>Clean, emotional layouts that you can adapt to any occasion.</h2>
@@ -119,9 +120,9 @@ export default async function Home() {
             </article>
           ))}
         </div>
-      </section>
+      </section></RevealOnScroll>
 
-      <section className="section split-section" id="how-it-works">
+      <RevealOnScroll><section className="section split-section" id="how-it-works">
         <div className="section-heading narrow">
           <span className="eyebrow">How it works</span>
           <h2>
@@ -144,9 +145,9 @@ export default async function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section></RevealOnScroll>
 
-      <section className="section" id="reviews">
+      <RevealOnScroll><section className="section" id="reviews">
         <div className="section-heading">
           <span className="eyebrow">Reviews</span>
           <h2>People use it when they want the moment to land properly.</h2>
@@ -167,9 +168,9 @@ export default async function Home() {
             </blockquote>
           ))}
         </div>
-      </section>
+      </section></RevealOnScroll>
 
-      <section className="section feature-band">
+      <RevealOnScroll><section className="section feature-band">
         <div>
           <span className="eyebrow">Built for sharing</span>
           <h2>Make it personal without touching code.</h2>
@@ -179,9 +180,9 @@ export default async function Home() {
             <span key={template.slug}>{template.bestFor}</span>
           ))}
         </div>
-      </section>
+      </section></RevealOnScroll>
 
-      <section className="section" id="faq">
+      <RevealOnScroll><section className="section" id="faq">
         <div className="section-heading">
           <span className="eyebrow">FAQ</span>
           <h2>
@@ -197,9 +198,9 @@ export default async function Home() {
             </details>
           ))}
         </div>
-      </section>
+      </section></RevealOnScroll>
 
-      <section className="cta-panel">
+      <RevealOnScroll><section className="cta-panel">
         <div>
           <span className="eyebrow">Ready to launch</span>
           <h2>Use this as the base for your own gift website brand.</h2>
@@ -211,7 +212,7 @@ export default async function Home() {
         <Link className="primary-btn" href="/contact">
           Start with a template
         </Link>
-      </section>
+      </section></RevealOnScroll>
     </main>
   );
 }

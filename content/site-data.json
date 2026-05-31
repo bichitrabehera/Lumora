@@ -12,10 +12,22 @@
     "secondaryCta": "See how it works"
   },
   "stats": [
-    { "value": "7k+", "label": "pages shared" },
-    { "value": "15+", "label": "template styles" },
-    { "value": "30 sec", "label": "to launch" },
-    { "value": "4.9/5", "label": "average rating" }
+    {
+      "value": "7k+",
+      "label": "pages shared"
+    },
+    {
+      "value": "15+",
+      "label": "template styles"
+    },
+    {
+      "value": "30 sec",
+      "label": "to launch"
+    },
+    {
+      "value": "4.9/5",
+      "label": "average rating"
+    }
   ],
   "highlights": [
     "WEDDING INVITES",
@@ -26,10 +38,22 @@
     "MEMORY ROOMS"
   ],
   "featureCards": [
-    { "label": "Music", "title": "Dedication card" },
-    { "label": "Photos", "title": "Polaroid wall" },
-    { "label": "Reveal", "title": "Letter moment" },
-    { "label": "Share", "title": "Single link" }
+    {
+      "label": "Music",
+      "title": "Dedication card"
+    },
+    {
+      "label": "Photos",
+      "title": "Polaroid wall"
+    },
+    {
+      "label": "Reveal",
+      "title": "Letter moment"
+    },
+    {
+      "label": "Share",
+      "title": "Single link"
+    }
   ],
   "templates": [
     {
@@ -39,21 +63,63 @@
       "price": "From $19",
       "schema": {
         "fields": [
-          { "key": "title", "type": "text", "label": "Card title" },
-          { "key": "subtitle", "type": "text", "label": "Subheading" },
-          { "key": "message", "type": "textarea", "label": "Main message" },
-          { "key": "photos", "type": "gallery", "label": "Photo gallery" },
-          { "key": "audio_url", "type": "audio", "label": "Audio message URL" },
-          { "key": "cta_label", "type": "text", "label": "Button label" },
-          { "key": "cta_url", "type": "text", "label": "Button link" }
+          {
+            "key": "title",
+            "type": "text",
+            "label": "Card title"
+          },
+          {
+            "key": "subtitle",
+            "type": "text",
+            "label": "Subheading"
+          },
+          {
+            "key": "message",
+            "type": "textarea",
+            "label": "Main message"
+          },
+          {
+            "key": "photos",
+            "type": "gallery",
+            "label": "Photo gallery"
+          },
+          {
+            "key": "audio_url",
+            "type": "audio",
+            "label": "Audio message URL"
+          },
+          {
+            "key": "cta_label",
+            "type": "text",
+            "label": "Button label"
+          },
+          {
+            "key": "cta_url",
+            "type": "text",
+            "label": "Button link"
+          }
         ]
       },
       "description": "A playful birthday landing page with a reveal moment, photo wall, and handwritten closing note.",
       "summary": "Built for birthdays that should feel warm, personal, and easy to send in a single link.",
       "bestFor": "Birthday surprises",
-      "features": ["Reveal moment", "Photo wall", "Closing note"],
-      "sections": ["Opening card", "Timeline", "Memory wall", "Gift reveal"],
-      "accent": "Cyan glow"
+      "features": [
+        "Reveal moment",
+        "Photo wall",
+        "Closing note"
+      ],
+      "sections": [
+        "Opening card",
+        "Timeline",
+        "Memory wall",
+        "Gift reveal"
+      ],
+      "accent": "Cyan glow",
+      "assets": {
+        "bundle": "/templates/moonlit-birthday/index.html",
+        "css": "/templates/moonlit-birthday/style.css",
+        "js": "/templates/moonlit-birthday/script.js"
+      }
     },
     {
       "slug": "afterglow-anniversary",
@@ -62,30 +128,63 @@
       "price": "From $29",
       "schema": {
         "fields": [
-          { "key": "title", "type": "text", "label": "Card title" },
-          { "key": "subtitle", "type": "text", "label": "Love note intro" },
-          { "key": "message", "type": "textarea", "label": "Story message" },
-          { "key": "photos", "type": "gallery", "label": "Memory photos" },
+          {
+            "key": "title",
+            "type": "text",
+            "label": "Card title"
+          },
+          {
+            "key": "subtitle",
+            "type": "text",
+            "label": "Love note intro"
+          },
+          {
+            "key": "message",
+            "type": "textarea",
+            "label": "Story message"
+          },
+          {
+            "key": "photos",
+            "type": "gallery",
+            "label": "Memory photos"
+          },
           {
             "key": "audio_url",
             "type": "audio",
             "label": "Song or voice note URL"
           },
-          { "key": "cta_label", "type": "text", "label": "Button label" },
-          { "key": "cta_url", "type": "text", "label": "Button link" }
+          {
+            "key": "cta_label",
+            "type": "text",
+            "label": "Button label"
+          },
+          {
+            "key": "cta_url",
+            "type": "text",
+            "label": "Button link"
+          }
         ]
       },
       "description": "Warm story blocks, a timeline, and a polished music section made for relationship milestones.",
       "summary": "A soft, elegant layout that makes anniversaries feel thoughtful instead of templated.",
       "bestFor": "Anniversary surprises",
-      "features": ["Timeline", "Music section", "Story blocks"],
+      "features": [
+        "Timeline",
+        "Music section",
+        "Story blocks"
+      ],
       "sections": [
         "Opening hero",
         "Our timeline",
         "Song dedication",
         "Closing promise"
       ],
-      "accent": "Soft amber"
+      "accent": "Soft amber",
+      "assets": {
+        "bundle": "/templates/afterglow-anniversary/index.html",
+        "css": "/templates/afterglow-anniversary/style.css",
+        "js": "/templates/afterglow-anniversary/script.js"
+      }
     },
     {
       "slug": "soft-apology",
@@ -94,26 +193,63 @@
       "price": "Free",
       "schema": {
         "fields": [
-          { "key": "title", "type": "text", "label": "Card title" },
-          { "key": "subtitle", "type": "text", "label": "Soft intro" },
-          { "key": "message", "type": "textarea", "label": "Apology message" },
-          { "key": "photos", "type": "gallery", "label": "Memory photos" },
-          { "key": "audio_url", "type": "audio", "label": "Voice note URL" },
-          { "key": "cta_label", "type": "text", "label": "Button label" },
-          { "key": "cta_url", "type": "text", "label": "Button link" }
+          {
+            "key": "title",
+            "type": "text",
+            "label": "Card title"
+          },
+          {
+            "key": "subtitle",
+            "type": "text",
+            "label": "Soft intro"
+          },
+          {
+            "key": "message",
+            "type": "textarea",
+            "label": "Apology message"
+          },
+          {
+            "key": "photos",
+            "type": "gallery",
+            "label": "Memory photos"
+          },
+          {
+            "key": "audio_url",
+            "type": "audio",
+            "label": "Voice note URL"
+          },
+          {
+            "key": "cta_label",
+            "type": "text",
+            "label": "Button label"
+          },
+          {
+            "key": "cta_url",
+            "type": "text",
+            "label": "Button link"
+          }
         ]
       },
       "description": "A calm, thoughtful page with a message reveal, memory cards, and a gentle call-to-action.",
       "summary": "Designed for sincerity first, with nothing noisy getting in the way of the message.",
       "bestFor": "Gentle apologies",
-      "features": ["Message reveal", "Memory cards", "Calm CTA"],
+      "features": [
+        "Message reveal",
+        "Memory cards",
+        "Calm CTA"
+      ],
       "sections": [
         "Opening note",
         "Memory cards",
         "Heartfelt message",
         "Response link"
       ],
-      "accent": "Muted teal"
+      "accent": "Muted teal",
+      "assets": {
+        "bundle": "/templates/soft-apology/index.html",
+        "css": "/templates/soft-apology/style.css",
+        "js": "/templates/soft-apology/script.js"
+      }
     },
     {
       "slug": "wedding-invite",
@@ -122,21 +258,63 @@
       "price": "From $49",
       "schema": {
         "fields": [
-          { "key": "title", "type": "text", "label": "Card title" },
-          { "key": "subtitle", "type": "text", "label": "Invite subtitle" },
-          { "key": "message", "type": "textarea", "label": "Invite message" },
-          { "key": "photos", "type": "gallery", "label": "Photo gallery" },
-          { "key": "audio_url", "type": "audio", "label": "Music URL" },
-          { "key": "cta_label", "type": "text", "label": "Button label" },
-          { "key": "cta_url", "type": "text", "label": "Button link" }
+          {
+            "key": "title",
+            "type": "text",
+            "label": "Card title"
+          },
+          {
+            "key": "subtitle",
+            "type": "text",
+            "label": "Invite subtitle"
+          },
+          {
+            "key": "message",
+            "type": "textarea",
+            "label": "Invite message"
+          },
+          {
+            "key": "photos",
+            "type": "gallery",
+            "label": "Photo gallery"
+          },
+          {
+            "key": "audio_url",
+            "type": "audio",
+            "label": "Music URL"
+          },
+          {
+            "key": "cta_label",
+            "type": "text",
+            "label": "Button label"
+          },
+          {
+            "key": "cta_url",
+            "type": "text",
+            "label": "Button link"
+          }
         ]
       },
       "description": "An elegant invite with venue details, RSVP section, countdown, and a memorable opening screen.",
       "summary": "A polished wedding experience that handles the invite, the details, and the RSVP flow.",
       "bestFor": "Wedding invites",
-      "features": ["Countdown", "Venue details", "RSVP section"],
-      "sections": ["Hero invite", "Ceremony details", "RSVP", "Guest notes"],
-      "accent": "Pearl white"
+      "features": [
+        "Countdown",
+        "Venue details",
+        "RSVP section"
+      ],
+      "sections": [
+        "Hero invite",
+        "Ceremony details",
+        "RSVP",
+        "Guest notes"
+      ],
+      "accent": "Pearl white",
+      "assets": {
+        "bundle": "/templates/wedding-invite/index.html",
+        "css": "/templates/wedding-invite/style.css",
+        "js": "/templates/wedding-invite/script.js"
+      }
     },
     {
       "slug": "love-note",
@@ -145,21 +323,63 @@
       "price": "Free",
       "schema": {
         "fields": [
-          { "key": "title", "type": "text", "label": "Card title" },
-          { "key": "subtitle", "type": "text", "label": "Short intro" },
-          { "key": "message", "type": "textarea", "label": "Note message" },
-          { "key": "photos", "type": "gallery", "label": "Photo strip" },
-          { "key": "audio_url", "type": "audio", "label": "Audio URL" },
-          { "key": "cta_label", "type": "text", "label": "Button label" },
-          { "key": "cta_url", "type": "text", "label": "Button link" }
+          {
+            "key": "title",
+            "type": "text",
+            "label": "Card title"
+          },
+          {
+            "key": "subtitle",
+            "type": "text",
+            "label": "Short intro"
+          },
+          {
+            "key": "message",
+            "type": "textarea",
+            "label": "Note message"
+          },
+          {
+            "key": "photos",
+            "type": "gallery",
+            "label": "Photo strip"
+          },
+          {
+            "key": "audio_url",
+            "type": "audio",
+            "label": "Audio URL"
+          },
+          {
+            "key": "cta_label",
+            "type": "text",
+            "label": "Button label"
+          },
+          {
+            "key": "cta_url",
+            "type": "text",
+            "label": "Button link"
+          }
         ]
       },
       "description": "Minimal, intimate, and easy to personalize when the message matters more than the medium.",
       "summary": "The simplest route when you want the message to stay centered and the layout to disappear.",
       "bestFor": "Unexpected messages",
-      "features": ["Minimal layout", "Easy editing", "Quick share"],
-      "sections": ["Short intro", "Note card", "Photo strip", "Send button"],
-      "accent": "Quiet sand"
+      "features": [
+        "Minimal layout",
+        "Easy editing",
+        "Quick share"
+      ],
+      "sections": [
+        "Short intro",
+        "Note card",
+        "Photo strip",
+        "Send button"
+      ],
+      "accent": "Quiet sand",
+      "assets": {
+        "bundle": "/templates/love-note/index.html",
+        "css": "/templates/love-note/style.css",
+        "js": "/templates/love-note/script.js"
+      }
     },
     {
       "slug": "milestone-story",
@@ -168,26 +388,63 @@
       "price": "From $24",
       "schema": {
         "fields": [
-          { "key": "title", "type": "text", "label": "Card title" },
-          { "key": "subtitle", "type": "text", "label": "Intro line" },
-          { "key": "message", "type": "textarea", "label": "Story message" },
-          { "key": "photos", "type": "gallery", "label": "Memory gallery" },
-          { "key": "audio_url", "type": "audio", "label": "Audio message URL" },
-          { "key": "cta_label", "type": "text", "label": "Button label" },
-          { "key": "cta_url", "type": "text", "label": "Button link" }
+          {
+            "key": "title",
+            "type": "text",
+            "label": "Card title"
+          },
+          {
+            "key": "subtitle",
+            "type": "text",
+            "label": "Intro line"
+          },
+          {
+            "key": "message",
+            "type": "textarea",
+            "label": "Story message"
+          },
+          {
+            "key": "photos",
+            "type": "gallery",
+            "label": "Memory gallery"
+          },
+          {
+            "key": "audio_url",
+            "type": "audio",
+            "label": "Audio message URL"
+          },
+          {
+            "key": "cta_label",
+            "type": "text",
+            "label": "Button label"
+          },
+          {
+            "key": "cta_url",
+            "type": "text",
+            "label": "Button link"
+          }
         ]
       },
       "description": "A layered page for birthdays, graduations, and the kind of wins you want to remember properly.",
       "summary": "Flexible enough for any big moment while still feeling intentional and memorable.",
       "bestFor": "Milestones and wins",
-      "features": ["Layered sections", "Memory gallery", "Milestone cards"],
+      "features": [
+        "Layered sections",
+        "Memory gallery",
+        "Milestone cards"
+      ],
       "sections": [
         "Header reveal",
         "Memory gallery",
         "Milestone cards",
         "Celebration CTA"
       ],
-      "accent": "Golden haze"
+      "accent": "Golden haze",
+      "assets": {
+        "bundle": "/templates/milestone-story/index.html",
+        "css": "/templates/milestone-story/style.css",
+        "js": "/templates/milestone-story/script.js"
+      }
     },
     {
       "slug": "birthday-template-1",
@@ -196,7 +453,11 @@
       "price": "Free",
       "schema": {
         "fields": [
-          { "key": "page_title", "type": "text", "label": "Browser title" },
+          {
+            "key": "page_title",
+            "type": "text",
+            "label": "Browser title"
+          },
           {
             "key": "welcome_title",
             "type": "text",
@@ -242,16 +503,37 @@
             "type": "text",
             "label": "Final greeting"
           },
-          { "key": "final_wish", "type": "textarea", "label": "Final wish" },
-          { "key": "signature", "type": "text", "label": "Signature" },
-          { "key": "music_url", "type": "audio", "label": "Music URL" }
+          {
+            "key": "final_wish",
+            "type": "textarea",
+            "label": "Final wish"
+          },
+          {
+            "key": "signature",
+            "type": "text",
+            "label": "Signature"
+          },
+          {
+            "key": "music_url",
+            "type": "audio",
+            "label": "Music URL"
+          }
         ]
       },
       "description": "Imported built birthday microsite.",
       "summary": "Interactive birthday experience built externally and embedded.",
       "bestFor": "Birthday wishes",
-      "features": ["Envelope reveal", "Confetti", "Typewriter greeting"],
-      "sections": ["Welcome", "Envelope", "Letter", "Celebration"],
+      "features": [
+        "Envelope reveal",
+        "Confetti",
+        "Typewriter greeting"
+      ],
+      "sections": [
+        "Welcome",
+        "Envelope",
+        "Letter",
+        "Celebration"
+      ],
       "accent": "Bright coral",
       "assets": {
         "bundle": "/assets/birthday-template-1/index.html",

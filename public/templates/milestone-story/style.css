@@ -1,0 +1,12 @@
+
+body { margin: 0; font-family: sans-serif; background: #fffde7; color: #f57f17; height: 100vh; display: flex; align-items: center; justify-content: center; overflow:hidden;}
+.step { position: absolute; opacity: 0; transition: 0.5s; pointer-events: none; text-align: center; max-width: 600px; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid #ffee58; }
+.step.active { opacity: 1; pointer-events: all; transform: scale(1); }
+.step:not(.active) { transform: scale(0.8); }
+.btn { padding: 15px 30px; font-size: 1.2rem; background: #fbc02d; color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; }
+h1 { font-size: 2.5rem; margin-bottom: 10px; } p { color: #333; line-height: 1.6; }
+.gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+.gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 10px; }
+a { display: inline-block; padding: 10px 20px; background: #fbc02d; color: #fff; text-decoration: none; border-radius: 20px; margin-top: 20px; }
+.confetti-piece { position: absolute; width: 10px; height: 10px; background: red; animation: fall 3s linear forwards; }
+@keyframes fall { 100% { transform: translateY(100vh) rotate(720deg); } }
