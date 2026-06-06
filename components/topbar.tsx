@@ -12,8 +12,8 @@ type Props = {
 export default function Topbar({
   logo = "LL",
   brandName,
-  ghostHref = "/contact",
-  ghostLabel = "Start a page",
+  ghostHref = "/editor",
+  ghostLabel = "Create yours →",
   nav,
   authAction,
 }: Props) {
@@ -48,17 +48,15 @@ export default function Topbar({
 
       {nav ?? (
         <nav>
-          <Link href="/">Home</Link>
           <a href="#templates">Templates</a>
           <a href="#how-it-works">How it works</a>
-          <a href="#reviews">Reviews</a>
-          <a href="#faq">FAQ</a>
+          <a href="#pricing">Pricing</a>
         </nav>
       )}
 
       {authAction}
 
-      <Link className="ghost-btn" href={safeGhostHref as never}>
+  <Link className="primary-btn" href={safeGhostHref as never}>
         {ghostLabel}
       </Link>
     </header>

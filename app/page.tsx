@@ -18,15 +18,14 @@ export default async function Home() {
         <Topbar
           logo={data.brand.logo}
           brandName={data.brand.name}
-          ghostHref="/contact"
-          ghostLabel="Start a page"
+          ghostHref="/editor"
+          ghostLabel="Create yours →"
           authAction={<AuthAction />}
           nav={
             <>
               <a href="#templates">Templates</a>
               <a href="#how-it-works">How it works</a>
-              <a href="#reviews">Reviews</a>
-              <a href="#faq">FAQ</a>
+              <a href="#pricing">Pricing</a>
             </>
           }
         />
@@ -43,15 +42,6 @@ export default async function Home() {
               <a className="secondary-btn" href="#how-it-works">
                 {data.hero.secondaryCta}
               </a>
-            </div>
-
-            <div className="trust-row">
-              {data.stats.map((stat) => (
-                <div key={stat.label} className="trust-pill">
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
-                </div>
-              ))}
             </div>
           </div>
 

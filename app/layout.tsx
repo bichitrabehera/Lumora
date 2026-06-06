@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Announcement from "../components/announcement";
 
 export const metadata: Metadata = {
   title: "lovey page | Make a gift page that feels personal",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Announcement />
+        <div className="page-content">{children}</div>
+      </body>
     </html>
   );
 }
