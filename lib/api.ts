@@ -36,19 +36,15 @@ async function fetchJson<T>(path: string): Promise<T | null> {
 }
 
 export async function loadSiteData(): Promise<SiteData> {
-  return (await fetchJson<SiteData>("/api/site-data")) ?? siteData;
+  return siteData;
 }
 
 export async function loadTemplates(): Promise<Template[]> {
-  return (await fetchJson<Template[]>("/api/templates")) ?? siteData.templates;
+  return siteData.templates;
 }
 
 export async function loadTemplate(slug: string): Promise<Template | null> {
-  return (
-    (await fetchJson<Template>(`/api/templates/${slug}`)) ??
-    siteData.templates.find((template) => template.slug === slug) ??
-    null
-  );
+  return siteData.templates.find((template) => template.slug === slug) ?? null;
 }
 
 export async function submitLead(payload: LeadSubmission) {

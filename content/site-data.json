@@ -498,6 +498,150 @@
         "js": "/assets/birthday-template-1/script.js",
         "sample_audio": "/assets/birthday-template-1/birthday_song.mp3"
       }
+    },
+    {
+      "slug": "birthday-template-2",
+      "title": "Birthday Template 2",
+      "category": "Birthday",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          {
+            "key": "page_title",
+            "type": "text",
+            "label": "Browser title"
+          },
+          {
+            "key": "envelope_text",
+            "type": "text",
+            "label": "Envelope text"
+          },
+          {
+            "key": "music_greeting",
+            "type": "text",
+            "label": "Music card greeting"
+          },
+          {
+            "key": "recipient_name",
+            "type": "text",
+            "label": "Recipient name"
+          },
+          {
+            "key": "polaroid_caption_1",
+            "type": "text",
+            "label": "Polaroid 1 Caption"
+          },
+          {
+            "key": "polaroid_caption_2",
+            "type": "text",
+            "label": "Polaroid 2 Caption"
+          },
+          {
+            "key": "polaroid_caption_3",
+            "type": "text",
+            "label": "Polaroid 3 Caption"
+          },
+          {
+            "key": "flower_wish_1",
+            "type": "text",
+            "label": "Flower Wish 1"
+          },
+          {
+            "key": "flower_wish_2",
+            "type": "text",
+            "label": "Flower Wish 2"
+          },
+          {
+            "key": "flower_wish_3",
+            "type": "text",
+            "label": "Flower Wish 3"
+          },
+          {
+            "key": "letter_message",
+            "type": "textarea",
+            "label": "Final Letter Message"
+          },
+          {
+            "key": "signature",
+            "type": "text",
+            "label": "Signature"
+          }
+        ]
+      },
+      "description": "Pastel aesthetic birthday microsite with polaroids and flowers.",
+      "summary": "A soft, aesthetic template featuring an envelope reveal, polaroid slider, and flower wish-picking.",
+      "bestFor": "Aesthetic birthday wishes",
+      "features": ["Envelope reveal", "Polaroid slider", "Flower picking", "Notebook letter"],
+      "sections": ["Envelope", "Music Player", "Polaroids", "Flowers", "Letter"],
+      "accent": "Pastel Pink",
+      "assets": {
+        "bundle": "/assets/birthday-template-2/index.html",
+        "css": "/assets/birthday-template-2/style.css",
+        "js": "/assets/birthday-template-2/script.js",
+        "sample_audio": "/assets/birthday-template-2/song.mp3"
+      }
+    },
+    {
+      "slug": "apology-template-1",
+      "title": "Cute Apology Website",
+      "category": "Apology",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          {
+            "key": "page_title",
+            "type": "text",
+            "label": "Browser title"
+          },
+          {
+            "key": "recipient_name",
+            "type": "text",
+            "label": "Apology recipient name"
+          },
+          {
+            "key": "apology_question",
+            "type": "text",
+            "label": "Will you forgive me?"
+          },
+          {
+            "key": "polaroid_caption_1",
+            "type": "text",
+            "label": "Polaroid 1 Caption"
+          },
+          {
+            "key": "polaroid_caption_2",
+            "type": "text",
+            "label": "Polaroid 2 Caption"
+          },
+          {
+            "key": "polaroid_caption_3",
+            "type": "text",
+            "label": "Polaroid 3 Caption"
+          },
+          {
+            "key": "letter_message",
+            "type": "textarea",
+            "label": "Apology Letter Message"
+          },
+          {
+            "key": "signature",
+            "type": "text",
+            "label": "Signature"
+          }
+        ]
+      },
+      "description": "Cute apology template with a runaway button, tic-tac-toe mini-game, and memory slideshow.",
+      "summary": "An interactive, playful apology card featuring cute animations and mini-games.",
+      "bestFor": "Cute apologies",
+      "features": ["Runaway Button", "Tic-Tac-Toe Game", "Memory Slideshow", "Letter"],
+      "sections": ["Landing", "Runaway Button", "Tic-Tac-Toe", "Slideshow", "Music", "Letter"],
+      "accent": "Soft Red",
+      "assets": {
+        "bundle": "/assets/apology-template-1/index.html",
+        "css": "/assets/apology-template-1/style.css",
+        "js": "/assets/apology-template-1/script.js",
+        "sample_audio": "/assets/apology-template-1/song.mp3"
+      }
     }
   ],
   "steps": [

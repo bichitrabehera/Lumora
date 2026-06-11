@@ -1,493 +1,737 @@
-/* --- Global Styles & Setup --- */
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;700&family=Great+Vibes&display=swap");
-
 :root {
-  --bg-dark: #ffeff0;
-  --bg-light: #f7dde0;
-  --primary-red: #bc535b;
-  --accent-yellow: #bc535b;
-  --text-light: #8d3440;
-  --text-dark: #6f2630;
-  --envelope-body: #fff7f7;
-  --envelope-flap: #ffecec;
-  --letter-paper: #fffaf5;
-  --button-hover: #a64045;
-  --cake-bottom: #b46a6c;
-  --cake-middle: #c07b7d;
-  --cake-top: #d09193;
-  --flame-color: #bc535b;
-  --shadow-light: rgba(0, 0, 0, 0.08);
-  --shadow-medium: rgba(0, 0, 0, 0.12);
-  --shadow-heavy: rgba(0, 0, 0, 0.18);
+    --bg-color: #fce4ec;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --primary-color: #f06292;
+    --primary-hover: #e91e63;
+    --secondary-color: #fff;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --dark-bg: #121212;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --bulb-off: #333;
+    --bulb-on: #fffacd;
+    --accent: #ffeb3b;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(45deg, var(--bg-dark), var(--bg-light));
-  color: var(--text-dark);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow: hidden; /* Prevent scrollbars from animations */
-  perspective: 1000px; /* For 3D transforms */
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 1s ease;
+}
+
+.font-caveat {
+    font-family: 'Caveat', cursive;
+}
+
+.font-outfit {
+    font-family: 'Outfit', sans-serif;
+}
+
+#container {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    position: relative;
 }
 
 .step {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition:
-    opacity 0.5s ease-out,
-    transform 0.5s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(20px);
 }
 
 .step.active {
-  display: flex;
-  opacity: 1;
-  transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
-.step:not(.active) {
-  opacity: 0;
-  transform: scale(0.95);
-  pointer-events: none; /* Disable interaction when not active */
+/* Common Components */
+.btn {
+    padding: 12px 32px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
 }
 
-.action-button {
-  padding: 12px 25px;
-  background-color: var(--primary-red);
-  color: var(--text-light);
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-  box-shadow: 0 4px 10px var(--shadow-medium);
-  letter-spacing: 0.5px;
+.btn:active {
+    transform: scale(0.95);
 }
 
-.action-button:hover {
-  background-color: var(--button-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px var(--shadow-heavy);
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
 }
 
-/* --- Step 1: Welcome Screen --- */
-.welcome-card {
-  text-align: center;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 15px 30px var(--shadow-heavy);
-  max-width: 500px;
-  animation: fadeIn 1s ease-out;
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 6px 20px rgba(240, 98, 146, 0.4);
 }
 
-.welcome-title {
-  font-family: "Great Vibes", cursive;
-  font-size: 3.5rem;
-  margin-bottom: 20px;
-  color: var(--primary-red);
-  text-shadow: 2px 2px 5px var(--shadow-medium);
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-primary);
 }
 
-.welcome-message {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  line-height: 1.6;
-  color: var(--text-dark);
+.btn-secondary:hover {
+    background-color: #f5f5f5;
 }
 
-/* --- Step 2: Envelope --- */
-.envelope-container {
-  text-align: center;
-  animation: pulse 2s infinite;
-  cursor: pointer;
+.btn-light {
+    background-color: #444;
+    color: #eee;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.btn-light:hover {
+    background-color: #555;
+}
+
+.btn-float {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+.btn-float:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.title-text {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.big-text {
+    font-size: 3.5rem;
+    color: var(--primary-hover);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.sub-text {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* Step 1: Envelope */
+.envelope-wrapper {
+    position: relative;
+    width: 280px;
+    height: 200px;
+    margin-bottom: 3rem;
+    cursor: pointer;
+    perspective: 1000px;
 }
 
 .envelope {
-  position: relative;
-  width: 320px;
-  height: 200px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
 }
 
-.envelope-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: var(--envelope-body);
-  border-radius: 10px;
-  box-shadow: 0 8px 20px var(--shadow-medium);
-}
-
-.envelope-flap {
-  position: absolute;
-  width: 100%;
-  height: 100px;
-  background-color: var(--envelope-flap);
-  top: 0;
-  left: 0;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top;
-  transition: transform 0.5s ease-in-out;
-  z-index: 2; /* Ensure flap is above other parts */
-}
-
-.envelope-front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: var(--envelope-body);
-  top: 0;
-  left: 0;
-  clip-path: polygon(0 100%, 100% 100%, 100% 50%, 50% 100%, 0 50%);
-  z-index: 1;
-}
-
-.envelope-seal {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  /* Base64 for a simple heart SVG icon (red) */
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2U5NDU2MCI+PHBhdGggZD0iTTEyIDYuMjc1Yy01LjUwMy01LjgyOC0xNC40NDUgMi41NDctNi40NDUgOS42NDcgNC44MjcgNC44MjcgOS4xMjcgMi40NTcgMTIgMi41MjEgMi44NzMtLjA2NCA3LjE3MyAyLjMwMyAxMi0yLjUyMSAxMi03LjA4IDcuNjA4LTExLjQ4NSAyLjc1NS0xMS43OTJjLTcuOTk5LTcuMzk5LTMuMzk1LTkuNzE0LTYuNDQ1LTkuNjQ3eiIvPjwvc3ZnPg==");
-  background-size: cover;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-}
-
-.envelope-container.open .envelope-flap {
-  transform: rotateX(180deg);
-}
-
-.click-instruction {
-  margin-top: 25px;
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  animation: bounce 1.5s infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
+.envelope:hover {
     transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
 }
 
-/* --- Step 3: Letter --- */
-.letter-container {
-  text-align: center;
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 0.5s 0.5s ease,
-    transform 0.5s 0.5s ease;
-  max-width: 90vw;
+.env-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #e91e63;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-.letter-container.show {
-  opacity: 1;
-  transform: translateY(0);
+.env-front {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 140px solid #f06292;
+    border-right: 140px solid #f06292;
+    border-bottom: 100px solid #ec407a;
+    border-top: 100px solid transparent;
+    border-radius: 0 0 10px 10px;
+    bottom: 0;
+    z-index: 3;
 }
 
-.letter {
-  width: 400px;
-  max-width: 100%; /* Ensure it fits smaller screens */
-  background-color: var(--letter-paper);
-  color: var(--text-dark);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px var(--shadow-medium);
-  line-height: 1.8;
+.env-flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #f48fb1;
+    border-bottom: 100px solid transparent;
+    top: 0;
+    transform-origin: top;
+    transition: transform 0.5s 0.3s;
+    z-index: 4;
 }
 
-.letter p {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-}
-.letter p:first-child {
-  font-weight: bold;
-} /* Dearest [Name], */
-.letter p:last-of-type {
-  margin-bottom: 0;
-}
-
-/* --- Step 4: Grand Celebration --- */
-.celebration-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
+.env-heart {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    z-index: 5;
+    transition: opacity 0.3s;
 }
 
-.celebration-card {
-  text-align: center;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 20px 40px var(--shadow-heavy);
-  max-width: 700px;
-  z-index: 10; /* Ensure card is above animations */
-  animation: popIn 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  color: var(--text-dark);
+.env-letter {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background: white;
+    left: 5%;
+    bottom: 5%;
+    border-radius: 8px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.6s ease;
 }
 
-@keyframes popIn {
-  0% {
+.env-letter-content {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.step.opening .env-flap {
+    transform: rotateX(180deg);
+}
+
+.step.opening .env-heart {
     opacity: 0;
-    transform: scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
-.sub-greeting {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-  color: var(--primary-red);
+.step.opening .env-letter {
+    transform: translateY(-80px);
 }
 
-.main-greeting {
-  font-family: "Poppins", sans-serif;
-  font-size: 2.8rem;
-  font-weight: 700;
-  white-space: nowrap; /* Prevent text wrap during typing */
-  overflow: hidden; /* Hide overflow for typewriter effect */
-  border-right: 3px solid var(--primary-red); /* Typewriter cursor */
-  animation: none; /* Handled by JS for typing */
+.btn-group {
+    display: flex;
+    gap: 15px;
 }
 
-/* Typewriter cursor animation (only for final state after typing) */
-.main-greeting.typed {
-  border-right: 3px solid transparent; /* Hide cursor after typing */
-  animation: blinkCursor 0.75s step-end infinite;
+/* Step 2: Dark Room */
+.dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dark-bg);
+    z-index: -1;
 }
 
-@keyframes blinkCursor {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: var(--primary-red);
-  }
+.single-bulb {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4rem;
 }
 
-.recipient-name {
-  font-family: "Pacifico", cursive;
-  font-size: 4.5rem;
-  color: var(--primary-red);
-  margin: 5px 0 20px;
-  text-shadow: 3px 3px 8px var(--shadow-medium);
-  line-height: 1;
+.wire {
+    width: 2px;
+    height: 100px;
+    background-color: #555;
 }
 
-.final-wish {
-  font-size: 1.15rem;
-  margin-top: 25px;
-  line-height: 1.6;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--text-dark);
+.bulb-glass {
+    width: 50px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50% 50% 25px 25px;
+    border: 2px solid #555;
+    position: relative;
 }
 
-.signature {
-  font-family: "Great Vibes", cursive;
-  font-size: 2rem;
-  margin-top: 30px;
-  color: var(--primary-red);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Step 3: Lights On */
+.hanging-bulbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
+    pointer-events: none;
 }
 
-.heart-icon {
-  width: 25px;
-  height: 25px;
-  margin-left: 10px;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2U5NDU2MCI+PHBhdGggZD0iTTEyIDYuMjc1Yy01LjUwMy01LjgyOC0xNC40NDUgMi41NDctNi40NDUgOS42NDcgNC44MjcgNC44MjcgOS4xMjcgMi40NTcgMTIgMi41MjEgMi44NzMtLjA2NCA3LjE3MyAyLjMwMyAxMi0yLjUyMSAxMi03LjA4IDcuNjA4LTExLjQ4NSAyLjc1NS0xMS43OTJjLTcuOTk5LTcuMzk5LTMuMzk1LTkuNzE0LTYuNDQ1LTkuNjQ3eiIvPjwvc3ZnPg==");
-  background-size: contain;
-  background-repeat: no-repeat;
-  vertical-align: middle;
+.hanging-bulb {
+    position: relative;
+    width: 2px;
+    height: 80px;
+    background-color: #ccc;
+    transform-origin: top center;
+    animation: swing 3s infinite ease-in-out alternate;
 }
 
-/* --- Cake Styling --- */
-.cake-container {
-  margin: 30px auto;
+.hanging-bulb::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    transition: all 0.5s ease;
 }
 
-.cake {
-  position: relative;
-  width: 280px; /* Slightly larger cake */
-  height: 280px;
-  margin: 0 auto; /* Center the cake */
+.hanging-bulb.on::after {
+    background-color: var(--accent);
+    box-shadow: 0 0 30px var(--accent), 0 0 50px var(--accent);
 }
 
-.plate {
-  width: 300px;
-  height: 25px;
-  background-color: #ccc;
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  box-shadow: 0 5px 10px var(--shadow-medium);
+.hanging-bulb.c1 { height: 120px; animation-delay: 0.1s; }
+.hanging-bulb.c2 { height: 80px; animation-delay: 0.5s; }
+.hanging-bulb.c3 { height: 140px; animation-delay: 0.2s; }
+.hanging-bulb.c4 { height: 90px; animation-delay: 0.7s; }
+.hanging-bulb.c5 { height: 110px; animation-delay: 0.4s; }
+
+@keyframes swing {
+    0% { transform: rotate(5deg); }
+    100% { transform: rotate(-5deg); }
 }
 
-.layer {
-  position: absolute;
-  width: 280px;
-  height: 60px; /* Taller layers */
-  background-color: var(--cake-bottom);
-  border-radius: 50% / 25%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.layer-bottom {
-  bottom: 45px;
-  background-color: var(--cake-bottom);
-  width: 280px;
-}
-.layer-middle {
-  bottom: 85px;
-  background-color: var(--cake-middle);
-  width: 260px;
-}
-.layer-top {
-  bottom: 125px;
-  background-color: var(--cake-top);
-  width: 240px;
+/* Step 4: Music Notes */
+.music-notes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
 
-.icing {
-  position: absolute;
-  width: 240px;
-  height: 35px; /* Thicker icing */
-  background-color: white;
-  bottom: 165px;
-  border-radius: 50% / 25%;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.1);
+.note {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0;
+    color: var(--primary-color);
 }
 
-.drip {
-  position: absolute;
-  width: 25px; /* Wider drips */
-  height: 35px; /* Longer drips */
-  background: white;
-  border-radius: 50%;
-  top: -15px;
-}
-.drip1 {
-  left: 40px;
-  display: none;
-}
-.drip2 {
-  left: 127px;
-  height: 45px;
-} /* Slightly longer middle drip */
-.drip3 {
-  left: 210px;
-  display: none;
+.note.n1 { bottom: 20%; left: 20%; animation: floatUp 4s infinite 0s linear; }
+.note.n2 { bottom: 10%; left: 50%; animation: floatUp 3s infinite 1s linear; }
+.note.n3 { bottom: 15%; left: 80%; animation: floatUp 3.5s infinite 0.5s linear; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
 }
 
-.candle {
-  position: absolute;
-  width: 12px; /* Thicker candle */
-  height: 60px; /* Taller candle */
-  background-color: var(--primary-red);
-  bottom: 190px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px 5px 0 0;
-  box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+/* Step 5: Banners and Confetti */
+.banners {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.banner {
+    width: 120px;
+    height: 40px;
+    background: repeating-linear-gradient(
+        45deg,
+        #ffeb3b,
+        #ffeb3b 10px,
+        #f06292 10px,
+        #f06292 20px
+    );
+    clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+    animation: dropIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform-origin: top;
+    opacity: 0;
+}
+
+@keyframes dropIn {
+    0% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.confetti {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary-color);
+    animation: fall 5s infinite linear;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 1;}
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0;}
+}
+
+/* Step 6: Balloons */
+.floating-balloons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 60px;
+    height: 70px;
+    background-color: var(--primary-color);
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    animation: floatBalloon 6s infinite ease-in;
+    box-shadow: inset -10px -10px 15px rgba(0,0,0,0.1);
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid var(--primary-color);
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    width: 1px;
+    height: 50px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+@keyframes floatBalloon {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-120vh) rotate(15deg); }
+}
+
+/* Step 7: Cut Cake */
+.cake-area {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cake-wrapper {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    margin-top: 50px;
+}
+
+.cake-base {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 100px;
+}
+
+.cake-layer {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-color: #ffd54f; /* Yellow cake */
+    border-radius: 10px;
+    box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+}
+
+.cake-layer.bottom { bottom: 0; }
+.cake-layer.top { bottom: 40px; background-color: #ffca28; }
+
+.cake-icing {
+    position: absolute;
+    top: 10px;
+    width: 210px;
+    left: -5px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+
+.cake-candles {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 40px;
+    background: repeating-linear-gradient(45deg, #fff, #fff 5px, #f44336 5px, #f44336 10px);
+    border-radius: 3px;
 }
 
 .flame {
-  position: absolute;
-  width: 12px;
-  height: 18px; /* Taller flame */
-  background-color: var(--flame-color);
-  top: -18px;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  animation: flicker 1s infinite;
-  box-shadow:
-    0 0 8px var(--flame-color),
-    0 0 15px var(--flame-color),
-    0 0 25px var(--flame-color);
-  transition: all 0.2s ease-out; /* For hover effect */
-}
-
-/* Candle blow-out effect */
-.candle:hover .flame {
-  opacity: 0;
-  transform: scale(0.2) translateY(5px);
-  box-shadow: none;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 20px;
+    background-color: #ff9800;
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
+    animation: flicker 0.1s infinite alternate;
 }
 
 @keyframes flicker {
-  0%,
-  100% {
-    transform: scaleY(1) rotate(0deg);
-    opacity: 1;
-  }
-  25% {
-    transform: scaleY(0.9) rotate(2deg);
-    opacity: 0.9;
-  }
-  50% {
-    transform: scaleY(1.1) rotate(-2deg);
-    opacity: 1;
-  }
-  75% {
-    transform: scaleY(0.95) rotate(1deg);
-    opacity: 0.95;
-  }
+    0% { transform: translateX(-50%) scale(1); opacity: 1; }
+    100% { transform: translateX(-50%) scale(1.1) rotate(5deg); opacity: 0.9; }
+}
+
+.cut-path-container {
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.cut-dotted-line {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    width: 260px;
+    height: 0;
+    border-top: 4px dashed rgba(240, 98, 146, 0.6);
+    transform: rotate(10deg);
+    pointer-events: none;
+}
+
+.knife {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    font-size: 3rem;
+    cursor: grab;
+    user-select: none;
+    display: flex;
+    transform: rotate(-35deg);
+    transition: transform 0.1s;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+}
+
+.knife:active {
+    cursor: grabbing;
+}
+
+.knife-handle {
+    width: 20px;
+    height: 60px;
+    background: #333;
+    border-radius: 5px;
+}
+
+.knife-blade {
+    width: 20px;
+    height: 80px;
+    background: linear-gradient(to right, #ddd, #eee);
+    border-radius: 2px 2px 50% 2px;
+    margin-top: -20px;
+}
+
+/* Mask to reveal cut cake */
+.cake-cut-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color); /* Hide the cake partially when cut */
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+.cake-cut-active .cake-cut-mask {
+    opacity: 0;
+}
+.cake-cut-active .cake-wrapper {
+    transform: scale(1.05);
+    transition: transform 0.5s;
+}
+.cake-cut-active .cake-base {
+    clip-path: polygon(0 0, 45% 0, 55% 100%, 0 100%);
+    transition: clip-path 0.5s;
+}
+
+.hint-text {
+    position: absolute;
+    bottom: 100px;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Step 9: Cards */
+.cards-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 500px;
+}
+
+.wish-card {
+    width: 120px;
+    height: 160px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.wish-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.card-front {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+    font-size: 2.5rem;
+}
+
+.card-back {
+    background-color: white;
+    color: var(--primary-color);
+    transform: rotateY(180deg);
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+/* Step 10: Final */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    max-width: 90%;
+}
+
+.main-greeting {
+    font-size: 3rem;
+    color: var(--primary-hover);
+    margin: 10px 0;
+}
+
+.recipient-name {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.final-wish {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+.signature {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+/* Transitions for Steps */
+body.lights-off {
+    background-color: var(--dark-bg);
+}
+
+body.lights-on {
+    background-color: #fff9c4; /* Bright yellow */
+}
+
+body.mood-set {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
 }

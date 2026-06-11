@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Apology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="aesthetic-bg"></div>
+
+    <audio id="bgm" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="container">
+
+        <!-- Step 1: Landing (Sad Cat) -->
+        <section class="step active" id="step-landing">
+            <div class="card shadow-soft">
+                <img src="images/cat_sad.png" alt="Sad cat" class="hero-image">
+                <h1 class="font-fredoka" id="landing-question">Are you mad at me?</h1>
+                <p class="font-nunito text-muted" id="dynamic-name">Sapthesh</p>
+                <div class="btn-group">
+                    <button class="btn btn-yes" id="btn-mad-yes">Yes</button>
+                    <button class="btn btn-no" id="btn-mad-no">No</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 2: Runaway Button -->
+        <section class="step" id="step-runaway">
+            <div class="card shadow-soft relative-card">
+                <img src="images/cat_sad.png" alt="Pleading cat" class="hero-image pulse-anim">
+                <h2 class="font-fredoka" id="apology-question">Will you forgive me?</h2>
+                <div class="runaway-container">
+                    <button class="btn btn-yes" id="btn-forgive-yes">Yes</button>
+                    <button class="btn btn-no runaway-btn" id="btn-forgive-no">No</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 3: Apology Accepted (Happy Cat) -->
+        <section class="step" id="step-accepted">
+            <div class="card shadow-soft">
+                <img src="images/cat_happy.png" alt="Happy cat" class="hero-image bounce-anim">
+                <h1 class="font-fredoka text-pink">Yay! Thank you!</h1>
+                <p class="font-nunito mt-2">I promise to be better.</p>
+                <button class="btn btn-primary mt-4" id="btn-next-tictactoe">Play a game with me?</button>
+            </div>
+        </section>
+
+        <!-- Step 4: Tic-Tac-Toe -->
+        <section class="step" id="step-tictactoe">
+            <div class="card shadow-soft">
+                <h2 class="font-fredoka">Tic-Tac-Toe</h2>
+                <p class="font-nunito text-muted mb-4">You play as 💖. Try to win!</p>
+                <div class="board" id="tictactoe-board">
+                    <div class="cell" data-index="0"></div>
+                    <div class="cell" data-index="1"></div>
+                    <div class="cell" data-index="2"></div>
+                    <div class="cell" data-index="3"></div>
+                    <div class="cell" data-index="4"></div>
+                    <div class="cell" data-index="5"></div>
+                    <div class="cell" data-index="6"></div>
+                    <div class="cell" data-index="7"></div>
+                    <div class="cell" data-index="8"></div>
+                </div>
+                <div class="game-status font-nunito" id="game-status">Your turn!</div>
+                <button class="btn btn-primary mt-4 hidden" id="btn-next-slideshow">See Memories ✧</button>
+            </div>
+        </section>
+
+        <!-- Step 5: Slideshow -->
+        <section class="step" id="step-slideshow">
+            <div class="card shadow-soft slides-card">
+                <h2 class="font-fredoka mb-4">Our Memories</h2>
+                <div class="slider-container">
+                    <div class="polaroid slide active">
+                        <div class="polaroid-img" style="background-image: url('images/polaroid_1.png')"></div>
+                        <p class="font-nunito" id="caption-1">Memory 1</p>
+                    </div>
+                    <div class="polaroid slide">
+                        <div class="polaroid-img" style="background-image: url('images/polaroid_2.png')"></div>
+                        <p class="font-nunito" id="caption-2">Memory 2</p>
+                    </div>
+                    <div class="polaroid slide">
+                        <div class="polaroid-img" style="background-image: url('images/polaroid_3.png')"></div>
+                        <p class="font-nunito" id="caption-3">Memory 3</p>
+                    </div>
+                </div>
+                <div class="slide-nav mt-4">
+                    <button class="btn btn-icon" id="btn-prev-slide">←</button>
+                    <button class="btn btn-icon" id="btn-next-slide">→</button>
+                </div>
+                <button class="btn btn-primary mt-4 hidden" id="btn-next-music">Next ✧</button>
+            </div>
+        </section>
+
+        <!-- Step 6: Music Player -->
+        <section class="step" id="step-music">
+            <div class="card shadow-soft music-card">
+                <div class="music-cover" style="background-image: url('images/music_cover.png')">
+                    <div class="music-overlay"></div>
+                </div>
+                <h3 class="font-fredoka mt-4">A song for you</h3>
+                <div class="progress-bar mt-4"><div class="progress-fill" id="music-progress"></div></div>
+                <div class="music-controls mt-4">
+                    <button class="btn-icon-large" id="btn-play-song">▶</button>
+                </div>
+                <button class="btn btn-primary mt-4" id="btn-next-letter">Read My Letter ✧</button>
+            </div>
+        </section>
+
+        <!-- Step 7: Final Letter -->
+        <section class="step" id="step-letter">
+            <div class="letter-paper shadow-soft">
+                <div class="letter-content">
+                    <h2 class="font-fredoka text-pink">I am so sorry.</h2>
+                    <p class="font-nunito mt-4 letter-body" id="letter-message">
+                        I wanted to make this to show you how much I care. I promise to do better and make you smile more often. You mean the world to me.
+                    </p>
+                    <p class="font-fredoka signature mt-4" id="signature">- Yours always</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

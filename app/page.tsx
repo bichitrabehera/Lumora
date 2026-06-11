@@ -9,199 +9,233 @@ export default async function Home() {
   const data = await loadSiteData();
 
   return (
-    <main className="page-shell">
+    <main className="page-shell" style={{ position: "relative" }}>
+      <div className="announcement-bar">Try New "Birthday Template" now</div>
+      
       <section className="hero">
-        <div className="glow glow-a" />
-        <div className="glow glow-b" />
-
         {/* topbar */}
         <Topbar
-          logo={data.brand.logo}
+          logo="loveypage"
           brandName={data.brand.name}
           ghostHref="/editor"
-          ghostLabel="Create yours →"
+          ghostLabel="Login/Signup"
           authAction={<AuthAction />}
-          nav={
-            <>
-              <a href="#templates">Templates</a>
-              <a href="#how-it-works">How it works</a>
-              <a href="#pricing">Pricing</a>
-            </>
-          }
         />
 
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <span className="eyebrow fade-in-up">{data.hero.eyebrow}</span>
-            <h1 className="fade-in-up delay-100">{data.hero.title}</h1>
-            <p className="lead fade-in-up delay-200">{data.hero.lead}</p>
-            <div className="hero-actions fade-in-up delay-300">
-              <a className="primary-btn" href="#templates">
-                {data.hero.primaryCta}
-              </a>
-              <a className="secondary-btn" href="#how-it-works">
-                {data.hero.secondaryCta}
+        <div className="hero-grid" style={{ marginTop: "60px", alignItems: "flex-start" }}>
+          <div className="hero-copy" style={{ paddingTop: "40px" }}>
+            <h1 className="fade-in-up" style={{ color: "var(--rd-text)" }}>
+              The New Way<br/>to Celebrate<br/>Birthdays
+            </h1>
+            <p className="lead fade-in-up delay-100" style={{ fontSize: "1.2rem", marginTop: "24px" }}>
+              Pick a template, Fill in your story
+            </p>
+            <div className="hero-actions fade-in-up delay-200">
+              <a className="primary-btn" href="#templates" style={{ padding: "16px 32px", fontSize: "1.1rem" }}>
+                Create you Loveypage
               </a>
             </div>
           </div>
 
-          <div className="hero-card fade-in-up delay-300">
-            <div className="hero-card-top">
-              <span>Featured moment</span>
-              <span className="status-dot">Live preview</span>
+          <div className="fade-in-up delay-300" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{
+              width: "100%",
+              height: "400px",
+              background: "var(--surface)",
+              borderRadius: "24px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--text)",
+              fontSize: "1.2rem",
+              boxShadow: "0 8px 24px rgba(205, 90, 107, 0.15)",
+              border: "1px solid var(--line)"
+            }}>
+              preview here
             </div>
-            <div className="poster">
-              <div className="poster-orb poster-orb-one" />
-              <div className="poster-orb poster-orb-two" />
-              <div className="poster-note">
-                <p>
-                  For the one person who deserves something more thoughtful than
-                  a text.
-                </p>
-                <strong>Open when ready</strong>
-              </div>
-            </div>
-            <div className="hero-mini-grid">
-              {data.featureCards.map((card) => (
-                <div key={card.title}>
-                  <span>{card.label}</span>
-                  <strong>{card.title}</strong>
-                </div>
-              ))}
-            </div>
+            <span style={{ marginTop: "16px", color: "var(--text)", fontSize: "1.1rem" }}>cat</span>
           </div>
         </div>
       </section>
 
-      <section className="ticker" aria-label="Highlights">
-        <div className="ticker-track">
-          {data.highlights.concat(data.highlights).map((item, index) => (
-            <span key={`${item}-${index}`}>{item}</span>
-          ))}
-        </div>
-      </section>
-
-      <RevealOnScroll><section className="section" id="templates">
-        <div className="section-heading">
-          <span className="eyebrow">Templates</span>
-          <h2>Clean, emotional layouts that you can adapt to any occasion.</h2>
-          <p>
-            This is a full-stack rebuild with a shared data source, template
-            detail pages, and a backend lead form so the site behaves like a
-            real product instead of a static mockup.
-          </p>
-        </div>
-
-        <div className="template-grid">
-          {data.templates.map((template) => (
-            <article key={template.slug} className="template-card">
-              <div className="template-top">
-                <span>{template.category}</span>
-                <span>{template.price}</span>
-              </div>
-              <h3>{template.title}</h3>
-              <p>{template.description}</p>
-              <div className="template-actions">
-                <Link href={`/templates/${template.slug}`}>View details</Link>
-                <Link href={`/editor?template=${template.slug}`}>
-                  Use this style
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section></RevealOnScroll>
-
-      <RevealOnScroll><section className="section split-section" id="how-it-works">
-        <div className="section-heading narrow">
-          <span className="eyebrow">How it works</span>
-          <h2>
-            Simple enough for a one-time surprise, detailed enough to feel
-            custom.
+      <RevealOnScroll><section className="section" id="templates" style={{ marginTop: "40px" }}>
+        <div style={{ marginBottom: "32px", display: "flex", alignItems: "baseline", gap: "12px" }}>
+          <h2 style={{ 
+            color: "var(--rd-solid)", 
+            fontSize: "3rem",
+            margin: 0,
+            borderBottom: "4px double var(--rd-solid)",
+            paddingBottom: "4px"
+          }}>
+            Templates
           </h2>
-          <p>
-            The structure stays familiar: choose, personalize, preview, and
-            share. The styling makes it feel more editorial and less like a
-            generic card site.
-          </p>
+          <span style={{ color: "var(--text)", fontSize: "1.1rem" }}>cat</span>
         </div>
 
-        <div className="steps-grid">
-          {data.steps.map((step) => (
-            <div key={step.number} className="step-card">
-              <span className="step-number">{step.number}</span>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
-            </div>
+        <div className="template-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "24px",
+          alignItems: "start"
+        }}>
+          {data.templates.map((template, i) => (
+            <Link 
+              href={`/templates/${template.slug}`}
+              key={template.slug} 
+              className="template-card" 
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                minHeight: i % 2 === 0 ? "240px" : "300px", // Staggered masonry effect
+                marginTop: i === 1 ? "40px" : i === 4 ? "40px" : "0", // Offset middle column
+                textDecoration: "none"
+              }}
+            >
+              <h3 style={{ textAlign: "center", marginTop: "24px", fontSize: "1.4rem", color: "var(--rd-text)" }}>
+                {template.title}
+              </h3>
+              <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+                marginTop: "auto",
+                paddingTop: "24px"
+              }}>
+                <span style={{ color: "var(--rd-text)", fontWeight: 500 }}>Pricing</span>
+                <span style={{
+                  background: "var(--rd-solid)",
+                  color: "white",
+                  padding: "8px 20px",
+                  borderRadius: "8px",
+                  fontWeight: 600,
+                  fontSize: "0.9rem"
+                }}>
+                  Create
+                </span>
+              </div>
+            </Link>
           ))}
         </div>
       </section></RevealOnScroll>
 
-      <RevealOnScroll><section className="section" id="reviews">
-        <div className="section-heading">
-          <span className="eyebrow">Reviews</span>
-          <h2>People use it when they want the moment to land properly.</h2>
-          <p>
-            The goal is not just to look good. It is to make a shared link feel
-            like a real gesture.
-          </p>
+      <RevealOnScroll><section className="section" id="how-it-works" style={{ marginTop: "60px" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "48px" }}>
+          <h2 style={{ 
+            color: "var(--rd-solid)", 
+            fontSize: "3rem",
+            margin: 0,
+            borderBottom: "4px double var(--rd-solid)",
+            paddingBottom: "4px"
+          }}>
+            How it works
+          </h2>
         </div>
 
-        <div className="testimonial-grid">
-          {data.testimonials.map((item) => (
-            <blockquote key={item.name} className="testimonial-card">
-              <p>{item.quote}</p>
-              <footer>
-                <strong>{item.name}</strong>
-                <span>{item.tag}</span>
+        <div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", maxWidth: "900px", margin: "0 auto" }}>
+          {data.steps.map((step) => (
+            <div key={step.number} className="step-card" style={{ padding: "32px" }}>
+              <h3 style={{ margin: "0 0 16px 0", color: "var(--rd-solid)", fontSize: "1.3rem", textAlign: "left" }}>
+                {step.number}. {step.title}
+              </h3>
+              <p style={{ color: "var(--rd-text)", margin: 0, fontSize: "1.05rem" }}>{step.text}</p>
+            </div>
+          ))}
+        </div>
+        
+        <div style={{
+          marginTop: "60px",
+          borderBottom: "2px solid var(--rd-solid)",
+          paddingBottom: "12px",
+          textAlign: "center",
+          color: "var(--text)",
+          fontSize: "1.2rem",
+          maxWidth: "600px",
+          margin: "60px auto 0"
+        }}>
+          cat walking...
+        </div>
+      </section></RevealOnScroll>
+
+      <RevealOnScroll><section className="section" id="reviews" style={{ marginTop: "60px" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "48px" }}>
+          <h2 style={{ 
+            color: "var(--rd-solid)", 
+            fontSize: "3rem",
+            margin: 0,
+            borderBottom: "4px double var(--rd-solid)",
+            paddingBottom: "4px"
+          }}>
+            What people are saying about this ?
+          </h2>
+        </div>
+
+        <div className="testimonial-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "16px",
+          alignItems: "start"
+        }}>
+          {data.testimonials.concat(data.testimonials).slice(0, 8).map((item, i) => (
+            <blockquote 
+              key={`${item.name}-${i}`} 
+              className="testimonial-card"
+              style={{
+                background: "var(--rd-text)",
+                color: "white",
+                minHeight: "180px",
+                display: "flex",
+                flexDirection: "column",
+                border: "none",
+                marginTop: i % 2 !== 0 ? "40px" : "0" // Staggered masonry
+              }}
+            >
+              <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.95rem" }}>There Comments...</p>
+              <footer style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                <strong style={{ fontSize: "1.2rem", color: "white" }}>Name</strong>
+                <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.8)" }}>Template name</span>
               </footer>
             </blockquote>
           ))}
         </div>
       </section></RevealOnScroll>
 
-      <RevealOnScroll><section className="section feature-band">
-        <div>
-          <span className="eyebrow">Built for sharing</span>
-          <h2>Make it personal without touching code.</h2>
-        </div>
-        <div className="feature-list">
-          {data.templates.slice(0, 6).map((template) => (
-            <span key={template.slug}>{template.bestFor}</span>
-          ))}
-        </div>
-      </section></RevealOnScroll>
-
-      <RevealOnScroll><section className="section" id="faq">
-        <div className="section-heading">
-          <span className="eyebrow">FAQ</span>
-          <h2>
-            Questions people usually ask before they share a page like this.
+      <RevealOnScroll><section className="section" id="faq" style={{ marginTop: "80px", paddingBottom: "80px" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "48px" }}>
+          <h2 style={{ 
+            color: "var(--rd-solid)", 
+            fontSize: "2.5rem",
+            margin: 0,
+            borderBottom: "4px double var(--rd-solid)",
+            paddingBottom: "4px"
+          }}>
+            FAQ's
           </h2>
         </div>
 
-        <div className="faq-grid">
-          {data.faqs.map((faq) => (
-            <details key={faq.question} className="faq-card">
-              <summary>{faq.question}</summary>
-              <p>{faq.answer}</p>
+        <div className="faq-list" style={{ maxWidth: "800px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "16px" }}>
+          {data.faqs.map((faq, idx) => (
+            <details key={faq.question} className="faq-card" style={{
+              borderRadius: "999px",
+              padding: "16px 32px",
+              background: "var(--surface)",
+              border: "1px solid var(--line)"
+            }}>
+              <summary style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                fontWeight: 600,
+                color: "var(--rd-solid)",
+                fontSize: "1.1rem"
+              }}>
+                <span>{idx + 1}. {faq.question}</span>
+                <span style={{ fontSize: "1.4rem" }}>+</span>
+              </summary>
+              <p style={{ padding: "16px 0 0 24px", color: "var(--text)" }}>{faq.answer}</p>
             </details>
           ))}
         </div>
-      </section></RevealOnScroll>
-
-      <RevealOnScroll><section className="cta-panel">
-        <div>
-          <span className="eyebrow">Ready to launch</span>
-          <h2>Use this as the base for your own gift website brand.</h2>
-          <p>
-            Swap the copy, change the template grid, and connect your own
-            product or checkout flow when you are ready.
-          </p>
-        </div>
-        <Link className="primary-btn" href="/contact">
-          Start with a template
-        </Link>
       </section></RevealOnScroll>
     </main>
   );

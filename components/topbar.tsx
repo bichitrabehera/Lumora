@@ -10,10 +10,10 @@ type Props = {
 };
 
 export default function Topbar({
-  logo = "LL",
+  logo = "loveypage",
   brandName,
-  ghostHref = "/editor",
-  ghostLabel = "Create yours →",
+  ghostHref = "/auth",
+  ghostLabel = "Login/Signup",
   nav,
   authAction,
 }: Props) {
@@ -27,7 +27,6 @@ export default function Topbar({
           logo.endsWith(".png") ||
           logo.includes("/")) ? (
           // render an image when given a path
-          // Next's Image component can be used later if desired
           <img
             src={logo}
             alt={brandName ?? "logo"}
@@ -42,7 +41,7 @@ export default function Topbar({
             }}
           />
         ) : (
-          logo
+          <span>{logo}</span>
         )}
       </div>
 
@@ -50,15 +49,17 @@ export default function Topbar({
         <nav>
           <a href="#templates">Templates</a>
           <a href="#how-it-works">How it works</a>
-          <a href="#pricing">Pricing</a>
+          <a href="#contact">Contact</a>
         </nav>
       )}
 
-      {authAction}
+      <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+        {authAction}
 
-  <Link className="primary-btn" href={safeGhostHref as never}>
-        {ghostLabel}
-      </Link>
+        <Link className="primary-btn" href={safeGhostHref as never}>
+          {ghostLabel}
+        </Link>
+      </div>
     </header>
   );
 }

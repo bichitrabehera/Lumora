@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wish</title>
+    <!-- Pastel aesthetic fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background grid & aesthetic elements -->
+    <div class="bg-grid"></div>
+    <div class="aesthetic-bg-elements">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+        <div class="bg-blob blob-3"></div>
+    </div>
+
+    <audio id="bgm" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="container">
+        
+        <!-- Step 1: Envelope State -->
+        <section class="step active" id="step-envelope">
+            <div class="envelope-wrapper">
+                <div class="envelope" id="envelope-body">
+                    <div class="env-back"></div>
+                    <div class="env-letter">
+                        <div class="env-letter-content" id="envelope-text">A special note for you</div>
+                    </div>
+                    <div class="env-front"></div>
+                    <div class="env-flap"></div>
+                    <div class="env-seal" id="env-seal">
+                        <span class="seal-icon">✧</span>
+                    </div>
+                </div>
+            </div>
+            <p class="hint-text font-outfit">Click the seal to open</p>
+        </section>
+
+        <!-- Step 2: Music Player State -->
+        <section class="step" id="step-music">
+            <div class="music-card shadow-soft">
+                <div class="music-cover">
+                    <!-- Placeholder pastel gradient or SVG -->
+                    <div class="vinyl-record">
+                        <div class="vinyl-center"></div>
+                    </div>
+                </div>
+                <div class="music-info">
+                    <h2 class="font-playfair" id="music-greeting">Happy Birthday!</h2>
+                    <p class="font-outfit text-muted" id="dynamic-name">Sapthesh</p>
+                </div>
+                <div class="music-controls">
+                    <div class="progress-bar"><div class="progress-fill"></div></div>
+                    <div class="play-btn" id="btn-play-music">▶</div>
+                </div>
+            </div>
+            <button class="btn btn-aesthetic btn-float hidden" id="btn-next-music">Next ✧</button>
+        </section>
+
+        <!-- Step 3: Polaroid Slider -->
+        <section class="step" id="step-polaroid">
+            <h2 class="font-playfair step-title">Some Memories</h2>
+            <div class="slider-container">
+                <div class="slider-track" id="slider-track">
+                    <div class="polaroid-slide active">
+                        <div class="polaroid shadow-soft">
+                            <div class="polaroid-img img-1"></div>
+                            <p class="polaroid-caption font-playfair" id="caption-1">Memory 1</p>
+                        </div>
+                    </div>
+                    <div class="polaroid-slide">
+                        <div class="polaroid shadow-soft">
+                            <div class="polaroid-img img-2"></div>
+                            <p class="polaroid-caption font-playfair" id="caption-2">Memory 2</p>
+                        </div>
+                    </div>
+                    <div class="polaroid-slide">
+                        <div class="polaroid shadow-soft">
+                            <div class="polaroid-img img-3"></div>
+                            <p class="polaroid-caption font-playfair" id="caption-3">Memory 3</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-nav">
+                    <button class="btn-icon" id="btn-prev">←</button>
+                    <button class="btn-icon" id="btn-next">→</button>
+                </div>
+            </div>
+            <button class="btn btn-aesthetic btn-float" id="btn-next-polaroid">Next ✧</button>
+        </section>
+
+        <!-- Step 4: Flower Wishes -->
+        <section class="step" id="step-flowers">
+            <h2 class="font-playfair step-title">Pick a flower</h2>
+            <p class="font-outfit text-muted text-center mb-4">Click all of them to reveal your wishes.</p>
+            <div class="flowers-container">
+                <div class="flower-card" data-flipped="false">
+                    <div class="flower-inner">
+                        <div class="flower-front shadow-soft">🌸</div>
+                        <div class="flower-back shadow-soft font-outfit" id="wish-1">Joy</div>
+                    </div>
+                </div>
+                <div class="flower-card" data-flipped="false">
+                    <div class="flower-inner">
+                        <div class="flower-front shadow-soft">🌷</div>
+                        <div class="flower-back shadow-soft font-outfit" id="wish-2">Peace</div>
+                    </div>
+                </div>
+                <div class="flower-card" data-flipped="false">
+                    <div class="flower-inner">
+                        <div class="flower-front shadow-soft">🌻</div>
+                        <div class="flower-back shadow-soft font-outfit" id="wish-3">Love</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Auto transitions to next step once all 3 are flipped -->
+        </section>
+
+        <!-- Step 5: Final Letter -->
+        <section class="step" id="step-letter">
+            <div class="notebook-paper shadow-soft">
+                <div class="paper-lines"></div>
+                <div class="letter-content">
+                    <h2 class="font-playfair letter-title">Happy Birthday!</h2>
+                    <p class="font-outfit letter-body" id="letter-message">
+                        Wishing you the happiest of birthdays! May this year bring you closer to your dreams, surround you with love, and give you countless reasons to smile.
+                    </p>
+                    <p class="font-playfair signature" id="signature">- Yours</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
