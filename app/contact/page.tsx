@@ -20,8 +20,6 @@ export default async function ContactPage({
       <Topbar
         logo={data.brand.logo}
         brandName={data.brand.name}
-        ghostHref="/templates"
-        ghostLabel="Browse templates"
         nav={
           <>
             <Link href="/">Home</Link>
