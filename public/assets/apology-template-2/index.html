@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Special Apology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Petals animation background -->
+    <div class="petals-container" id="petals-container"></div>
+
+    <div id="container">
+        
+        <!-- Step 1: Landing -->
+        <section class="step active" id="step-landing">
+            <div class="retro-window">
+                <div class="retro-titlebar">
+                    <span>Message.exe</span>
+                    <div class="retro-controls">
+                        <span class="btn-min">_</span>
+                        <span class="btn-max">□</span>
+                        <span class="btn-close">x</span>
+                    </div>
+                </div>
+                <div class="retro-content">
+                    <img src="images/cat_glasses.png" alt="Cute cat" class="sticker bounce-anim">
+                    <h1 class="font-pixel mt-4">Hey <span id="dynamic-name">You</span> 💕</h1>
+                    <p class="font-pixel text-muted mt-2">I have something to say...</p>
+                    <button class="btn-retro mt-4" id="btn-open-envelope">Open This 💖</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 2: Envelope & Letter -->
+        <section class="step" id="step-envelope">
+            <div class="retro-window">
+                <div class="retro-titlebar">
+                    <span>Letter.exe</span>
+                    <div class="retro-controls">
+                        <span class="btn-min">_</span><span class="btn-max">□</span><span class="btn-close">x</span>
+                    </div>
+                </div>
+                <div class="retro-content envelope-container">
+                    <div class="envelope-wrapper" id="envelope-wrapper">
+                        <div class="envelope" id="envelope-body">
+                            <div class="env-back"></div>
+                            <div class="env-letter shadow-soft">
+                                <p class="font-caveat" id="envelope-text">I am really sorry... please read my apology.</p>
+                                <button class="btn-retro-small mt-4" id="btn-next-music">Next ✧</button>
+                            </div>
+                            <div class="env-front"></div>
+                            <div class="env-flap"></div>
+                            <div class="env-seal" id="env-seal">Open</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 3: Music Player -->
+        <section class="step" id="step-music">
+            <div class="retro-window">
+                <div class="retro-titlebar">
+                    <span>Cassette.exe</span>
+                    <div class="retro-controls">
+                        <span class="btn-min">_</span><span class="btn-max">□</span><span class="btn-close">x</span>
+                    </div>
+                </div>
+                <div class="retro-content">
+                    <h2 class="font-pixel mb-4 text-pink">Our Songs 🎵</h2>
+                    
+                    <div class="cassette-tape shadow-soft" data-song="song1.mp3">
+                        <div class="tape-label">
+                            <span class="font-caveat">Track 1 - Sorry</span>
+                        </div>
+                        <div class="tape-wheels">
+                            <div class="wheel wheel-left"></div>
+                            <div class="wheel wheel-right"></div>
+                        </div>
+                        <button class="btn-play-tape">▶</button>
+                    </div>
+
+                    <div class="cassette-tape shadow-soft mt-4" data-song="song2.mp3">
+                        <div class="tape-label">
+                            <span class="font-caveat">Track 2 - Miss You</span>
+                        </div>
+                        <div class="tape-wheels">
+                            <div class="wheel wheel-left"></div>
+                            <div class="wheel wheel-right"></div>
+                        </div>
+                        <button class="btn-play-tape">▶</button>
+                    </div>
+
+                    <button class="btn-retro mt-4" id="btn-next-flip">Next ✧</button>
+                </div>
+            </div>
+            <!-- Audio elements -->
+            <audio id="audio1"><source src="song1.mp3" type="audio/mpeg"></audio>
+            <audio id="audio2"><source src="song2.mp3" type="audio/mpeg"></audio>
+        </section>
+
+        <!-- Step 4: Flip Cards -->
+        <section class="step" id="step-flip">
+            <div class="retro-window">
+                <div class="retro-titlebar">
+                    <span>Memories.exe</span>
+                    <div class="retro-controls">
+                        <span class="btn-min">_</span><span class="btn-max">□</span><span class="btn-close">x</span>
+                    </div>
+                </div>
+                <div class="retro-content flip-grid">
+                    
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front shadow-soft">
+                                <img src="images/cat_pineapple.png" class="sticker-small" alt="cat">
+                                <p class="font-caveat mt-4" id="flip-prompt-1">Tap to flip</p>
+                            </div>
+                            <div class="flip-card-back shadow-soft" style="background-image: url('images/photo_1.png')">
+                                <div class="card-overlay font-caveat" id="flip-msg-1">I remember this day...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card mt-4">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front shadow-soft">
+                                <img src="images/cat_flower.png" class="sticker-small" alt="cat">
+                                <p class="font-caveat mt-4" id="flip-prompt-2">Tap to flip</p>
+                            </div>
+                            <div class="flip-card-back shadow-soft" style="background-image: url('images/photo_2.png')">
+                                <div class="card-overlay font-caveat" id="flip-msg-2">You are my favorite.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card mt-4">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front shadow-soft">
+                                <img src="images/cat_glasses.png" class="sticker-small" alt="cat">
+                                <p class="font-caveat mt-4" id="flip-prompt-3">Tap to flip</p>
+                            </div>
+                            <div class="flip-card-back shadow-soft" style="background-image: url('images/photo_3.png')">
+                                <div class="card-overlay font-caveat" id="flip-msg-3">I love you!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-retro mt-4" id="btn-next-final">Read Letter 💌</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 5: Final Letter -->
+        <section class="step" id="step-final">
+            <div class="pink-card shadow-soft">
+                <img src="images/cat_flower.png" alt="Love cat" class="hero-image bounce-anim">
+                <h1 class="font-caveat text-white mt-4">For my love ✦</h1>
+                <p class="font-caveat text-white letter-body mt-4" id="final-letter-message">
+                    Thank you for being mine. I am truly sorry for my mistakes and I promise to be the best for you. Let's make more happy memories.
+                </p>
+                <button class="btn-retro-white mt-4" id="btn-restart">Restart ↺</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

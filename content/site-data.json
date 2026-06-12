@@ -642,6 +642,195 @@
         "js": "/assets/apology-template-1/script.js",
         "sample_audio": "/assets/apology-template-1/song.mp3"
       }
+    },
+    {
+      "slug": "apology-template-2",
+      "title": "Special Apology",
+      "category": "Apology",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          {
+            "key": "page_title",
+            "type": "text",
+            "label": "Browser title"
+          },
+          {
+            "key": "recipient_name",
+            "type": "text",
+            "label": "Recipient Name"
+          },
+          {
+            "key": "envelope_text",
+            "type": "textarea",
+            "label": "Envelope Letter Text"
+          },
+          {
+            "key": "flip_prompt_1",
+            "type": "text",
+            "label": "Card 1 Prompt"
+          },
+          {
+            "key": "flip_message_1",
+            "type": "textarea",
+            "label": "Card 1 Message"
+          },
+          {
+            "key": "flip_prompt_2",
+            "type": "text",
+            "label": "Card 2 Prompt"
+          },
+          {
+            "key": "flip_message_2",
+            "type": "textarea",
+            "label": "Card 2 Message"
+          },
+          {
+            "key": "flip_prompt_3",
+            "type": "text",
+            "label": "Card 3 Prompt"
+          },
+          {
+            "key": "flip_message_3",
+            "type": "textarea",
+            "label": "Card 3 Message"
+          },
+          {
+            "key": "final_letter_message",
+            "type": "textarea",
+            "label": "Final Love Letter"
+          }
+        ]
+      },
+      "description": "Retro 90s OS aesthetic apology template with cassette tapes and flip cards.",
+      "summary": "A nostalgic and interactive apology template with flip-to-reveal memories.",
+      "bestFor": "Special apologies",
+      "features": ["Retro OS UI", "Interactive Envelope", "Cassette Tapes", "Flip Cards"],
+      "sections": ["Landing", "Envelope", "Music", "Flip Cards", "Final Letter"],
+      "accent": "Light Green",
+      "assets": {
+        "bundle": "/assets/apology-template-2/index.html",
+        "css": "/assets/apology-template-2/style.css",
+        "js": "/assets/apology-template-2/script.js",
+        "sample_audio": "/assets/apology-template-2/song1.mp3"
+      }
+    },
+    {
+      "slug": "apology-template-3",
+      "title": "Sorry Petals",
+      "category": "Apology",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          {
+            "key": "page_title",
+            "type": "text",
+            "label": "Browser title"
+          },
+          {
+            "key": "recipient_name",
+            "type": "text",
+            "label": "Recipient Name"
+          },
+          {
+            "key": "puzzle_message",
+            "type": "text",
+            "label": "Message after puzzle"
+          },
+          {
+            "key": "petal_prompt_1",
+            "type": "text",
+            "label": "Petal 1 Prompt"
+          },
+          {
+            "key": "petal_message_1",
+            "type": "textarea",
+            "label": "Petal 1 Message"
+          },
+          {
+            "key": "petal_prompt_2",
+            "type": "text",
+            "label": "Petal 2 Prompt"
+          },
+          {
+            "key": "petal_message_2",
+            "type": "textarea",
+            "label": "Petal 2 Message"
+          },
+          {
+            "key": "petal_prompt_3",
+            "type": "text",
+            "label": "Petal 3 Prompt"
+          },
+          {
+            "key": "petal_message_3",
+            "type": "textarea",
+            "label": "Petal 3 Message"
+          },
+          {
+            "key": "final_letter_message",
+            "type": "textarea",
+            "label": "Final Letter"
+          }
+        ]
+      },
+      "description": "Soft floral aesthetic apology template with interactive petals and a heart puzzle.",
+      "summary": "A beautiful delicate template allowing the recipient to pluck petals to read your apology.",
+      "bestFor": "Soft and sweet apologies",
+      "features": ["Heart Puzzle", "Interactive Petals", "Floral Design", "Soft Animations"],
+      "sections": ["Puzzle", "Transition", "Petals", "Final Letter"],
+      "accent": "Pastel Peach",
+      "assets": {
+        "bundle": "/assets/apology-template-3/index.html",
+        "css": "/assets/apology-template-3/style.css",
+        "js": "/assets/apology-template-3/script.js"
+      }
+    },
+    {
+      "slug": "love-template-1",
+      "title": "A Little Bouquet",
+      "category": "Love",
+      "price": "Free",
+      "schema": {
+        "fields": [
+          {
+            "key": "page_title",
+            "type": "text",
+            "label": "Browser title"
+          },
+          {
+            "key": "recipient_name",
+            "type": "text",
+            "label": "Recipient Name"
+          },
+          {
+            "key": "hero_title",
+            "type": "text",
+            "label": "Hero Title"
+          },
+          {
+            "key": "button_text",
+            "type": "text",
+            "label": "Button Text"
+          },
+          {
+            "key": "final_letter_message",
+            "type": "textarea",
+            "label": "Final Letter Message"
+          }
+        ]
+      },
+      "description": "Minimalist elegant pastel template featuring floral bouquet illustrations.",
+      "summary": "A soft and elegant two-page template for sending a sweet floral message.",
+      "bestFor": "Sweet messages and thinking of you",
+      "features": ["Elegant Typography", "Pastel Colors", "Cross-fade Transitions", "Floral Illustrations"],
+      "sections": ["Landing", "Bouquet"],
+      "accent": "Pastel Pink",
+      "assets": {
+        "bundle": "/assets/love-template-1/index.html",
+        "css": "/assets/love-template-1/style.css",
+        "js": "/assets/love-template-1/script.js"
+      }
     }
   ],
   "steps": [

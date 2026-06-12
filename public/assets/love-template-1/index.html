@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">A Little Bouquet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <ul class="nav-links">
+            <li><a href="#" class="nav-link active" data-target="step-home">Home</a></li>
+            <li><a href="#" class="nav-link" data-target="step-bouquet">Bouquet</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        
+        <!-- Step 1: Home -->
+        <section class="step active" id="step-home">
+            <div class="home-content">
+                <h1 class="font-serif text-dark-brown hero-title" id="hero-title">A Little Bouquet,<br>A Lot of Love</h1>
+                <div class="hero-image-wrapper mt-4">
+                    <img src="images/hands_bouquet.png" alt="Hands holding bouquet" class="hero-image">
+                </div>
+                <button class="btn-elegant mt-4" id="btn-tap-here">tap here</button>
+            </div>
+        </section>
+
+        <!-- Step 2: Bouquet Letter -->
+        <section class="step" id="step-bouquet">
+            <div class="bouquet-card shadow-soft">
+                <h2 class="font-serif text-dark-brown mb-4 text-center">For <span id="dynamic-name">You</span></h2>
+                <div class="bouquet-image-wrapper mb-4">
+                    <img src="images/floral_bouquet.png" alt="Floral Bouquet" class="bouquet-image float-anim">
+                </div>
+                <p class="font-serif letter-text text-dark-brown" id="final-letter-message">
+                    Just wanted to send some flowers your way to remind you how much you mean to me. Have a wonderful day!
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

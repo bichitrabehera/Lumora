@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Sorry Petals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="aesthetic-bg"></div>
+
+    <div id="container">
+        
+        <!-- Step 1: Puzzle -->
+        <section class="step active" id="step-puzzle">
+            <div class="card shadow-soft">
+                <p class="font-serif italic text-muted">Fill the heart to continue ♡</p>
+                
+                <div class="puzzle-grid mt-4" id="puzzle-grid">
+                    <div class="puzzle-cell filled">♡</div>
+                    <div class="puzzle-cell filled">♡</div>
+                    <div class="puzzle-cell filled">♡</div>
+                    <div class="puzzle-cell filled">♡</div>
+                    <div class="puzzle-cell empty" id="target-cell"></div>
+                    <div class="puzzle-cell filled">♡</div>
+                    <div class="puzzle-cell"></div>
+                    <div class="puzzle-cell filled">♡</div>
+                    <div class="puzzle-cell"></div>
+                </div>
+
+                <button class="btn-floral mt-4 hidden" id="btn-next-transition">Next ✿</button>
+            </div>
+        </section>
+
+        <!-- Step 2: Transition Message -->
+        <section class="step" id="step-transition">
+            <div class="card shadow-soft text-center">
+                <img src="images/sticker_apology.png" alt="Sorry" class="hero-image float-anim">
+                <h1 class="font-serif mt-4 text-peach" id="puzzle-message">Just thinking of you</h1>
+                <p class="font-serif italic text-muted mt-2">I have something to say...</p>
+                <button class="btn-floral mt-4" id="btn-next-petals">See the petals →</button>
+            </div>
+        </section>
+
+        <!-- Step 3: Interactive Petals -->
+        <section class="step" id="step-petals">
+            <div class="card shadow-soft w-full">
+                <h2 class="font-serif text-peach mb-4 text-center">Three favourite things ✿</h2>
+                <p class="font-serif italic text-muted text-center mb-4">Tap the petals to reveal</p>
+
+                <div class="petals-container">
+                    
+                    <!-- Petal 1 -->
+                    <div class="petal-wrapper" id="petal-1">
+                        <div class="petal-front shadow-soft">
+                            <img src="images/petal_pink.png" alt="Pink Petal">
+                            <span class="font-serif prompt-text" id="petal-prompt-1">Your Smile</span>
+                        </div>
+                        <div class="petal-back font-serif shadow-soft hidden" id="petal-message-1">
+                            I love the way your smile lights up my whole world.
+                        </div>
+                    </div>
+
+                    <!-- Petal 2 -->
+                    <div class="petal-wrapper" id="petal-2">
+                        <div class="petal-front shadow-soft">
+                            <img src="images/petal_yellow.png" alt="Yellow Petal">
+                            <span class="font-serif prompt-text" id="petal-prompt-2">Your Laugh</span>
+                        </div>
+                        <div class="petal-back font-serif shadow-soft hidden" id="petal-message-2">
+                            Hearing you laugh is my absolute favorite sound.
+                        </div>
+                    </div>
+
+                    <!-- Petal 3 -->
+                    <div class="petal-wrapper" id="petal-3">
+                        <div class="petal-front shadow-soft">
+                            <img src="images/petal_white.png" alt="White Petal">
+                            <span class="font-serif prompt-text" id="petal-prompt-3">Your Kindness</span>
+                        </div>
+                        <div class="petal-back font-serif shadow-soft hidden" id="petal-message-3">
+                            You have the most beautiful heart I've ever known.
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="btn-floral hidden" id="btn-next-letter">Read my note ✉</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 4: Final Letter -->
+        <section class="step" id="step-letter">
+            <div class="letter-card shadow-soft">
+                <div class="letter-header">
+                    <span class="font-serif italic text-muted">A little note for you</span>
+                    <span class="font-serif text-peach">✿</span>
+                </div>
+                <h1 class="font-serif mt-4">My dearest <span id="dynamic-name">Love</span>,</h1>
+                <p class="font-serif letter-body mt-4 text-muted" id="final-letter-message">
+                    I'm so sorry for everything. I never meant to hurt you. You are my absolute everything and I promise to do better.
+                </p>
+                <div class="letter-footer mt-4">
+                    <button class="btn-outline-floral" id="btn-restart">Restart ♡</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
