@@ -2,6 +2,7 @@
 import React, { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getBackendBaseUrl } from "@/lib/api";
+import Link from "next/link";
 
 export default function RegisterPage() {
   return (
@@ -33,23 +34,84 @@ function RegisterForm() {
   }
 
   return (
-    <main style={{ padding: 24 }}>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label>Email</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
+    <main style={{ 
+      display: "flex", 
+      alignItems: "center", 
+      justifyContent: "center", 
+      minHeight: "80vh",
+      padding: "24px",
+      position: "relative"
+    }}>
+      <div className="glow glow-a" style={{ top: "10%", left: "15%" }}></div>
+      <div className="glow glow-b" style={{ bottom: "10%", right: "15%" }}></div>
+
+      <div style={{
+        width: "100%",
+        maxWidth: "400px",
+        background: "var(--surface)",
+        borderRadius: "28px",
+        padding: "36px",
+        boxShadow: "var(--shadow)",
+        border: "1px solid var(--line)",
+        position: "relative",
+        zIndex: 2
+      }}>
+        <h2 style={{ 
+          fontSize: "2.2rem", 
+          color: "var(--accent)", 
+          textAlign: "center", 
+          marginBottom: "10px",
+          fontWeight: 700
+        }}>
+          Create Account
+        </h2>
+        <p style={{ 
+          textAlign: "center", 
+          color: "var(--muted)", 
+          marginBottom: "28px",
+          fontSize: "0.95rem"
+        }}>
+          Start building personal interactive surprise pages
+        </p>
+
+        <form onSubmit={handleRegister} style={{ display: "grid", gap: "20px" }}>
+          <div className="field">
+            <span>Email Address</span>
+            <input 
+              type="email"
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              placeholder="name@example.com"
+              required
+            />
+          </div>
+          <div className="field">
+            <span>Password</span>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Min. 8 characters"
+              required
+            />
+          </div>
+          <button type="submit" className="primary-btn" style={{ width: "100%", padding: "14px 20px", marginTop: "10px" }}>
+            Sign Up
+          </button>
+        </form>
+
+        <p style={{ 
+          marginTop: "24px", 
+          textAlign: "center", 
+          fontSize: "0.9rem", 
+          color: "var(--muted)" 
+        }}>
+          Already have an account?{" "}
+          <Link href={`/auth/login?next=${encodeURIComponent(next)}`} style={{ color: "var(--accent)", fontWeight: 600 }}>
+            Log in
+          </Link>
+        </p>
+      </div>
     </main>
   );
 }

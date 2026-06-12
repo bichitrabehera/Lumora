@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnForgiveNo = document.getElementById('btn-forgive-no');
 
     // Runaway logic
-    btnForgiveNo.addEventListener('mouseover', () => {
+    function runaway() {
         const x = Math.random() * (window.innerWidth - btnForgiveNo.offsetWidth - 50);
         const y = Math.random() * (window.innerHeight - btnForgiveNo.offsetHeight - 50);
         
@@ -62,6 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
         btnForgiveNo.style.left = `${x}px`;
         btnForgiveNo.style.top = `${y}px`;
         btnForgiveNo.style.zIndex = "1000";
+    }
+
+    btnForgiveNo.addEventListener('mouseover', runaway);
+    btnForgiveNo.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        runaway();
     });
 
     btnForgiveYes.addEventListener('click', () => {

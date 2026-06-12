@@ -68,11 +68,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Envelope
     const envelopeWrapper = document.getElementById('envelope-wrapper');
     const envelopeBody = document.getElementById('envelope-body');
-    envelopeWrapper.addEventListener('click', () => {
+    const envelopeSeal = document.getElementById('env-seal');
+
+    function openEnvelope() {
         if(!envelopeBody.classList.contains('open')){
             envelopeBody.classList.add('open');
         }
-    });
+    }
+
+    envelopeWrapper.addEventListener('click', openEnvelope);
+    if (envelopeSeal) {
+        envelopeSeal.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEnvelope();
+        });
+    }
     document.getElementById('btn-next-music').addEventListener('click', (e) => {
         e.stopPropagation();
         goToStep(2);

@@ -12,8 +12,6 @@ export default async function TemplatesPage() {
       <Topbar
         logo={data.brand.logo}
         brandName={data.brand.name}
-        ghostHref="/contact"
-        ghostLabel="Request a page"
         nav={
           <>
             <Link href="/">Home</Link>

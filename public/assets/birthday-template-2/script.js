@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const seal = document.getElementById('env-seal');
     const envelopeWrapper = document.querySelector('.envelope-wrapper');
     
-    function openEnvelope() {
+    function openEnvelope(e) {
+        if (e) e.stopPropagation();
         if (envelope.classList.contains('open')) return;
         console.log('Envelope clicked!');
         envelope.classList.add('open');

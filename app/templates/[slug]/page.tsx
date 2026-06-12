@@ -70,8 +70,6 @@ export default async function TemplateDetailPage({
       <Topbar
         logo={siteData.brand.logo}
         brandName={siteData.brand.name}
-        ghostHref={`/contact?template=${template.slug}`}
-        ghostLabel="Launch this page"
         nav={
           <>
             <Link href="/">Home</Link>
@@ -146,7 +144,7 @@ export default async function TemplateDetailPage({
         </div>
         <a
           className="primary-btn"
-          href={`/templates/${template.slug}`}
+          href={(template as any).assets?.bundle ?? `/assets/${template.slug}/index.html`}
           target="_blank"
           rel="noreferrer"
         >

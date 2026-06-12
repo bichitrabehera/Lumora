@@ -504,9 +504,9 @@ export default function Editor({ initial }: { initial?: any }) {
 
   return (
     <div className="editor">
-      <div style={{ display: "flex", gap: 24 }}>
-        <div style={{ flex: 1 }}>
-          <h3>Fields</h3>
+      <div className="editor-container">
+        <div className="editor-sidebar">
+          <h3 style={{ margin: "0 0 20px 0", color: "var(--accent)" }}>Fields</h3>
           {(
             templateDef?.fields ?? [
               { key: "title", type: "text", label: "Title" },
@@ -514,8 +514,8 @@ export default function Editor({ initial }: { initial?: any }) {
               { key: "image_url", type: "image", label: "Hero image" },
             ]
           ).map((f: any) => (
-            <div key={f.key} style={{ marginBottom: 12 }}>
-              <label>{f.label || f.key}</label>
+            <div key={f.key} className="field" style={{ marginBottom: 18 }}>
+              <span>{f.label || f.key}</span>
               {f.type === "textarea" ? (
                 <textarea
                   value={fields[f.key] ?? ""}
@@ -629,8 +629,10 @@ export default function Editor({ initial }: { initial?: any }) {
                       alignItems: "center",
                     }}
                   >
-                    <label>{f.label || f.key}</label>
+                    <span style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" }}>{f.label || f.key}</span>
                     <button
+                      className="secondary-btn"
+                      style={{ padding: "6px 14px", fontSize: "0.85rem" }}
                       onClick={() =>
                         setFields((s) => ({
                           ...s,
@@ -726,8 +728,10 @@ export default function Editor({ initial }: { initial?: any }) {
                             )}
                           </div>
                         ))}
-                        <div style={{ display: "flex", gap: 8 }}>
+                        <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
                           <button
+                            className="ghost-btn"
+                            style={{ padding: "6px 12px", fontSize: "0.8rem", color: "var(--accent)", borderColor: "var(--line)" }}
                             onClick={() =>
                               setFields((s) => {
                                 const arr = Array.isArray(s[f.key])
@@ -770,8 +774,8 @@ export default function Editor({ initial }: { initial?: any }) {
             </div>
           ))}
 
-          <div style={{ marginBottom: 12 }}>
-            <label>Desired page URL</label>
+          <div className="field" style={{ marginBottom: 18 }}>
+            <span>Desired page URL</span>
             <input
               value={fields.requested_slug ?? ""}
               placeholder="my-special-page"
@@ -788,11 +792,11 @@ export default function Editor({ initial }: { initial?: any }) {
             </p>
           </div>
 
-          <div style={{ marginTop: 12 }}>
-            <button onClick={handleSave} disabled={saving}>
+          <div style={{ marginTop: 18, display: "flex", gap: 12 }}>
+            <button className="secondary-btn" onClick={handleSave} disabled={saving}>
               {saving ? "Saving..." : "Save"}
             </button>
-            <button onClick={handlePayAndPublish} style={{ marginLeft: 8 }}>
+            <button className="primary-btn" onClick={handlePayAndPublish}>
               {isFreeTemplate ? "Claim for free" : "Pay & Publish"}
             </button>
           </div>
@@ -836,7 +840,7 @@ export default function Editor({ initial }: { initial?: any }) {
           )}
         </div>
 
-        <div style={{ flex: 1, borderLeft: "1px solid #eee", paddingLeft: 24 }}>
+        <div className="editor-preview-panel">
           <div
             style={{
               display: "flex",
@@ -844,10 +848,11 @@ export default function Editor({ initial }: { initial?: any }) {
               justifyContent: "space-between",
               gap: 12,
               flexWrap: "wrap",
+              marginBottom: 16,
             }}
           >
-            <h3 style={{ margin: 0 }}>Live Preview</h3>
-            <button onClick={handleOpenLivePreview} disabled={!templateSlug}>
+            <h3 style={{ margin: 0, color: "var(--accent)" }}>Live Preview</h3>
+            <button className="primary-btn" style={{ padding: "8px 16px", fontSize: "0.85rem" }} onClick={handleOpenLivePreview} disabled={!templateSlug}>
               Open live preview in new tab
             </button>
           </div>
