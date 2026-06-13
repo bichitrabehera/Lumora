@@ -83,42 +83,68 @@ export default async function Home() {
 
           <div className="template-grid" style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "24px",
-            alignItems: "start"
+            gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
+            gap: "32px",
+            alignItems: "stretch"
           }}>
-            {data.templates.map((template, i) => (
+            {data.templates.map((template) => (
               <Link 
-                href={`/templates/${template.slug}`}
+                href={`/editor?template=${template.slug}`}
                 key={template.slug} 
                 className="template-card" 
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "space-between",
-                  minHeight: i % 2 === 0 ? "240px" : "300px", // Staggered masonry effect
-                  marginTop: i === 1 ? "40px" : i === 4 ? "40px" : "0", // Offset middle column
-                  textDecoration: "none"
+                  padding: "24px",
+                  borderRadius: "28px",
+                  border: "1px solid var(--line)",
+                  background: "var(--surface)",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.02)",
+                  textDecoration: "none",
+                  transition: "transform 0.25s ease, box-shadow 0.25s ease"
                 }}
               >
-                <h3 style={{ textAlign: "center", marginTop: "24px", fontSize: "1.4rem", color: "var(--text)" }}>
+                <div style={{
+                  width: "100%",
+                  height: "220px",
+                  overflow: "hidden",
+                  borderRadius: "20px",
+                  marginBottom: "20px",
+                  border: "1px solid rgba(0,0,0,0.04)",
+                  background: "#fafafa"
+                }}>
+                  <img
+                    src={`/assets/generated/${template.slug}.png`}
+                    alt={template.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover"
+                    }}
+                  />
+                </div>
+                <h3 style={{ margin: "0 0 8px 0", fontSize: "1.45rem", color: "var(--text)", fontWeight: 700 }}>
                   {template.title}
                 </h3>
+                <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.55, margin: "0 0 24px 0" }}>
+                  {template.summary || template.description}
+                </p>
                 <div style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "flex-end",
+                  alignItems: "center",
                   marginTop: "auto",
-                  paddingTop: "24px"
+                  paddingTop: "20px",
+                  borderTop: "1px solid var(--line)"
                 }}>
-                  <span style={{ color: "var(--text)", fontWeight: 500 }}>{template.price}</span>
+                  <span style={{ color: "var(--text)", fontWeight: 600, fontSize: "1.05rem" }}>{template.price}</span>
                   <span style={{
                     background: "var(--accent)",
                     color: "white",
-                    padding: "8px 20px",
-                    borderRadius: "8px",
+                    padding: "10px 24px",
+                    borderRadius: "14px",
                     fontWeight: 600,
-                    fontSize: "0.9rem"
+                    fontSize: "0.95rem"
                   }}>
                     Create
                   </span>
@@ -154,23 +180,18 @@ export default async function Home() {
             ))}
           </div>
           
-          {/* Animated Walking Cat SVG */}
+          {/* Animated Walking Cat */}
           <div className="cat-container">
             <div className="cat-wrapper">
-              <svg viewBox="0 0 100 60" width="80" height="48">
-                <path d="M15,30 Q5,15 12,8 Q18,8 18,18 Z" fill="var(--accent)" className="cat-tail" />
-                <rect x="15" y="18" width="50" height="25" rx="10" fill="var(--accent)" />
-                <circle cx="70" cy="22" r="14" fill="var(--accent)" />
-                <polygon points="60,12 66,2 70,10" fill="var(--accent)" />
-                <polygon points="74,10 78,2 84,12" fill="var(--accent)" />
-                <circle cx="67" cy="20" r="2" fill="white" />
-                <circle cx="73" cy="20" r="2" fill="white" />
-                <polygon points="70,23 68,25 72,25" fill="#ffa7c4" />
-                <rect x="22" y="40" width="6" height="12" rx="3" fill="var(--accent)" className="cat-leg leg-1" />
-                <rect x="34" y="40" width="6" height="12" rx="3" fill="var(--accent)" className="cat-leg leg-2" />
-                <rect x="46" y="40" width="6" height="12" rx="3" fill="var(--accent)" className="cat-leg leg-3" />
-                <rect x="56" y="40" width="6" height="12" rx="3" fill="var(--accent)" className="cat-leg leg-4" />
-              </svg>
+              <img
+                src="/assets/generated/cat.gif"
+                alt="Cute walking cat"
+                style={{
+                  height: "92px",
+                  display: "block",
+                  imageRendering: "pixelated"
+                }}
+              />
             </div>
           </div>
         </section>

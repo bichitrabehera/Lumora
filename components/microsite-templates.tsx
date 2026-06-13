@@ -6,9 +6,11 @@ import type { Template } from "@/lib/site-data";
 function TemplateFrame({
   template,
   values,
+  fullSize = false,
 }: {
   template: Template;
   values: Record<string, any>;
+  fullSize?: boolean;
 }) {
   const frameRef = useRef<HTMLIFrameElement | null>(null);
   // use the bundle from template.assets if available, otherwise default fallback
@@ -26,12 +28,14 @@ function TemplateFrame({
     );
   }, [values]);
 
+  const heightVal = fullSize ? "100vh" : "760px";
+
   return (
     <div
       style={{
         width: "100%",
-        height: "760px",
-        minHeight: "760px",
+        height: heightVal,
+        minHeight: heightVal,
         background: "white",
         overflow: "hidden",
       }}
@@ -51,8 +55,8 @@ function TemplateFrame({
         }}
         style={{
           width: "100%",
-          height: "760px",
-          minHeight: "760px",
+          height: heightVal,
+          minHeight: heightVal,
           border: "none",
           display: "block",
         }}
@@ -65,8 +69,9 @@ function TemplateFrame({
 export function renderMicrositeTemplate(
   template: Template,
   values: Record<string, any>,
+  fullSize = false,
 ) {
-  return <TemplateFrame template={template} values={values} />;
+  return <TemplateFrame template={template} values={values} fullSize={fullSize} />;
 }
 
 export function TemplatePreview({
@@ -111,5 +116,5 @@ export function MicrositeRenderer({
   template: Template;
   values: Record<string, any>;
 }) {
-  return renderMicrositeTemplate(template, values);
+  return renderMicrositeTemplate(template, values, true);
 }

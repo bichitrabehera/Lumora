@@ -9,104 +9,101 @@ import {
   createOrderForPage,
   confirmRazorpayPayment,
   getPageQR,
+  listMyPages,
 } from "@/lib/api";
 import { TemplatePreview } from "@/components/microsite-templates";
+import { siteData } from "@/lib/site-data";
 
 function readToken() {
   if (typeof window === "undefined") return null;
   return localStorage.getItem("token");
 }
 
+const TEMPLATE_DEFAULTS: Record<string, Record<string, any>> = {
+  "birthday-template-1": {
+    page_title: "A Grand Birthday Surprise!",
+    welcome_title: "You've got a surprise!",
+    welcome_message: "Click below to start your birthday journey...",
+    start_button_label: "Start the Celebration!",
+    letter_greeting: "Dearest [Name],",
+    letter_message: "This message carries wishes straight from the heart.",
+    letter_prompt: "Click the button to reveal your special birthday surprise!",
+    unfold_button_label: "Unfold My Surprise!",
+    recipient_name: "Sapthesh!",
+    final_greeting: "Happy Birthday,",
+    final_wish: "May your special day be filled with joy.",
+    signature: "With love and best wishes",
+    music_url: "/assets/birthday-template-1/birthday_song.mp3",
+  },
+  "birthday-template-2": {
+    page_title: "Birthday Wish",
+    envelope_text: "A special note for you",
+    music_greeting: "Happy Birthday!",
+    recipient_name: "Sapthesh",
+    polaroid_caption_1: "Memory 1",
+    polaroid_caption_2: "Memory 2",
+    polaroid_caption_3: "Memory 3",
+    flower_wish_1: "Joy",
+    flower_wish_2: "Peace",
+    flower_wish_3: "Love",
+    letter_message: "Wishing you the happiest of birthdays! May this year bring you closer to your dreams, surround you with love, and give you countless reasons to smile.",
+    signature: "- Yours",
+  },
+  "apology-template-1": {
+    page_title: "Cute Apology",
+    recipient_name: "Sapthesh",
+    apology_question: "Will you forgive me?",
+    polaroid_caption_1: "Memory 1",
+    polaroid_caption_2: "Memory 2",
+    polaroid_caption_3: "Memory 3",
+    letter_message: "I wanted to make this to show you how much I care. I promise to do better and make you smile more often. You mean the world to me.",
+    signature: "- Yours always",
+  },
+  "apology-template-2": {
+    page_title: "My Apology",
+    recipient_name: "Recipient",
+    envelope_text: "Please open this letter... I have something important to say.",
+    flip_prompt_1: "Why I'm writing this",
+    flip_message_1: "I want to explain what happened and apologize sincerely.",
+    flip_prompt_2: "What I promise",
+    flip_message_2: "I promise to listen more, communicate better, and be more patient.",
+    flip_prompt_3: "Our relationship",
+    flip_message_3: "You are the most important person to me and I value us so much.",
+    final_letter_message: "I am truly sorry for my actions. I hope you can find it in your heart to forgive me.",
+  },
+  "apology-template-3": {
+    page_title: "Sorry Petals",
+    recipient_name: "Recipient",
+    puzzle_message: "I'm sorry. Please pluck the petals below.",
+    petal_prompt_1: "First Petal",
+    petal_message_1: "I am sorry for my words.",
+    petal_prompt_2: "Second Petal",
+    petal_message_2: "I am sorry for my actions.",
+    petal_prompt_3: "Third Petal",
+    petal_message_3: "I want to make it up to you.",
+    final_letter_message: "You mean the world to me and I hope we can move past this together.",
+  },
+  "love-template-1": {
+    page_title: "A Little Bouquet",
+    recipient_name: "My Love",
+    hero_title: "A little bouquet for you",
+    button_text: "Open Bouquet",
+    final_letter_message: "Here's a small reminder of how much you mean to me. Every single day, I am grateful for you.",
+  },
+};
+
 function buildTemplateDefaults(template: any | null, slug: string | null) {
   const defaults: Record<string, any> = {};
   const fields = template?.schema?.fields ?? [];
-  const isBirthdayTemplate = template?.slug === "birthday-template-1";
+  const templateSlug = slug || template?.slug;
 
   defaults.requested_slug = "";
 
+  const presets = templateSlug ? TEMPLATE_DEFAULTS[templateSlug] : null;
+
   for (const field of fields) {
-    if (isBirthdayTemplate) {
-      if (field.key === "page_title")
-        defaults[field.key] = template?.title ?? "A Grand Birthday Surprise!";
-      else if (field.key === "welcome_title")
-        defaults[field.key] = template?.summary ?? "You've got a surprise!";
-      else if (field.key === "welcome_message")
-        defaults[field.key] =
-          template?.description ??
-          "Click below to start your birthday journey...";
-      else if (field.key === "start_button_label")
-        defaults[field.key] = "Start the Celebration!";
-      else if (field.key === "letter_greeting")
-        defaults[field.key] = "Dearest [Name],";
-      else if (field.key === "letter_message")
-        defaults[field.key] =
-          template?.summary ??
-          template?.description ??
-          "This message carries wishes straight from the heart.";
-      else if (field.key === "letter_prompt")
-        defaults[field.key] =
-          "Click the button to reveal your special birthday surprise!";
-      else if (field.key === "unfold_button_label")
-        defaults[field.key] = "Unfold My Surprise!";
-      else if (field.key === "recipient_name")
-        defaults[field.key] = "Sapthesh!";
-      else if (field.key === "final_greeting")
-        defaults[field.key] = "Happy Birthday,";
-      else if (field.key === "final_wish")
-        defaults[field.key] =
-          template?.description ?? "May your special day be filled with joy.";
-      else if (field.key === "signature")
-        defaults[field.key] = "With love and best wishes";
-      else if (field.key === "music_url")
-        defaults[field.key] = template?.assets?.sample_audio ?? "";
-      else defaults[field.key] = "";
-    } else if (template?.slug === "moonlit-birthday") {
-      if (field.key === "title")
-        defaults[field.key] = template?.title ?? "My Page";
-      else if (field.key === "subtitle")
-        defaults[field.key] =
-          template?.summary ?? "A moonlit surprise awaits...";
-      else if (field.key === "message")
-        defaults[field.key] =
-          template?.description ??
-          "A playful birthday landing page with a reveal moment, photo wall, and handwritten closing note.";
-      else if (field.key === "photos") defaults[field.key] = [];
-      else if (field.key === "audio_url")
-        defaults[field.key] = template?.assets?.sample_audio ?? "";
-      else if (field.key === "hero_button_label")
-        defaults[field.key] = "Join The Gala";
-      else if (field.key === "celebration_heading")
-        defaults[field.key] = "The Art of Celebration";
-      else if (field.key === "celebration_message")
-        defaults[field.key] =
-          "Every moment of the past three decades has been a brushstroke on a celestial canvas. We gather to honor the light you bring to our world.";
-      else if (field.key === "featured_story_title")
-        defaults[field.key] = "Midnight Musings";
-      else if (field.key === "featured_story_message")
-        defaults[field.key] =
-          "Reflecting on the quiet nights that shaped a loud and beautiful spirit.";
-      else if (field.key === "secondary_story_title")
-        defaults[field.key] = "Celestial Soul";
-      else if (field.key === "secondary_story_message")
-        defaults[field.key] =
-          "A spirit that orbits the hearts of everyone she meets, bringing a unique luminescence.";
-      else if (field.key === "milestones_heading")
-        defaults[field.key] = "Lunar Milestones";
-      else if (field.key === "milestones_intro")
-        defaults[field.key] =
-          "The phases of growth, mapped across three decades of discovery.";
-      else if (field.key === "milestones")
-        defaults[field.key] = [
-          {
-            year: "1994",
-            title: "New Moon",
-            description: "The beginning of a celestial journey.",
-            image: "",
-          },
-        ];
-      else if (field.key === "messages_heading")
-        defaults[field.key] = "Starlit Messages";
-      else defaults[field.key] = "";
+    if (presets && presets[field.key] !== undefined) {
+      defaults[field.key] = presets[field.key];
     } else {
       if (field.key === "title")
         defaults[field.key] = template?.title ?? "My Page";
@@ -114,11 +111,14 @@ function buildTemplateDefaults(template: any | null, slug: string | null) {
         defaults[field.key] = template?.summary ?? "";
       else if (field.key === "message")
         defaults[field.key] = template?.description ?? "";
-      else if (field.key === "photos") defaults[field.key] = [];
+      else if (field.key === "photos")
+        defaults[field.key] = [];
       else if (field.key === "audio_url")
         defaults[field.key] = template?.assets?.sample_audio ?? "";
-      else if (field.type === "image") defaults[field.key] = "";
-      else defaults[field.key] = "";
+      else if (field.type === "image")
+        defaults[field.key] = "";
+      else
+        defaults[field.key] = "";
     }
   }
 
@@ -131,31 +131,31 @@ function buildTemplateDefaults(template: any | null, slug: string | null) {
   return defaults;
 }
 
-export default function Editor({ initial }: { initial?: any }) {
-  const [title, setTitle] = useState(initial?.title ?? "My Page");
-  const [body, setBody] = useState(
-    initial?.body ?? "Write something lovely...",
-  );
-  const [imageUrl, setImageUrl] = useState<string | null>(
-    initial?.imageUrl ?? null,
-  );
-  const [uploading, setUploading] = useState(false);
+export default function Editor() {
   const [templateSlug, setTemplateSlug] = useState<string | null>(null);
-  const [pageId, setPageId] = useState<number | null>(initial?.id ?? null);
-  const [saving, setSaving] = useState(false);
-  const [templateDef, setTemplateDef] = useState<any | null>(null);
   const [templateMeta, setTemplateMeta] = useState<any | null>(null);
+  const [templateDef, setTemplateDef] = useState<any | null>(null);
+  const [fields, setFields] = useState<Record<string, any>>({});
+  const [pageId, setPageId] = useState<number | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [uploadingField, setUploadingField] = useState<string | null>(null);
   const [publishInfo, setPublishInfo] = useState<{
     fullUrl: string;
     qr: string | null;
     slug: string;
   } | null>(null);
+
   const autosaveRef = useRef<number | null>(null);
   const isMounted = useRef(false);
+
   const isFreeTemplate = String(templateMeta?.price ?? "")
     .toLowerCase()
     .includes("free");
 
+  const isUrlLocked = !!pageId && !!fields.requested_slug;
+  const isBirthday1Locked = templateSlug === "birthday-template-1" && !!pageId;
+
+  // Load slug from URL on mount & verify auth token
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -175,9 +175,11 @@ export default function Editor({ initial }: { initial?: any }) {
     isMounted.current = true;
   }, []);
 
+  // Fetch template data when slug changes
   useEffect(() => {
     if (!templateSlug) return;
     (async () => {
+      const token = readToken();
       const t = await loadTemplate(templateSlug);
       setTemplateMeta(t ?? null);
       const schema = t?.schema ?? {
@@ -188,118 +190,44 @@ export default function Editor({ initial }: { initial?: any }) {
         ],
       };
       setTemplateDef(schema);
-      setFields(buildTemplateDefaults(t, templateSlug));
-      setTitle(t?.title ?? "My Page");
-      setBody(t?.description ?? "Write something lovely...");
-      setImageUrl(null);
+
+      let existingDraft: any = null;
+      if (token) {
+        try {
+          const myPagesRes = await listMyPages(token);
+          if (myPagesRes && Array.isArray(myPagesRes.items)) {
+            const drafts = myPagesRes.items.filter(
+              (p: any) => p.template_slug === templateSlug && p.is_draft
+            );
+            if (drafts.length > 0) {
+              // Sort by ID descending to get the most recent one
+              drafts.sort((a: any, b: any) => b.id - a.id);
+              existingDraft = drafts[0];
+            }
+          }
+        } catch (e) {
+          console.error("Error loading existing user drafts:", e);
+        }
+      }
+
+      if (existingDraft) {
+        setPageId(existingDraft.id);
+        setFields({
+          ...buildTemplateDefaults(t, templateSlug),
+          ...(existingDraft.field_values || {}),
+          requested_slug: existingDraft.requested_slug ?? "",
+        });
+      } else {
+        setFields(buildTemplateDefaults(t, templateSlug));
+        setPageId(null);
+      }
+      setPublishInfo(null);
     })();
   }, [templateSlug]);
 
-  // field values map
-  const [fields, setFields] = useState<Record<string, any>>({
-    title,
-    body,
-    image_url: imageUrl,
-    requested_slug: "",
-  });
-
-  const previewValues = {
-    ...fields,
-    title: fields.title ?? title,
-    body: fields.body ?? body,
-    image_url: fields.image_url ?? imageUrl,
-    subtitle: fields.subtitle ?? templateMeta?.summary ?? "",
-    message: fields.message ?? fields.body ?? body,
-    photos: fields.photos ?? [],
-    audio_url: fields.audio_url ?? "",
-  };
-
+  // Trigger autosave on field changes
   useEffect(() => {
-    setFields((f) => {
-      const next = { ...f };
-      if (
-        (templateDef?.fields ?? []).some((field: any) => field.key === "title")
-      ) {
-        next.title = title;
-      }
-      if (
-        (templateDef?.fields ?? []).some((field: any) => field.key === "body")
-      ) {
-        next.body = body;
-      }
-      if (
-        (templateDef?.fields ?? []).some(
-          (field: any) => field.key === "image_url",
-        )
-      ) {
-        next.image_url = imageUrl;
-      }
-      return next;
-    });
-  }, [title, body, imageUrl, templateDef?.fields]);
-
-  useEffect(() => {
-    if (!templateMeta) return;
-    setFields((current) => {
-      const next = { ...current };
-      for (const field of templateDef?.fields ?? []) {
-        if (
-          next[field.key] !== undefined &&
-          next[field.key] !== null &&
-          next[field.key] !== ""
-        ) {
-          continue;
-        }
-        if (field.key === "title")
-          next[field.key] = templateMeta.title ?? title;
-        else if (field.key === "subtitle")
-          next[field.key] = templateMeta.summary ?? "";
-        else if (field.key === "message")
-          next[field.key] = templateMeta.description ?? body;
-        else if (field.key === "photos") next[field.key] = [];
-        else if (field.key === "audio_url")
-          next[field.key] = templateMeta.assets?.sample_audio ?? "";
-        else if (field.key === "hero_button_label")
-          next[field.key] = "Join The Gala";
-        else if (field.key === "celebration_heading")
-          next[field.key] = "The Art of Celebration";
-        else if (field.key === "celebration_message")
-          next[field.key] =
-            "Every moment of the past three decades has been a brushstroke on a celestial canvas. We gather to honor the light you bring to our world.";
-        else if (field.key === "featured_story_title")
-          next[field.key] = "Midnight Musings";
-        else if (field.key === "featured_story_message")
-          next[field.key] =
-            "Reflecting on the quiet nights that shaped a loud and beautiful spirit.";
-        else if (field.key === "secondary_story_title")
-          next[field.key] = "Celestial Soul";
-        else if (field.key === "secondary_story_message")
-          next[field.key] =
-            "A spirit that orbits the hearts of everyone she meets, bringing a unique luminescence.";
-        else if (field.key === "milestones_heading")
-          next[field.key] = "Lunar Milestones";
-        else if (field.key === "milestones_intro")
-          next[field.key] =
-            "The phases of growth, mapped across three decades of discovery.";
-        else if (field.key === "milestones")
-          next[field.key] = [
-            {
-              year: "1994",
-              title: "New Moon",
-              description: "The beginning of a celestial journey.",
-              image: "",
-            },
-          ];
-        else if (field.key === "messages_heading")
-          next[field.key] = "Starlit Messages";
-        else next[field.key] = "";
-      }
-      return next;
-    });
-  }, [body, templateDef?.fields, templateMeta, templateSlug, title]);
-
-  useEffect(() => {
-    if (!isMounted.current) return;
+    if (!isMounted.current || !templateSlug || Object.keys(fields).length === 0) return;
     if (autosaveRef.current) window.clearTimeout(autosaveRef.current);
     autosaveRef.current = window.setTimeout(() => {
       handleAutoSave();
@@ -307,42 +235,7 @@ export default function Editor({ initial }: { initial?: any }) {
     return () => {
       if (autosaveRef.current) window.clearTimeout(autosaveRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields, templateSlug]);
-
-  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploading(true);
-
-    const sig = await getUploadSignature();
-    if (!sig) {
-      alert("Upload not configured on backend");
-      setUploading(false);
-      return;
-    }
-
-    const form = new FormData();
-    form.append("file", file);
-    form.append("api_key", sig.api_key);
-    form.append("timestamp", String(sig.timestamp));
-    form.append("signature", sig.signature);
-
-    const cloudUrl = `https://api.cloudinary.com/v1_1/${sig.cloud_name}/auto/upload`;
-    try {
-      const res = await fetch(cloudUrl, { method: "POST", body: form });
-      const data = await res.json();
-      if (data.secure_url) {
-        setImageUrl(data.secure_url);
-        setFields((s) => ({ ...s, image_url: data.secure_url }));
-      } else alert("Upload failed");
-    } catch (err) {
-      console.error(err);
-      alert("Upload failed");
-    } finally {
-      setUploading(false);
-    }
-  }
 
   async function uploadFile(file: File) {
     const sig = await getUploadSignature();
@@ -365,14 +258,25 @@ export default function Editor({ initial }: { initial?: any }) {
     return data.secure_url as string;
   }
 
-  async function handleAutoSave() {
+  async function handleAutoSave(throwOnError = false) {
     try {
       setSaving(true);
       const token = readToken();
+
+      // Derive SQLModel Page fields dynamically for listing metadata
+      const pageTitle = fields.page_title || fields.title || templateMeta?.title || "My Page";
+      
+      let pageBody = fields.letter_message || fields.final_letter_message || fields.welcome_message || fields.body || templateMeta?.description || "Personalized microsite.";
+      if (typeof pageBody !== "string") {
+        pageBody = JSON.stringify(pageBody);
+      }
+
+      const imageUrl = fields.image_url || (fields.photos && fields.photos[0]) || "";
+
       const payload: any = {
-        title: fields.title ?? title,
-        body: fields.body ?? body,
-        image_url: fields.image_url ?? imageUrl ?? undefined,
+        title: pageTitle,
+        body: pageBody,
+        image_url: imageUrl || undefined,
         template_slug: templateSlug ?? undefined,
         requested_slug: String(fields.requested_slug ?? "").trim() || undefined,
         field_values: fields,
@@ -382,7 +286,8 @@ export default function Editor({ initial }: { initial?: any }) {
       if (res?.page?.id) setPageId(res.page.id);
       return res;
     } catch (err) {
-      // ignore autosave errors for now
+      console.error("Autosave error:", err);
+      if (throwOnError) throw err;
     } finally {
       setSaving(false);
     }
@@ -391,8 +296,8 @@ export default function Editor({ initial }: { initial?: any }) {
 
   async function handleSave() {
     try {
-      await handleAutoSave();
-      alert("Saved");
+      await handleAutoSave(true);
+      alert("Saved draft successfully!");
     } catch (err: any) {
       alert(err?.message ?? "Save failed");
     }
@@ -401,7 +306,7 @@ export default function Editor({ initial }: { initial?: any }) {
   async function handlePublish() {
     try {
       const token = readToken();
-      const draft = await handleAutoSave();
+      const draft = await handleAutoSave(true);
       const effectivePageId = draft?.page?.id ?? pageId;
       if (!effectivePageId) throw new Error("No draft to publish");
       const res = await publishPage(effectivePageId, token ?? undefined);
@@ -432,7 +337,7 @@ export default function Editor({ initial }: { initial?: any }) {
   async function handlePayAndPublish() {
     try {
       const token = readToken();
-      const draft = await handleAutoSave();
+      const draft = await handleAutoSave(true);
       const effectivePageId = draft?.page?.id ?? pageId;
       if (!effectivePageId) throw new Error("No draft to publish");
       const requestedSlug = String(fields.requested_slug ?? "").trim();
@@ -494,7 +399,7 @@ export default function Editor({ initial }: { initial?: any }) {
 
   function handleOpenLivePreview() {
     if (!templateSlug) return;
-    const payload = encodeURIComponent(JSON.stringify(previewValues));
+    const payload = encodeURIComponent(JSON.stringify(fields));
     window.open(
       `/templates/${templateSlug}?preview=${payload}`,
       "_blank",
@@ -502,301 +407,540 @@ export default function Editor({ initial }: { initial?: any }) {
     );
   }
 
+  // Render a beautiful template selection screen if no template is selected
+  if (!templateSlug) {
+    return (
+      <div style={{ maxWidth: 960, margin: "40px auto", padding: "0 24px" }}>
+        <div style={{
+          textAlign: "center",
+          marginBottom: 48,
+          background: "linear-gradient(135deg, rgba(255,199,154,0.18), rgba(255,255,255,0.96))",
+          padding: "48px 32px",
+          borderRadius: 32,
+          border: "1px solid rgba(188,83,91,0.12)",
+          boxShadow: "0 20px 45px rgba(205, 90, 107, 0.05)"
+        }}>
+          <span style={{
+            textTransform: "uppercase",
+            letterSpacing: 2,
+            fontSize: 12,
+            fontWeight: 700,
+            color: "var(--accent)",
+            display: "inline-block",
+            marginBottom: 12
+          }}>
+            Creative Studio
+          </span>
+          <h2 style={{ fontSize: "2.4rem", color: "var(--text)", margin: "0 0 16px", fontWeight: 700 }}>
+            Choose a Template to Customize
+          </h2>
+          <p style={{ color: "var(--muted)", maxWidth: 640, margin: "0 auto", fontSize: "1.1rem", lineHeight: 1.6 }}>
+            Select one of our premium, config-driven mobile-first templates to build your personalized microsite.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 32 }}>
+          {siteData.templates.map((template) => (
+            <div
+              key={template.slug}
+              className="template-card"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                padding: 32,
+                borderRadius: 28,
+                border: "1px solid var(--line)",
+                background: "var(--surface)",
+                cursor: "pointer",
+                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.03)"
+              }}
+              onClick={() => {
+                setTemplateSlug(template.slug);
+                window.history.pushState({}, "", `/editor?template=${template.slug}`);
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-4px)";
+                e.currentTarget.style.boxShadow = "0 20px 40px rgba(188,83,91,0.08)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.03)";
+              }}
+            >
+              <div>
+                <span style={{
+                  padding: "6px 12px",
+                  borderRadius: 999,
+                  background: "rgba(188,83,91,0.08)",
+                  color: "var(--accent)",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em"
+                }}>
+                  {template.category}
+                </span>
+                <h3 style={{ marginTop: 20, marginBottom: 8, fontSize: "1.42rem", color: "var(--text)", fontWeight: 700 }}>{template.title}</h3>
+                <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.55 }}>{template.summary}</p>
+              </div>
+              <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: 32,
+                paddingTop: 20,
+                borderTop: "1px solid var(--line)"
+              }}>
+                <span style={{ fontWeight: 600, color: "var(--text)", fontSize: "1.05rem" }}>{template.price}</span>
+                <button className="primary-btn" style={{ padding: "8px 20px", fontSize: "0.9rem" }}>
+                  Customize
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="editor">
+    <div className="editor" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px 48px" }}>
+      {/* Premium Header with Switcher */}
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 20,
+        flexWrap: "wrap",
+        marginBottom: 32,
+        padding: "24px 32px",
+        borderRadius: 28,
+        background: "linear-gradient(135deg, rgba(255,199,154,0.18), rgba(255,255,255,0.94))",
+        border: "1px solid rgba(188,83,91,0.08)",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.02)"
+      }}>
+        <div>
+          <p style={{ margin: 0, textTransform: "uppercase", letterSpacing: 2, fontSize: 11, color: "var(--accent)", fontWeight: 700 }}>
+            Page Editor
+          </p>
+          <h2 style={{ margin: "4px 0 4px", fontSize: "1.85rem", fontWeight: 700, color: "var(--text)" }}>
+            Editing {templateMeta?.title}
+          </h2>
+          <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.95rem" }}>
+            {templateMeta?.summary}
+          </p>
+        </div>
+        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <span style={{ fontSize: "0.92rem", color: "var(--muted)", fontWeight: 500 }}>Switch Template:</span>
+          <select
+            value={templateSlug || ""}
+            onChange={(e) => {
+              const s = e.target.value;
+              setTemplateSlug(s);
+              window.history.pushState({}, "", `/editor?template=${s}`);
+            }}
+            style={{
+              padding: "10px 18px",
+              borderRadius: 14,
+              border: "1px solid var(--line)",
+              background: "white",
+              color: "var(--text)",
+              fontWeight: 600,
+              fontSize: "0.92rem",
+              cursor: "pointer",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+              outline: "none"
+            }}
+          >
+            {siteData.templates.map(t => (
+              <option key={t.slug} value={t.slug}>{t.title}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
       <div className="editor-container">
-        <div className="editor-sidebar">
-          <h3 style={{ margin: "0 0 20px 0", color: "var(--accent)" }}>Fields</h3>
-          {(
-            templateDef?.fields ?? [
-              { key: "title", type: "text", label: "Title" },
-              { key: "body", type: "textarea", label: "Body" },
-              { key: "image_url", type: "image", label: "Hero image" },
-            ]
-          ).map((f: any) => (
-            <div key={f.key} className="field" style={{ marginBottom: 18 }}>
-              <span>{f.label || f.key}</span>
-              {f.type === "textarea" ? (
-                <textarea
-                  value={fields[f.key] ?? ""}
-                  onChange={(e) =>
-                    setFields((s) => ({ ...s, [f.key]: e.target.value }))
-                  }
-                  rows={6}
-                />
-              ) : f.type === "audio" ? (
-                <div style={{ display: "grid", gap: 8 }}>
-                  <input
-                    type="file"
-                    accept="audio/*"
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      try {
-                        const url = await uploadFile(file);
-                        setFields((s) => ({ ...s, [f.key]: url }));
-                      } catch (error) {
-                        alert(
-                          error instanceof Error
-                            ? error.message
-                            : "Audio upload failed",
-                        );
-                      }
-                    }}
-                  />
-                  <input
+        {/* Editor Sidebar */}
+        <div className="editor-sidebar" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          {isBirthday1Locked && (
+            <div style={{
+              background: "linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(220, 38, 38, 0.03))",
+              border: "1px solid rgba(220, 38, 38, 0.2)",
+              padding: "16px 20px",
+              borderRadius: 20,
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              boxShadow: "0 10px 25px rgba(220, 38, 38, 0.03)"
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: "1.2rem" }}>🔒</span>
+                <strong style={{ color: "var(--accent)", fontSize: "0.95rem" }}>Template Locked</strong>
+              </div>
+              <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.5 }}>
+                Birthday Template 1 has already been claimed and locked. To prevent accidental edits, modifications to its fields are disabled. You can view the claimed URL and QR code below.
+              </p>
+            </div>
+          )}
+
+          <h3 style={{ margin: 0, color: "var(--accent)", fontSize: "1.35rem", fontWeight: 700 }}>
+            Template Fields
+          </h3>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            {(templateDef?.fields ?? []).map((f: any) => (
+              <div key={f.key} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <span style={{ fontSize: "0.92rem", fontWeight: 600, color: "var(--text)" }}>
+                  {f.label || f.key}
+                </span>
+
+                {f.type === "textarea" ? (
+                  <textarea
                     value={fields[f.key] ?? ""}
-                    placeholder="Or paste an audio URL"
+                    disabled={isBirthday1Locked}
                     onChange={(e) =>
                       setFields((s) => ({ ...s, [f.key]: e.target.value }))
                     }
+                    rows={5}
+                    style={{
+                      width: "100%",
+                      padding: "12px 16px",
+                      borderRadius: 14,
+                      border: "1px solid var(--line)",
+                      background: isBirthday1Locked ? "#f7f7f7" : "white",
+                      cursor: isBirthday1Locked ? "not-allowed" : "text",
+                      fontSize: "0.95rem",
+                      lineHeight: 1.5,
+                      color: isBirthday1Locked ? "#888" : "var(--text)",
+                      outline: "none",
+                      boxSizing: "border-box"
+                    }}
                   />
-                  {fields[f.key] && (
-                    <audio controls style={{ width: "100%" }}>
-                      <source src={fields[f.key]} />
-                    </audio>
-                  )}
-                </div>
-              ) : f.type === "gallery" ? (
-                <div style={{ display: "grid", gap: 8 }}>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={async (e) => {
-                      const files = Array.from(e.target.files ?? []);
-                      if (files.length === 0) return;
-                      try {
-                        const uploaded = await Promise.all(
-                          files.map((file) => uploadFile(file)),
-                        );
-                        setFields((s) => ({
-                          ...s,
-                          [f.key]: [...splitPhotos(s[f.key]), ...uploaded],
-                        }));
-                      } catch (error) {
-                        alert(
-                          error instanceof Error
-                            ? error.message
-                            : "Gallery upload failed",
-                        );
+                ) : f.type === "audio" ? (
+                  <div style={{ display: "grid", gap: 10 }}>
+                    <input
+                      type="file"
+                      accept="audio/*"
+                      disabled={isBirthday1Locked}
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        try {
+                          setUploadingField(f.key);
+                          const url = await uploadFile(file);
+                          setFields((s) => ({ ...s, [f.key]: url }));
+                        } catch (error) {
+                          alert(
+                            error instanceof Error
+                              ? error.message
+                              : "Audio upload failed",
+                          );
+                        } finally {
+                          setUploadingField(null);
+                        }
+                      }}
+                      style={{ fontSize: "0.85rem", cursor: isBirthday1Locked ? "not-allowed" : "pointer" }}
+                    />
+                    <input
+                      value={fields[f.key] ?? ""}
+                      placeholder="Or paste an audio URL"
+                      disabled={isBirthday1Locked}
+                      onChange={(e) =>
+                        setFields((s) => ({ ...s, [f.key]: e.target.value }))
                       }
-                    }}
-                  />
-                  <textarea
-                    value={splitPhotos(fields[f.key]).join("\n")}
-                    placeholder="One image URL per line"
-                    rows={4}
-                    onChange={(e) =>
-                      setFields((s) => ({
-                        ...s,
-                        [f.key]: e.target.value
-                          .split("\n")
-                          .map((item) => item.trim())
-                          .filter(Boolean),
-                      }))
-                    }
-                  />
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns:
-                        "repeat(auto-fit, minmax(72px, 1fr))",
-                      gap: 8,
-                    }}
-                  >
-                    {splitPhotos(fields[f.key]).map((src: string) => (
-                      <img
-                        key={src}
-                        src={src}
-                        alt="gallery preview"
-                        style={{
-                          width: "100%",
-                          aspectRatio: "1 / 1",
-                          objectFit: "cover",
-                          borderRadius: 12,
-                        }}
-                      />
-                    ))}
+                      style={{
+                        width: "100%",
+                        padding: "10px 14px",
+                        borderRadius: 12,
+                        border: "1px solid var(--line)",
+                        background: isBirthday1Locked ? "#f7f7f7" : "white",
+                        cursor: isBirthday1Locked ? "not-allowed" : "text",
+                        fontSize: "0.92rem",
+                        color: isBirthday1Locked ? "#888" : "var(--text)",
+                        outline: "none",
+                        boxSizing: "border-box"
+                      }}
+                    />
+                    {uploadingField === f.key && (
+                      <span style={{ fontSize: "0.85rem", color: "var(--accent)" }}>Uploading audio file...</span>
+                    )}
+                    {fields[f.key] && (
+                      <audio controls style={{ width: "100%", marginTop: 4 }}>
+                        <source src={fields[f.key]} />
+                      </audio>
+                    )}
                   </div>
-                </div>
-              ) : f.type === "list" ? (
-                <div style={{ display: "grid", gap: 8 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" }}>{f.label || f.key}</span>
-                    <button
-                      className="secondary-btn"
-                      style={{ padding: "6px 14px", fontSize: "0.85rem" }}
-                      onClick={() =>
+                ) : f.type === "gallery" ? (
+                  <div style={{ display: "grid", gap: 10 }}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      disabled={isBirthday1Locked}
+                      onChange={async (e) => {
+                        const files = Array.from(e.target.files ?? []);
+                        if (files.length === 0) return;
+                        try {
+                          setUploadingField(f.key);
+                          const uploaded = await Promise.all(
+                            files.map((file) => uploadFile(file)),
+                          );
+                          setFields((s) => ({
+                            ...s,
+                            [f.key]: [...splitPhotos(s[f.key]), ...uploaded],
+                          }));
+                        } catch (error) {
+                          alert(
+                            error instanceof Error
+                              ? error.message
+                              : "Gallery upload failed",
+                          );
+                        } finally {
+                          setUploadingField(null);
+                        }
+                      }}
+                      style={{ fontSize: "0.85rem", cursor: isBirthday1Locked ? "not-allowed" : "pointer" }}
+                    />
+                    <textarea
+                      value={splitPhotos(fields[f.key]).join("\n")}
+                      placeholder="One image URL per line"
+                      rows={4}
+                      disabled={isBirthday1Locked}
+                      onChange={(e) =>
                         setFields((s) => ({
                           ...s,
-                          [f.key]: [
-                            ...(Array.isArray(s[f.key]) ? s[f.key] : []),
-                            { year: "", title: "", description: "", image: "" },
-                          ],
+                          [f.key]: e.target.value
+                            .split("\n")
+                            .map((item) => item.trim())
+                            .filter(Boolean),
                         }))
                       }
+                      style={{
+                        width: "100%",
+                        padding: "10px 14px",
+                        borderRadius: 12,
+                        border: "1px solid var(--line)",
+                        background: isBirthday1Locked ? "#f7f7f7" : "white",
+                        cursor: isBirthday1Locked ? "not-allowed" : "text",
+                        fontSize: "0.92rem",
+                        color: isBirthday1Locked ? "#888" : "var(--text)",
+                        outline: "none",
+                        boxSizing: "border-box"
+                      }}
+                    />
+                    {uploadingField === f.key && (
+                      <span style={{ fontSize: "0.85rem", color: "var(--accent)" }}>Uploading images...</span>
+                    )}
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(64px, 1fr))",
+                        gap: 8,
+                        marginTop: 4
+                      }}
                     >
-                      Add milestone
-                    </button>
-                  </div>
-                  {(Array.isArray(fields[f.key]) ? fields[f.key] : []).map(
-                    (item: any, idx: number) => (
-                      <div
-                        key={idx}
-                        style={{
-                          border: "1px solid #eee",
-                          padding: 8,
-                          borderRadius: 8,
-                        }}
-                      >
-                        {(f.itemFields ?? []).map((ifield: any) => (
-                          <div key={ifield.key} style={{ marginBottom: 8 }}>
-                            <label>{ifield.label || ifield.key}</label>
-                            {ifield.type === "textarea" ? (
-                              <textarea
-                                value={item[ifield.key] ?? ""}
-                                rows={3}
-                                onChange={(e) =>
-                                  setFields((s) => {
-                                    const arr = Array.isArray(s[f.key])
-                                      ? [...s[f.key]]
-                                      : [];
-                                    arr[idx] = {
-                                      ...(arr[idx] ?? {}),
-                                      [ifield.key]: e.target.value,
-                                    };
-                                    return { ...s, [f.key]: arr };
-                                  })
-                                }
-                              />
-                            ) : ifield.type === "image" ? (
-                              <div style={{ display: "grid", gap: 8 }}>
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  onChange={async (e) => {
-                                    const file = e.target.files?.[0];
-                                    if (!file) return;
-                                    try {
-                                      const url = await uploadFile(file);
-                                      setFields((s) => {
-                                        const arr = Array.isArray(s[f.key])
-                                          ? [...s[f.key]]
-                                          : [];
-                                        arr[idx] = {
-                                          ...(arr[idx] ?? {}),
-                                          [ifield.key]: url,
-                                        };
-                                        return { ...s, [f.key]: arr };
-                                      });
-                                    } catch (err) {
-                                      alert("Image upload failed");
-                                    }
-                                  }}
-                                />
-                                {item[ifield.key] && (
-                                  <img
-                                    src={item[ifield.key]}
-                                    alt="milestone"
-                                    style={{ width: 120, borderRadius: 8 }}
-                                  />
-                                )}
-                              </div>
-                            ) : (
-                              <input
-                                value={item[ifield.key] ?? ""}
-                                onChange={(e) =>
-                                  setFields((s) => {
-                                    const arr = Array.isArray(s[f.key])
-                                      ? [...s[f.key]]
-                                      : [];
-                                    arr[idx] = {
-                                      ...(arr[idx] ?? {}),
-                                      [ifield.key]: e.target.value,
-                                    };
-                                    return { ...s, [f.key]: arr };
-                                  })
-                                }
-                              />
-                            )}
-                          </div>
-                        ))}
-                        <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
-                          <button
-                            className="ghost-btn"
-                            style={{ padding: "6px 12px", fontSize: "0.8rem", color: "var(--accent)", borderColor: "var(--line)" }}
-                            onClick={() =>
-                              setFields((s) => {
-                                const arr = Array.isArray(s[f.key])
-                                  ? [...s[f.key]]
-                                  : [];
-                                arr.splice(idx, 1);
-                                return { ...s, [f.key]: arr };
-                              })
-                            }
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
-                    ),
-                  )}
-                </div>
-              ) : f.type === "image" ? (
-                <>
-                  <input type="file" accept="image/*" onChange={handleFile} />
-                  {uploading && <div>Uploading...</div>}
-                  {fields.image_url && (
-                    <div>
-                      <img
-                        src={fields.image_url}
-                        alt="uploaded"
-                        style={{ maxWidth: "100%" }}
-                      />
+                      {splitPhotos(fields[f.key]).map((src: string, idx: number) => (
+                        <img
+                          key={`${src}-${idx}`}
+                          src={src}
+                          alt="gallery item"
+                          style={{
+                            width: "100%",
+                            aspectRatio: "1 / 1",
+                            objectFit: "cover",
+                            borderRadius: 10,
+                            border: "1px solid var(--line)"
+                          }}
+                        />
+                      ))}
                     </div>
-                  )}
-                </>
-              ) : (
-                <input
-                  value={fields[f.key] ?? ""}
-                  onChange={(e) =>
-                    setFields((s) => ({ ...s, [f.key]: e.target.value }))
-                  }
-                />
-              )}
-            </div>
-          ))}
+                  </div>
+                ) : f.type === "image" ? (
+                  <div style={{ display: "grid", gap: 10 }}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      disabled={isBirthday1Locked}
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        try {
+                          setUploadingField(f.key);
+                          const url = await uploadFile(file);
+                          setFields((s) => ({ ...s, [f.key]: url }));
+                        } catch (error) {
+                          alert(
+                            error instanceof Error
+                              ? error.message
+                              : "Image upload failed",
+                          );
+                        } finally {
+                          setUploadingField(null);
+                        }
+                      }}
+                      style={{ fontSize: "0.85rem", cursor: isBirthday1Locked ? "not-allowed" : "pointer" }}
+                    />
+                    <input
+                      value={fields[f.key] ?? ""}
+                      placeholder="Or paste an image URL"
+                      disabled={isBirthday1Locked}
+                      onChange={(e) =>
+                        setFields((s) => ({ ...s, [f.key]: e.target.value }))
+                      }
+                      style={{
+                        width: "100%",
+                        padding: "10px 14px",
+                        borderRadius: 12,
+                        border: "1px solid var(--line)",
+                        background: isBirthday1Locked ? "#f7f7f7" : "white",
+                        cursor: isBirthday1Locked ? "not-allowed" : "text",
+                        fontSize: "0.92rem",
+                        color: isBirthday1Locked ? "#888" : "var(--text)",
+                        outline: "none",
+                        boxSizing: "border-box"
+                      }}
+                    />
+                    {uploadingField === f.key && (
+                      <span style={{ fontSize: "0.85rem", color: "var(--accent)" }}>Uploading image...</span>
+                    )}
+                    {fields[f.key] && (
+                      <img
+                        src={fields[f.key]}
+                        alt="preview"
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: 180,
+                          borderRadius: 12,
+                          objectFit: "cover",
+                          marginTop: 4,
+                          border: "1px solid var(--line)"
+                        }}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <input
+                    value={fields[f.key] ?? ""}
+                    disabled={isBirthday1Locked}
+                    onChange={(e) =>
+                      setFields((s) => ({ ...s, [f.key]: e.target.value }))
+                    }
+                    style={{
+                      width: "100%",
+                      padding: "12px 16px",
+                      borderRadius: 14,
+                      border: "1px solid var(--line)",
+                      background: isBirthday1Locked ? "#f7f7f7" : "white",
+                      cursor: isBirthday1Locked ? "not-allowed" : "text",
+                      fontSize: "0.95rem",
+                      color: isBirthday1Locked ? "#888" : "var(--text)",
+                      outline: "none",
+                      boxSizing: "border-box"
+                    }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
 
-          <div className="field" style={{ marginBottom: 18 }}>
-            <span>Desired page URL</span>
+          {/* Fixed common URL selection field */}
+          <div
+            style={{
+              marginTop: 16,
+              paddingTop: 24,
+              borderTop: "1px solid var(--line)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 8
+            }}
+          >
+            <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text)" }}>
+              Desired page URL {isUrlLocked ? <span style={{ color: "var(--muted)", fontSize: "0.8rem", fontWeight: 500 }}>(Locked after claiming)</span> : <span style={{ color: "var(--accent)" }}>*</span>}
+            </span>
             <input
               value={fields.requested_slug ?? ""}
-              placeholder="my-special-page"
+              placeholder="e.g. my-special-page"
+              disabled={isUrlLocked || isBirthday1Locked}
               onChange={(e) =>
                 setFields((s) => ({
                   ...s,
                   requested_slug: e.target.value,
                 }))
               }
+              style={{
+                width: "100%",
+                padding: "12px 16px",
+                borderRadius: 14,
+                border: "1px solid var(--line)",
+                background: (isUrlLocked || isBirthday1Locked) ? "#f7f7f7" : "white",
+                cursor: (isUrlLocked || isBirthday1Locked) ? "not-allowed" : "text",
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                color: (isUrlLocked || isBirthday1Locked) ? "#888" : "var(--text)",
+                outline: "none",
+                boxSizing: "border-box"
+              }}
             />
-            <p style={{ margin: "8px 0 0", color: "#666", fontSize: 12 }}>
-              Your final URL will be built from your account name, this URL, and
-              the template slug.
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: 11.5, lineHeight: 1.4 }}>
+              Your final published link will be built from your account name, this URL path, and the template slug.
             </p>
           </div>
 
-          <div style={{ marginTop: 18, display: "flex", gap: 12 }}>
-            <button className="secondary-btn" onClick={handleSave} disabled={saving}>
-              {saving ? "Saving..." : "Save"}
+          {pageId && fields.requested_slug && (
+            <div
+              style={{
+                marginTop: 16,
+                padding: 20,
+                borderRadius: 20,
+                border: "1px solid rgba(188,83,91,0.12)",
+                background: "rgba(255,255,255,0.7)",
+                display: "grid",
+                gap: 12
+              }}
+            >
+              <div>
+                <strong style={{ display: "block", color: "var(--text)", fontSize: "0.95rem", marginBottom: 4 }}>
+                  Claimed QR Code:
+                </strong>
+                <p style={{ margin: "0 0 12px", color: "var(--muted)", fontSize: "0.85rem", lineHeight: 1.4 }}>
+                  Scan this QR to view your interactive card on any mobile device (works both for drafts and published pages).
+                </p>
+                <PageQrCode pageId={pageId} />
+              </div>
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+            <button
+              className="secondary-btn"
+              onClick={handleSave}
+              disabled={saving || isBirthday1Locked}
+              style={{
+                flex: 1,
+                padding: "14px 20px",
+                borderRadius: 16,
+                fontSize: "0.95rem",
+                cursor: (saving || isBirthday1Locked) ? "not-allowed" : "pointer",
+                opacity: isBirthday1Locked ? 0.6 : 1
+              }}
+            >
+              {saving ? "Saving..." : "Save Draft"}
             </button>
-            <button className="primary-btn" onClick={handlePayAndPublish}>
+            <button
+              className="primary-btn"
+              onClick={handlePayAndPublish}
+              disabled={isBirthday1Locked}
+              style={{
+                flex: 1.2,
+                padding: "14px 20px",
+                borderRadius: 16,
+                fontSize: "0.95rem",
+                cursor: isBirthday1Locked ? "not-allowed" : "pointer",
+                opacity: isBirthday1Locked ? 0.6 : 1
+              }}
+            >
               {isFreeTemplate ? "Claim for free" : "Pay & Publish"}
             </button>
           </div>
@@ -805,33 +949,44 @@ export default function Editor({ initial }: { initial?: any }) {
             <div
               style={{
                 marginTop: 16,
-                padding: 16,
-                borderRadius: 20,
-                border: "1px solid rgba(188,83,91,0.18)",
-                background: "rgba(255,239,240,0.9)",
+                padding: 20,
+                borderRadius: 24,
+                border: "1px solid rgba(188,83,91,0.15)",
+                background: "rgba(255,239,240,0.85)",
                 display: "grid",
                 gap: 12,
               }}
             >
               <div>
-                <strong>Published page</strong>
-                <div style={{ marginTop: 6, wordBreak: "break-all" }}>
+                <strong style={{ display: "block", marginBottom: 4, color: "var(--text)" }}>Published page link:</strong>
+                <a
+                  href={publishInfo.fullUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    color: "var(--accent)",
+                    fontWeight: 600,
+                    textDecoration: "underline",
+                    wordBreak: "break-all"
+                  }}
+                >
                   {publishInfo.fullUrl}
-                </div>
+                </a>
               </div>
               {publishInfo.qr && (
                 <div style={{ display: "grid", gap: 8, justifyItems: "start" }}>
-                  <strong>QR code</strong>
+                  <strong style={{ color: "var(--text)" }}>QR code:</strong>
                   <img
                     src={publishInfo.qr}
                     alt="QR code for published page"
                     style={{
-                      width: 180,
-                      height: 180,
-                      padding: 12,
-                      borderRadius: 20,
+                      width: 160,
+                      height: 160,
+                      padding: 10,
+                      borderRadius: 18,
                       background: "white",
-                      boxShadow: "0 12px 30px rgba(188,83,91,0.12)",
+                      boxShadow: "0 8px 24px rgba(188,83,91,0.08)",
+                      border: "1px solid var(--line)"
                     }}
                   />
                 </div>
@@ -840,6 +995,7 @@ export default function Editor({ initial }: { initial?: any }) {
           )}
         </div>
 
+        {/* Live Preview Panel */}
         <div className="editor-preview-panel">
           <div
             style={{
@@ -848,16 +1004,21 @@ export default function Editor({ initial }: { initial?: any }) {
               justifyContent: "space-between",
               gap: 12,
               flexWrap: "wrap",
-              marginBottom: 16,
+              marginBottom: 20,
             }}
           >
-            <h3 style={{ margin: 0, color: "var(--accent)" }}>Live Preview</h3>
-            <button className="primary-btn" style={{ padding: "8px 16px", fontSize: "0.85rem" }} onClick={handleOpenLivePreview} disabled={!templateSlug}>
-              Open live preview in new tab
+            <h3 style={{ margin: 0, color: "var(--accent)", fontSize: "1.35rem", fontWeight: 700 }}>Live Preview</h3>
+            <button
+              className="primary-btn"
+              style={{ padding: "8px 18px", fontSize: "0.85rem", borderRadius: 12 }}
+              onClick={handleOpenLivePreview}
+              disabled={!templateSlug}
+            >
+              Open full preview
             </button>
           </div>
           {templateMeta && (
-            <TemplatePreview template={templateMeta} values={previewValues} />
+            <TemplatePreview template={templateMeta} values={fields} />
           )}
         </div>
       </div>
@@ -874,4 +1035,46 @@ function splitPhotos(value: any): string[] {
       .filter(Boolean);
   }
   return [];
+}
+
+export function PageQrCode({ pageId }: { pageId: number }) {
+  const [qr, setQr] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getPageQR(pageId);
+        if (res?.data) {
+          setQr(res.data);
+        }
+      } catch (err) {
+        console.error("Error fetching QR code:", err);
+      }
+    })();
+  }, [pageId]);
+
+  if (!qr) {
+    return (
+      <div style={{ fontSize: "0.85rem", color: "var(--muted)", padding: "12px 0" }}>
+        Loading QR Code...
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={qr}
+      alt="QR Code"
+      style={{
+        width: 140,
+        height: 140,
+        borderRadius: 16,
+        padding: 8,
+        background: "white",
+        border: "1px solid var(--line)",
+        boxShadow: "0 8px 24px rgba(188,83,91,0.08)",
+        display: "block"
+      }}
+    />
+  );
 }

@@ -5,12 +5,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgm = document.getElementById('bgm');
     const dynamicName = document.getElementById('dynamic-name');
 
+    const envLetterContent = document.querySelector('.env-letter-content');
+    const titleText = document.querySelector('.title-text');
+    const finalWish = document.querySelector('.final-wish');
+    const signatureEl = document.querySelector('.signature');
+
     // Handle messages from parent window
     window.addEventListener('message', (event) => {
         if (event.data && event.data.type === 'lovey:preview:update') {
             const values = event.data.values;
-            if (values.recipientName) {
-                dynamicName.textContent = values.recipientName + '!';
+            const recName = values.recipient_name || values.recipientName;
+            if (recName) {
+                document.querySelectorAll('#dynamic-name, .recipient-name').forEach(el => {
+                    el.textContent = recName + '!';
+                });
+            }
+            if (values.welcome_title && envLetterContent) {
+                envLetterContent.textContent = values.welcome_title;
+            }
+            if (values.welcome_message && titleText) {
+                titleText.textContent = values.welcome_message;
+            }
+            if (values.final_wish && finalWish) {
+                finalWish.textContent = values.final_wish;
+            }
+            if (values.signature && signatureEl) {
+                signatureEl.textContent = values.signature;
+            }
+            if (values.music_url && bgm) {
+                const source = bgm.querySelector('source');
+                if (source && source.getAttribute('src') !== values.music_url) {
+                    source.setAttribute('src', values.music_url);
+                    bgm.load();
+                    if (document.body.classList.contains('lights-off') || document.body.classList.contains('mood-set')) {
+                        bgm.play().catch(e => console.log('Audio play error:', e));
+                    }
+                }
             }
         }
     });

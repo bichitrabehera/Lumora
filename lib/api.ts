@@ -8,12 +8,13 @@ import {
 const DEFAULT_BACKEND_URL = "https://loveypage.onrender.com";
 
 export function getBackendBaseUrl() {
-  return DEFAULT_BACKEND_URL;
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.BACKEND_URL || DEFAULT_BACKEND_URL;
+  return url.replace(/\/$/, "");
 }
 
-const backendBaseUrl = DEFAULT_BACKEND_URL;
+const backendBaseUrl = getBackendBaseUrl();
 
-const configuredBackendBaseUrl = DEFAULT_BACKEND_URL;
+const configuredBackendBaseUrl = backendBaseUrl;
 
 async function fetchJson<T>(path: string): Promise<T | null> {
   if (!backendBaseUrl) {
@@ -129,7 +130,14 @@ export async function startTemplate(payload: any, token?: string) {
       is_draft: true,
     }),
   });
-  if (!res.ok) throw new Error("Unable to create template draft");
+  if (!res.ok) {
+    let msg = "Unable to create template draft";
+    try {
+      const data = await res.json();
+      if (data?.detail) msg = data.detail;
+    } catch (e) {}
+    throw new Error(msg);
+  }
   return res.json();
 }
 
@@ -147,7 +155,14 @@ export async function updatePage(pageId: number, payload: any, token?: string) {
     },
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error("Unable to update page");
+  if (!res.ok) {
+    let msg = "Unable to update page";
+    try {
+      const data = await res.json();
+      if (data?.detail) msg = data.detail;
+    } catch (e) {}
+    throw new Error(msg);
+  }
   return res.json();
 }
 
@@ -221,5 +236,43 @@ export async function getPageBySlug(slug: string) {
   ).replace(/\/$/, "");
   const res = await fetch(`${base}/api/pages/${slug}`);
   if (!res.ok) return null;
+  return res.json();
+}
+
+export async function listMyPages(token?: string) {
+  const base = (
+    process.env.NEXT_PUBLIC_BACKEND_URL ??
+    process.env.BACKEND_URL ??
+    ""
+  ).replace(/\/$/, "");
+  const res = await fetch(`${base}/api/pages/mine`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+  if (!res.ok) return null;
+  return res.json();
+}
+
+export async function deletePage(pageId: number, token?: string) {
+  const base = (
+    process.env.NEXT_PUBLIC_BACKEND_URL ??
+    process.env.BACKEND_URL ??
+    ""
+  ).replace(/\/$/, "");
+  const res = await fetch(`${base}/api/pages/${pageId}`, {
+    method: "DELETE",
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+  if (!res.ok) {
+    let msg = "Unable to delete page";
+    try {
+      const data = await res.json();
+      if (data?.detail) msg = data.detail;
+    } catch (e) {}
+    throw new Error(msg);
+  }
   return res.json();
 }

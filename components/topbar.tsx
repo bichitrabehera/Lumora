@@ -57,7 +57,17 @@ export default function Topbar({
 
   return (
     <header className="topbar">
-      <div className="brand-mark" style={{ display: "flex", alignItems: "center" }}>
+      <Link
+        href="/"
+        className="brand-mark"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
+          color: "inherit",
+          cursor: "pointer"
+        }}
+      >
         {typeof logo === "string" &&
         (logo.endsWith(".svg") ||
           logo.endsWith(".png") ||
@@ -81,7 +91,7 @@ export default function Topbar({
         <span style={{ fontSize: "1.4rem", fontWeight: 700, marginLeft: 10, letterSpacing: "-0.02em" }}>
           {brandName ?? "lovey page"}
         </span>
-      </div>
+      </Link>
 
       {nav ?? (
         <nav>
@@ -94,6 +104,13 @@ export default function Topbar({
       <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
         {token ? (
           <>
+            <Link
+              className="ghost-btn"
+              href="/profile"
+              style={{ display: "inline-flex", alignItems: "center", padding: "8px 16px", fontSize: "0.95rem" }}
+            >
+              My Pages
+            </Link>
             <button
               type="button"
               className="ghost-btn"

@@ -208,3 +208,14 @@ def get_page_by_slug(slug: str, session=Depends(get_session)):
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
     return page
+
+
+@router.delete("/{page_id}")
+def delete_page(page_id: int, user=Depends(get_current_user), session=Depends(get_session)):
+    statement = select(Page).where(Page.id == page_id, Page.owner_id == user.id)
+    page = session.exec(statement).first()
+    if not page:
+        raise HTTPException(status_code=404, detail="Page not found")
+    session.delete(page)
+    session.commit()
+    return {"ok": True, "detail": "Page deleted successfully"}

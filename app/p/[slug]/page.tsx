@@ -37,8 +37,10 @@ export default async function Page({
     <main
       style={{
         padding: template ? 0 : 16,
+        height: template ? "100vh" : undefined,
         minHeight: "100vh",
-        background: "linear-gradient(180deg, #f6efe2, #fbfaf7)",
+        background: template ? "white" : "linear-gradient(180deg, #f6efe2, #fbfaf7)",
+        overflow: template ? "hidden" : undefined,
         overflowX: "hidden",
       }}
     >
