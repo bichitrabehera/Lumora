@@ -45,13 +45,13 @@ export default function RevealOnScroll({
   return (
     <div
       ref={ref}
+      className={className}
       style={{
         transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
-        transitionDelay: `\${delay}ms`,
+        transitionDelay: `${delay}ms`,
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(40px)"
       }}
-      className={className}
     >
       {children}
     </div>

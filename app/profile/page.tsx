@@ -1,11 +1,13 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
-import Topbar from "@/components/topbar";
+import Link from "next/link";
 import { siteData } from "@/lib/site-data";
 import { listMyPages, deletePage } from "@/lib/api";
-import { PageQrCode } from "@/app/editor/editor";
-import Link from "next/link";
+import { PageQrCode } from "@/components/editor/QRCodeDisplay";
+import { useToast } from "@/components/ui/Toast";
+import { ConfirmModal } from "@/components/ui/Modal";
+import { Button } from "@/components/ui/Button";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 function readToken() {
   if (typeof window === "undefined") return null;
@@ -16,27 +18,24 @@ export default function ProfilePage() {
   const [token, setToken] = useState<string | null>(null);
   const [pages, setPages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteTarget, setDeleteTarget] = useState<number | null>(null);
+  const { addToast } = useToast();
 
-  // Authenticate user & load pages
   useEffect(() => {
     const t = readToken();
     if (!t) {
-      const next = encodeURIComponent("/profile");
-      window.location.href = `/auth/login?next=${next}`;
+      window.location.href = `/auth/login?next=${encodeURIComponent("/profile")}`;
       return;
     }
     setToken(t);
-
     (async () => {
       try {
         const res = await listMyPages(t);
         if (res && Array.isArray(res.items)) {
-          // Sort by ID descending to show newest first
-          const sorted = [...res.items].sort((a: any, b: any) => b.id - a.id);
-          setPages(sorted);
+          setPages([...res.items].sort((a: any, b: any) => b.id - a.id));
         }
-      } catch (err) {
-        console.error("Error loading user pages:", err);
+      } catch {
+        addToast("Error loading your pages", "error");
       } finally {
         setLoading(false);
       }
@@ -45,214 +44,99 @@ export default function ProfilePage() {
 
   const handleDelete = async (pageId: number) => {
     if (!token) return;
-    if (!window.confirm("Are you sure you want to delete this draft? This action cannot be undone.")) {
-      return;
-    }
     try {
       await deletePage(pageId, token);
-      setPages(prev => prev.filter(p => p.id !== pageId));
+      setPages((prev) => prev.filter((p) => p.id !== pageId));
+      addToast("Draft deleted successfully", "success");
     } catch (err: any) {
-      alert(err?.message ?? "Failed to delete draft");
+      addToast(err?.message ?? "Failed to delete draft", "error");
     }
   };
 
   return (
-    <main className="page-shell">
-      <Topbar
-        logo={siteData.brand.logo}
-        brandName={siteData.brand.name}
-      />
-
-      <section style={{ maxWidth: 1000, margin: "40px auto 80px", padding: "0 24px" }}>
-        {/* Profile Premium Header Banner */}
-        <div style={{
-          background: "linear-gradient(135deg, rgba(255,199,154,0.2), rgba(255,255,255,0.96))",
-          border: "1px solid rgba(188,83,91,0.12)",
-          padding: "48px 40px",
-          borderRadius: 32,
-          boxShadow: "0 20px 45px rgba(205, 90, 107, 0.04)",
-          marginBottom: 40,
-        }}>
-          <span style={{
-            textTransform: "uppercase",
-            letterSpacing: 2.5,
-            fontSize: 11.5,
-            fontWeight: 700,
-            color: "var(--accent)",
-            display: "inline-block",
-            marginBottom: 8
-          }}>
-            User Account
-          </span>
-          <h2 style={{ fontSize: "2.3rem", fontWeight: 700, color: "var(--text)", margin: "0 0 12px" }}>
-            My Claimed Pages
-          </h2>
-          <p style={{ color: "var(--muted)", margin: 0, fontSize: "1.08rem", lineHeight: 1.6, maxWidth: 640 }}>
-            Manage your custom digital greeting cards, view active QR codes, and edit your claimed drafts here.
-          </p>
-        </div>
-
-        {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0", color: "var(--muted)", fontSize: "1.1rem" }}>
-            Loading claimed pages...
-          </div>
-        ) : pages.length === 0 ? (
-          <div style={{
-            textAlign: "center",
-            padding: "80px 40px",
-            border: "2px dashed var(--line)",
-            borderRadius: 28,
-            background: "rgba(0,0,0,0.01)"
-          }}>
-            <span style={{ fontSize: "3rem", display: "inline-block", marginBottom: 20 }}>🥺</span>
-            <h3 style={{ fontSize: "1.4rem", fontWeight: 700, color: "var(--text)", marginBottom: 10 }}>No Pages Claimed Yet</h3>
-            <p style={{ color: "var(--muted)", marginBottom: 24, fontSize: "0.98rem" }}>
-              Start customizing a template to save or publish a custom microsite.
+    <main>
+      <section className="px-4 md:px-6 lg:px-8 pt-20 pb-16 md:pb-20">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="p-8 rounded-md border border-border bg-white mb-10">
+            <p className="text-xs font-medium tracking-wider uppercase text-muted mb-2">User Account</p>
+            <h2 className="text-3xl font-heading font-medium text-heading mb-3">My Pages</h2>
+            <p className="text-sm text-muted max-w-[640px] leading-relaxed">
+              Manage your custom digital greeting cards, view active QR codes, and edit your claimed drafts here.
             </p>
-            <Link className="primary-btn" href="/editor" style={{ padding: "12px 28px", borderRadius: 16, display: "inline-block", textDecoration: "none" }}>
-              Explore Templates
-            </Link>
           </div>
-        ) : (
-          <div style={{ display: "grid", gap: 28 }}>
-            {pages.map((page) => {
-              const hasSlug = !!page.requested_slug;
-              const isPublished = page.is_published;
-              const templateTitle = page.template_slug
-                ? siteData.templates.find(t => t.slug === page.template_slug)?.title ?? page.template_slug
-                : "Standard";
 
-              return (
-                <div
-                  key={page.id}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: 32,
-                    padding: 32,
-                    borderRadius: 28,
-                    border: "1px solid var(--line)",
-                    background: "var(--surface)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.02)",
-                    flexWrap: "wrap",
-                    alignItems: "center"
-                  }}
-                >
-                  {/* Left Side: Metadata & Status */}
-                  <div style={{ flex: "1 1 400px", display: "grid", gap: 16 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <span style={{
-                        padding: "6px 14px",
-                        borderRadius: 999,
-                        background: isPublished ? "rgba(79,195,132,0.1)" : "rgba(255,167,38,0.1)",
-                        color: isPublished ? "#2e7d32" : "#e65100",
-                        fontSize: "0.8rem",
-                        fontWeight: 700,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em"
-                      }}>
-                        {isPublished ? "Published" : "Draft"}
-                      </span>
-                      <span style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
-                        Template: <strong>{templateTitle}</strong>
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 style={{ margin: "0 0 8px", fontSize: "1.45rem", fontWeight: 700, color: "var(--text)" }}>
-                        {page.title || "Untitled Card"}
-                      </h3>
+          {loading ? (
+            <div className="text-center py-16 text-muted text-sm">Loading your pages...</div>
+          ) : pages.length === 0 ? (
+            <EmptyState icon="🥺" title="No Pages Yet" message="Start customizing a template to save or publish a custom page." actionLabel="Explore Templates" actionHref="/editor" />
+          ) : (
+            <div className="flex flex-col gap-6">
+              {pages.map((page) => {
+                const hasSlug = !!page.requested_slug;
+                const isPublished = page.is_published;
+                const templateTitle = page.template_slug
+                  ? siteData.templates.find((t) => t.slug === page.template_slug)?.title ?? page.template_slug
+                  : "Standard";
+                return (
+                  <div key={page.id} className="flex flex-col sm:flex-row justify-between gap-6 p-6 rounded-md border border-border bg-white items-start sm:items-center">
+                    <div className="flex-1 min-w-0 w-full">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className={`px-3 py-1 rounded-md text-xs font-medium uppercase tracking-wider ${isPublished ? "bg-success-bg text-success-text" : "bg-[rgba(255,167,38,0.1)] text-[#e65100]"}`}>
+                          {isPublished ? "Published" : "Draft"}
+                        </span>
+                        <span className="text-xs text-muted">Template: <strong className="text-heading font-medium">{templateTitle}</strong></span>
+                      </div>
+                      <h3 className="text-lg font-heading font-medium text-heading mb-1">{page.title || "Untitled Card"}</h3>
                       {hasSlug ? (
-                        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                          <span style={{ fontSize: "0.88rem", color: "var(--muted)" }}>
-                            URL path: <code style={{
-                              background: "rgba(0,0,0,0.04)",
-                              padding: "2px 6px",
-                              borderRadius: 6,
-                              fontFamily: "monospace",
-                              color: "var(--text)"
-                            }}>{page.requested_slug}</code>
+                        <div className="flex flex-col gap-1 mb-3">
+                          <span className="text-sm text-muted">
+                            URL: <code className="bg-background px-1.5 py-0.5 rounded text-body text-xs">{page.requested_slug}</code>
                           </span>
                           {isPublished && (
-                            <a
-                              href={`/p/${page.slug}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              style={{
-                                fontSize: "0.92rem",
-                                color: "var(--accent)",
-                                fontWeight: 600,
-                                textDecoration: "underline",
-                                width: "fit-content",
-                                marginTop: 4
-                              }}
-                            >
-                              Open Live Site
-                            </a>
+                            <a href={`/p/${page.slug}`} target="_blank" rel="noreferrer" className="text-sm text-primary font-medium w-fit">Open Live Site &rarr;</a>
                           )}
                         </div>
                       ) : (
-                        <span style={{ fontSize: "0.88rem", color: "var(--muted)", fontStyle: "italic" }}>
-                          No URL path claimed yet.
-                        </span>
+                        <span className="text-sm text-muted italic block mb-3">No URL path claimed yet.</span>
                       )}
+                      <div className="flex gap-3 flex-wrap">
+                        {page.template_slug !== "birthday-template-1" && (
+                          <Link href={`/editor?template=${page.template_slug}`} className="inline-flex items-center px-4 py-2 rounded-md border border-border text-heading text-sm font-medium no-underline hover:bg-background transition-all duration-200">
+                            {isPublished ? "View Config" : "Resume Editor"}
+                          </Link>
+                        )}
+                        {!isPublished && (
+                          <Button variant="danger" size="sm" onClick={() => setDeleteTarget(page.id)}>Delete Draft</Button>
+                        )}
+                      </div>
                     </div>
-
-                    <div style={{ display: "flex", gap: 12, marginTop: 4 }}>
-                      {page.template_slug !== "birthday-template-1" && (
-                        <Link
-                          href={`/editor?template=${page.template_slug}`}
-                          style={{
-                            padding: "10px 20px",
-                            borderRadius: 14,
-                            border: "1px solid var(--line)",
-                            background: "var(--surface)",
-                            color: "var(--text)",
-                            fontSize: "0.9rem",
-                            fontWeight: 600,
-                            textDecoration: "none",
-                            textAlign: "center"
-                          }}
-                        >
-                          {isPublished ? "View Config" : "Resume Editor"}
-                        </Link>
-                      )}
-                      {!isPublished && (
-                        <button
-                          onClick={() => handleDelete(page.id)}
-                          style={{
-                            padding: "10px 20px",
-                            borderRadius: 14,
-                            border: "1px solid rgba(220, 38, 38, 0.2)",
-                            background: "rgba(220, 38, 38, 0.05)",
-                            color: "var(--accent)",
-                            fontSize: "0.9rem",
-                            fontWeight: 600,
-                            cursor: "pointer",
-                            outline: "none"
-                          }}
-                        >
-                          Delete Draft
-                        </button>
-                      )}
-                    </div>
+                    {hasSlug && (
+                      <div className="flex flex-col items-center gap-2 shrink-0">
+                        <PageQrCode pageId={page.id} />
+                        <span className="text-xs text-muted font-medium">Scan QR</span>
+                      </div>
+                    )}
                   </div>
-
-                  {/* Right Side: QR Code (if URL claimed) */}
-                  {hasSlug && (
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-                      <PageQrCode pageId={page.id} />
-                      <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 500 }}>
-                        Scan QR Code
-                      </span>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        )}
+                );
+              })}
+            </div>
+          )}
+        </div>
       </section>
+
+      <ConfirmModal
+        open={deleteTarget !== null}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={() => {
+          if (deleteTarget) handleDelete(deleteTarget);
+          setDeleteTarget(null);
+        }}
+        title="Delete Draft"
+        message="Are you sure you want to delete this draft? This action cannot be undone."
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        variant="danger"
+      />
     </main>
   );
 }

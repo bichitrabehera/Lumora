@@ -1,12 +1,15 @@
 "use client";
 import React, { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { getBackendBaseUrl } from "@/lib/api";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { getBackendBaseUrl } from "@/lib/api";
+import { useToast } from "@/components/ui/Toast";
+import { Button } from "@/components/ui/Button";
+import { AUTH_LINKS } from "@/constants/navigation";
 
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<main style={{ padding: 24 }}>Loading...</main>}>
+    <Suspense fallback={<main className="p-6">Loading...</main>}>
       <RegisterForm />
     </Suspense>
   );
@@ -15,100 +18,70 @@ export default function RegisterPage() {
 function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const params = useSearchParams();
   const next = params?.get("next") ?? "/";
+  const { addToast } = useToast();
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
     const res = await fetch(`${getBackendBaseUrl()}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-    if (!res.ok) return alert("Register failed");
+    if (!res.ok) {
+      setLoading(false);
+      return addToast("Register failed. Please try again.", "error");
+    }
     const data = await res.json();
     localStorage.setItem("token", data.access_token);
-    const nextRoute = next.startsWith("/") ? next : "/";
-    router.push(nextRoute as never);
+    addToast("Account created successfully!", "success");
+    const nextRoute = (next ?? "/").startsWith("/") ? next : "/";
+    window.location.href = nextRoute;
   }
 
+  const inputBase = "w-full border border-border rounded-md bg-white text-body text-base px-4 h-11 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-200";
+
   return (
-    <main style={{ 
-      display: "flex", 
-      alignItems: "center", 
-      justifyContent: "center", 
-      minHeight: "80vh",
-      padding: "24px",
-      position: "relative"
-    }}>
-      <div className="glow glow-a" style={{ top: "10%", left: "15%" }}></div>
-      <div className="glow glow-b" style={{ bottom: "10%", right: "15%" }}></div>
+    <main className="flex items-center justify-center min-h-[80vh] px-4 md:px-6 lg:px-8 pt-20">
+      <div className="w-full max-w-[400px] rounded-md border border-border bg-white p-8">
+        <h2 className="text-3xl font-heading font-medium text-heading text-center mb-2">Create Account</h2>
+        <p className="text-center text-muted text-sm mb-8">Start building personal interactive pages</p>
 
-      <div style={{
-        width: "100%",
-        maxWidth: "400px",
-        background: "var(--surface)",
-        borderRadius: "28px",
-        padding: "36px",
-        boxShadow: "var(--shadow)",
-        border: "1px solid var(--line)",
-        position: "relative",
-        zIndex: 2
-      }}>
-        <h2 style={{ 
-          fontSize: "2.2rem", 
-          color: "var(--accent)", 
-          textAlign: "center", 
-          marginBottom: "10px",
-          fontWeight: 700
-        }}>
-          Create Account
-        </h2>
-        <p style={{ 
-          textAlign: "center", 
-          color: "var(--muted)", 
-          marginBottom: "28px",
-          fontSize: "0.95rem"
-        }}>
-          Start building personal interactive surprise pages
-        </p>
-
-        <form onSubmit={handleRegister} style={{ display: "grid", gap: "20px" }}>
-          <div className="field">
-            <span>Email Address</span>
-            <input 
+        <form onSubmit={handleRegister} className="flex flex-col gap-5">
+          <label className="flex flex-col gap-2">
+            <span className="text-xs font-medium tracking-wider uppercase text-muted">Email Address</span>
+            <input
               type="email"
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               required
+              className={inputBase}
             />
-          </div>
-          <div className="field">
-            <span>Password</span>
+          </label>
+          <label className="flex flex-col gap-2">
+            <span className="text-xs font-medium tracking-wider uppercase text-muted">Password</span>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min. 8 characters"
               required
+              className={inputBase}
             />
-          </div>
-          <button type="submit" className="primary-btn" style={{ width: "100%", padding: "14px 20px", marginTop: "10px" }}>
-            Sign Up
-          </button>
+          </label>
+          <Button type="submit" loading={loading} className="w-full mt-2">
+            {AUTH_LINKS.signUp.label}
+          </Button>
         </form>
 
-        <p style={{ 
-          marginTop: "24px", 
-          textAlign: "center", 
-          fontSize: "0.9rem", 
-          color: "var(--muted)" 
-        }}>
+        <p className="mt-8 text-center text-sm text-muted">
           Already have an account?{" "}
-          <Link href={`/auth/login?next=${encodeURIComponent(next)}`} style={{ color: "var(--accent)", fontWeight: 600 }}>
-            Log in
+          <Link href={`/auth/login?next=${encodeURIComponent(next)}`} className="text-primary font-medium">
+            {AUTH_LINKS.signIn.label}
           </Link>
         </p>
       </div>

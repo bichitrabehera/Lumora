@@ -13,6 +13,7 @@ import {
 } from "@/lib/api";
 import { TemplatePreview } from "@/components/microsite-templates";
 import { siteData } from "@/lib/site-data";
+import { useToast } from "@/components/ui/Toast";
 
 function readToken() {
   if (typeof window === "undefined") return null;
@@ -132,6 +133,7 @@ function buildTemplateDefaults(template: any | null, slug: string | null) {
 }
 
 export default function Editor() {
+  const { addToast } = useToast();
   const [templateSlug, setTemplateSlug] = useState<string | null>(null);
   const [templateMeta, setTemplateMeta] = useState<any | null>(null);
   const [templateDef, setTemplateDef] = useState<any | null>(null);
@@ -155,7 +157,6 @@ export default function Editor() {
   const isUrlLocked = !!pageId && !!fields.requested_slug;
   const isBirthday1Locked = templateSlug === "birthday-template-1" && !!pageId;
 
-  // Load slug from URL on mount & verify auth token
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -169,13 +170,12 @@ export default function Editor() {
         window.location.href = `/auth/login?next=${next}`;
         return;
       }
-    } catch (err) {
+    } catch {
       // ignore
     }
     isMounted.current = true;
   }, []);
 
-  // Fetch template data when slug changes
   useEffect(() => {
     if (!templateSlug) return;
     (async () => {
@@ -200,7 +200,6 @@ export default function Editor() {
               (p: any) => p.template_slug === templateSlug && p.is_draft
             );
             if (drafts.length > 0) {
-              // Sort by ID descending to get the most recent one
               drafts.sort((a: any, b: any) => b.id - a.id);
               existingDraft = drafts[0];
             }
@@ -225,7 +224,6 @@ export default function Editor() {
     })();
   }, [templateSlug]);
 
-  // Trigger autosave on field changes
   useEffect(() => {
     if (!isMounted.current || !templateSlug || Object.keys(fields).length === 0) return;
     if (autosaveRef.current) window.clearTimeout(autosaveRef.current);
@@ -263,9 +261,8 @@ export default function Editor() {
       setSaving(true);
       const token = readToken();
 
-      // Derive SQLModel Page fields dynamically for listing metadata
       const pageTitle = fields.page_title || fields.title || templateMeta?.title || "My Page";
-      
+
       let pageBody = fields.letter_message || fields.final_letter_message || fields.welcome_message || fields.body || templateMeta?.description || "Personalized microsite.";
       if (typeof pageBody !== "string") {
         pageBody = JSON.stringify(pageBody);
@@ -297,9 +294,9 @@ export default function Editor() {
   async function handleSave() {
     try {
       await handleAutoSave(true);
-      alert("Saved draft successfully!");
+      addToast("Draft saved successfully!", "success");
     } catch (err: any) {
-      alert(err?.message ?? "Save failed");
+      addToast(err?.message ?? "Save failed", "error");
     }
   }
 
@@ -318,7 +315,7 @@ export default function Editor() {
         slug: res.page.slug,
       });
     } catch (err: any) {
-      alert(err?.message ?? "Publish failed");
+      addToast(err?.message ?? "Publish failed", "error");
     }
   }
 
@@ -347,12 +344,10 @@ export default function Editor() {
         );
       }
 
-      // derive amount from templateMeta.price (digits)
       const priceRaw = templateMeta?.price ?? "";
       const digits = String(priceRaw).replace(/[^0-9]/g, "");
       const amount = parseInt(digits || "0", 10);
       if (!amount || amount <= 0) {
-        // free template
         await handlePublish();
         return;
       }
@@ -375,7 +370,6 @@ export default function Editor() {
               razorpay_payment_id: resp.razorpay_payment_id,
               razorpay_signature: resp.razorpay_signature,
             });
-            // now publish
             const pub = await publishPage(effectivePageId, token ?? undefined);
             const fullUrl = `${window.location.origin}/p/${pub.page.slug}`;
             const qr = await getPageQR(pub.page.id);
@@ -385,7 +379,7 @@ export default function Editor() {
               slug: pub.page.slug,
             });
           } catch (err: any) {
-            alert(err?.message ?? "Payment confirmation failed");
+            addToast(err?.message ?? "Payment confirmation failed", "error");
           }
         },
       };
@@ -393,7 +387,7 @@ export default function Editor() {
       const rzp = new (window as any).Razorpay(options);
       rzp.open();
     } catch (err: any) {
-      alert(err?.message ?? "Payment failed");
+      addToast(err?.message ?? "Payment failed", "error");
     }
   }
 
@@ -407,94 +401,48 @@ export default function Editor() {
     );
   }
 
-  // Render a beautiful template selection screen if no template is selected
+  const fieldInputBase = "w-full px-4 py-3 rounded-md border border-border outline-none box-border text-base transition-all duration-200";
+  const fieldInputActive = "bg-white text-foreground cursor-text";
+  const fieldInputDisabled = "bg-gray-100 text-gray-400 cursor-not-allowed";
+  function fieldStyle(locked: boolean) {
+    return `${fieldInputBase} ${locked ? fieldInputDisabled : fieldInputActive}`;
+  }
+
   if (!templateSlug) {
     return (
-      <div style={{ maxWidth: 960, margin: "40px auto", padding: "0 24px" }}>
-        <div style={{
-          textAlign: "center",
-          marginBottom: 48,
-          background: "linear-gradient(135deg, rgba(255,199,154,0.18), rgba(255,255,255,0.96))",
-          padding: "48px 32px",
-          borderRadius: 32,
-          border: "1px solid rgba(188,83,91,0.12)",
-          boxShadow: "0 20px 45px rgba(205, 90, 107, 0.05)"
-        }}>
-          <span style={{
-            textTransform: "uppercase",
-            letterSpacing: 2,
-            fontSize: 12,
-            fontWeight: 700,
-            color: "var(--accent)",
-            display: "inline-block",
-            marginBottom: 12
-          }}>
+      <div className="max-w-7xl mx-auto my-10 px-4 md:px-6 lg:px-8">
+        <div className="text-center mb-12 bg-background p-12 px-8 rounded-md border border-border">
+          <span className="uppercase tracking-wider text-xs font-medium text-muted inline-block mb-3">
             Creative Studio
           </span>
-          <h2 style={{ fontSize: "2.4rem", color: "var(--text)", margin: "0 0 16px", fontWeight: 700 }}>
+          <h2 className="text-4xl md:text-5xl font-heading font-medium text-heading m-0 mb-4">
             Choose a Template to Customize
           </h2>
-          <p style={{ color: "var(--muted)", maxWidth: 640, margin: "0 auto", fontSize: "1.1rem", lineHeight: 1.6 }}>
+          <p className="text-muted max-w-xl mx-auto text-base leading-relaxed">
             Select one of our premium, config-driven mobile-first templates to build your personalized microsite.
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 32 }}>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {siteData.templates.map((template) => (
             <div
               key={template.slug}
-              className="template-card"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                padding: 32,
-                borderRadius: 28,
-                border: "1px solid var(--line)",
-                background: "var(--surface)",
-                cursor: "pointer",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.03)"
-              }}
+              className="flex flex-col justify-between p-6 rounded-md border border-border bg-white cursor-pointer transition-all duration-200"
               onClick={() => {
                 setTemplateSlug(template.slug);
                 window.history.pushState({}, "", `/editor?template=${template.slug}`);
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow = "0 20px 40px rgba(188,83,91,0.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.03)";
-              }}
             >
               <div>
-                <span style={{
-                  padding: "6px 12px",
-                  borderRadius: 999,
-                  background: "rgba(188,83,91,0.08)",
-                  color: "var(--accent)",
-                  fontSize: "0.8rem",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em"
-                }}>
+                <span className="px-3 py-1.5 rounded-md bg-primary/10 text-primary text-xs font-medium uppercase tracking-wider">
                   {template.category}
                 </span>
-                <h3 style={{ marginTop: 20, marginBottom: 8, fontSize: "1.42rem", color: "var(--text)", fontWeight: 700 }}>{template.title}</h3>
-                <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.55 }}>{template.summary}</p>
+                <h3 className="mt-5 mb-2 text-xl font-heading font-medium text-heading">{template.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{template.summary}</p>
               </div>
-              <div style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: 32,
-                paddingTop: 20,
-                borderTop: "1px solid var(--line)"
-              }}>
-                <span style={{ fontWeight: 600, color: "var(--text)", fontSize: "1.05rem" }}>{template.price}</span>
-                <button className="primary-btn" style={{ padding: "8px 20px", fontSize: "0.9rem" }}>
+              <div className="flex justify-between items-center mt-8 pt-5 border-t border-border">
+                <span className="font-medium text-heading text-base">{template.price}</span>
+                <button className="px-5 py-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-[#A64850] transition-all duration-200">
                   Customize
                 </button>
               </div>
@@ -506,34 +454,21 @@ export default function Editor() {
   }
 
   return (
-    <div className="editor" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px 48px" }}>
-      {/* Premium Header with Switcher */}
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: 20,
-        flexWrap: "wrap",
-        marginBottom: 32,
-        padding: "24px 32px",
-        borderRadius: 28,
-        background: "linear-gradient(135deg, rgba(255,199,154,0.18), rgba(255,255,255,0.94))",
-        border: "1px solid rgba(188,83,91,0.08)",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.02)"
-      }}>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pb-12">
+      <div className="flex justify-between items-center gap-5 flex-wrap mb-8 p-6 rounded-md border border-border bg-white">
         <div>
-          <p style={{ margin: 0, textTransform: "uppercase", letterSpacing: 2, fontSize: 11, color: "var(--accent)", fontWeight: 700 }}>
+          <p className="m-0 uppercase tracking-wider text-xs text-muted font-medium">
             Page Editor
           </p>
-          <h2 style={{ margin: "4px 0 4px", fontSize: "1.85rem", fontWeight: 700, color: "var(--text)" }}>
+          <h2 className="m-1 mb-1 text-2xl font-heading font-medium text-heading">
             Editing {templateMeta?.title}
           </h2>
-          <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.95rem" }}>
+          <p className="m-0 text-muted text-sm">
             {templateMeta?.summary}
           </p>
         </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <span style={{ fontSize: "0.92rem", color: "var(--muted)", fontWeight: 500 }}>Switch Template:</span>
+        <div className="flex gap-3 items-center">
+          <span className="text-sm text-muted font-medium">Switch Template:</span>
           <select
             value={templateSlug || ""}
             onChange={(e) => {
@@ -541,18 +476,7 @@ export default function Editor() {
               setTemplateSlug(s);
               window.history.pushState({}, "", `/editor?template=${s}`);
             }}
-            style={{
-              padding: "10px 18px",
-              borderRadius: 14,
-              border: "1px solid var(--line)",
-              background: "white",
-              color: "var(--text)",
-              fontWeight: 600,
-              fontSize: "0.92rem",
-              cursor: "pointer",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
-              outline: "none"
-            }}
+            className="px-4 h-11 rounded-md border border-border bg-white text-body font-medium text-sm cursor-pointer outline-none"
           >
             {siteData.templates.map(t => (
               <option key={t.slug} value={t.slug}>{t.title}</option>
@@ -562,37 +486,27 @@ export default function Editor() {
       </div>
 
       <div className="editor-container">
-        {/* Editor Sidebar */}
-        <div className="editor-sidebar" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+        <div className="editor-sidebar flex flex-col gap-6">
           {isBirthday1Locked && (
-            <div style={{
-              background: "linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(220, 38, 38, 0.03))",
-              border: "1px solid rgba(220, 38, 38, 0.2)",
-              padding: "16px 20px",
-              borderRadius: 20,
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              boxShadow: "0 10px 25px rgba(220, 38, 38, 0.03)"
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontSize: "1.2rem" }}>🔒</span>
-                <strong style={{ color: "var(--accent)", fontSize: "0.95rem" }}>Template Locked</strong>
+            <div className="bg-error-bg border border-error-text/20 p-5 rounded-md flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🔒</span>
+                <strong className="text-error-text text-sm">Template Locked</strong>
               </div>
-              <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.5 }}>
+              <p className="m-0 text-muted text-sm leading-relaxed">
                 Birthday Template 1 has already been claimed and locked. To prevent accidental edits, modifications to its fields are disabled. You can view the claimed URL and QR code below.
               </p>
             </div>
           )}
 
-          <h3 style={{ margin: 0, color: "var(--accent)", fontSize: "1.35rem", fontWeight: 700 }}>
+          <h3 className="m-0 text-heading text-xl font-heading font-medium">
             Template Fields
           </h3>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div className="flex flex-col gap-5">
             {(templateDef?.fields ?? []).map((f: any) => (
-              <div key={f.key} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <span style={{ fontSize: "0.92rem", fontWeight: 600, color: "var(--text)" }}>
+              <div key={f.key} className="flex flex-col gap-2">
+                <span className="text-sm font-medium text-heading">
                   {f.label || f.key}
                 </span>
 
@@ -604,22 +518,10 @@ export default function Editor() {
                       setFields((s) => ({ ...s, [f.key]: e.target.value }))
                     }
                     rows={5}
-                    style={{
-                      width: "100%",
-                      padding: "12px 16px",
-                      borderRadius: 14,
-                      border: "1px solid var(--line)",
-                      background: isBirthday1Locked ? "#f7f7f7" : "white",
-                      cursor: isBirthday1Locked ? "not-allowed" : "text",
-                      fontSize: "0.95rem",
-                      lineHeight: 1.5,
-                      color: isBirthday1Locked ? "#888" : "var(--text)",
-                      outline: "none",
-                      boxSizing: "border-box"
-                    }}
+                    className={`${fieldStyle(isBirthday1Locked)} resize-y min-h-[100px]`}
                   />
                 ) : f.type === "audio" ? (
-                  <div style={{ display: "grid", gap: 10 }}>
+                  <div className="grid gap-2.5">
                     <input
                       type="file"
                       accept="audio/*"
@@ -632,48 +534,38 @@ export default function Editor() {
                           const url = await uploadFile(file);
                           setFields((s) => ({ ...s, [f.key]: url }));
                         } catch (error) {
-                          alert(
+                          addToast(
                             error instanceof Error
                               ? error.message
                               : "Audio upload failed",
+                            "error",
                           );
                         } finally {
                           setUploadingField(null);
                         }
                       }}
-                      style={{ fontSize: "0.85rem", cursor: isBirthday1Locked ? "not-allowed" : "pointer" }}
-                    />
-                    <input
-                      value={fields[f.key] ?? ""}
-                      placeholder="Or paste an audio URL"
-                      disabled={isBirthday1Locked}
-                      onChange={(e) =>
-                        setFields((s) => ({ ...s, [f.key]: e.target.value }))
-                      }
-                      style={{
-                        width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: 12,
-                        border: "1px solid var(--line)",
-                        background: isBirthday1Locked ? "#f7f7f7" : "white",
-                        cursor: isBirthday1Locked ? "not-allowed" : "text",
-                        fontSize: "0.92rem",
-                        color: isBirthday1Locked ? "#888" : "var(--text)",
-                        outline: "none",
-                        boxSizing: "border-box"
-                      }}
-                    />
-                    {uploadingField === f.key && (
-                      <span style={{ fontSize: "0.85rem", color: "var(--accent)" }}>Uploading audio file...</span>
-                    )}
+                    className="text-sm"
+                  />
+                  <input
+                    value={fields[f.key] ?? ""}
+                    placeholder="Or paste an audio URL"
+                    disabled={isBirthday1Locked}
+                    onChange={(e) =>
+                      setFields((s) => ({ ...s, [f.key]: e.target.value }))
+                    }
+                    className={fieldStyle(isBirthday1Locked)}
+                  />
+                  {uploadingField === f.key && (
+                    <span className="text-sm text-primary">Uploading audio file...</span>
+                  )}
                     {fields[f.key] && (
-                      <audio controls style={{ width: "100%", marginTop: 4 }}>
+                      <audio controls className="w-full mt-1">
                         <source src={fields[f.key]} />
                       </audio>
                     )}
                   </div>
                 ) : f.type === "gallery" ? (
-                  <div style={{ display: "grid", gap: 10 }}>
+                  <div className="grid gap-2.5">
                     <input
                       type="file"
                       accept="image/*"
@@ -692,73 +584,50 @@ export default function Editor() {
                             [f.key]: [...splitPhotos(s[f.key]), ...uploaded],
                           }));
                         } catch (error) {
-                          alert(
+                          addToast(
                             error instanceof Error
                               ? error.message
                               : "Gallery upload failed",
+                            "error",
                           );
                         } finally {
                           setUploadingField(null);
                         }
                       }}
-                      style={{ fontSize: "0.85rem", cursor: isBirthday1Locked ? "not-allowed" : "pointer" }}
-                    />
-                    <textarea
-                      value={splitPhotos(fields[f.key]).join("\n")}
-                      placeholder="One image URL per line"
-                      rows={4}
-                      disabled={isBirthday1Locked}
-                      onChange={(e) =>
-                        setFields((s) => ({
-                          ...s,
-                          [f.key]: e.target.value
-                            .split("\n")
-                            .map((item) => item.trim())
-                            .filter(Boolean),
-                        }))
-                      }
-                      style={{
-                        width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: 12,
-                        border: "1px solid var(--line)",
-                        background: isBirthday1Locked ? "#f7f7f7" : "white",
-                        cursor: isBirthday1Locked ? "not-allowed" : "text",
-                        fontSize: "0.92rem",
-                        color: isBirthday1Locked ? "#888" : "var(--text)",
-                        outline: "none",
-                        boxSizing: "border-box"
-                      }}
-                    />
-                    {uploadingField === f.key && (
-                      <span style={{ fontSize: "0.85rem", color: "var(--accent)" }}>Uploading images...</span>
-                    )}
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(64px, 1fr))",
-                        gap: 8,
-                        marginTop: 4
-                      }}
-                    >
-                      {splitPhotos(fields[f.key]).map((src: string, idx: number) => (
-                        <img
-                          key={`${src}-${idx}`}
-                          src={src}
-                          alt="gallery item"
-                          style={{
-                            width: "100%",
-                            aspectRatio: "1 / 1",
-                            objectFit: "cover",
-                            borderRadius: 10,
-                            border: "1px solid var(--line)"
-                          }}
-                        />
-                      ))}
-                    </div>
+                    className="text-sm"
+                  />
+                  <textarea
+                    value={splitPhotos(fields[f.key]).join("\n")}
+                    placeholder="One image URL per line"
+                    rows={4}
+                    disabled={isBirthday1Locked}
+                    onChange={(e) =>
+                      setFields((s) => ({
+                        ...s,
+                        [f.key]: e.target.value
+                          .split("\n")
+                          .map((item) => item.trim())
+                          .filter(Boolean),
+                      }))
+                    }
+                    className={fieldStyle(isBirthday1Locked)}
+                  />
+                  {uploadingField === f.key && (
+                    <span className="text-sm text-primary">Uploading images...</span>
+                  )}
+                  <div className="grid grid-cols-[repeat(auto-fit,minmax(64px,1fr))] gap-2 mt-1">
+                    {splitPhotos(fields[f.key]).map((src: string, idx: number) => (
+                      <img
+                        key={`${src}-${idx}`}
+                        src={src}
+                        alt="gallery item"
+                        className="w-full aspect-square object-cover rounded-md border border-border"
+                      />
+                    ))}
+                  </div>
                   </div>
                 ) : f.type === "image" ? (
-                  <div style={{ display: "grid", gap: 10 }}>
+                  <div className="grid gap-2.5">
                     <input
                       type="file"
                       accept="image/*"
@@ -771,54 +640,37 @@ export default function Editor() {
                           const url = await uploadFile(file);
                           setFields((s) => ({ ...s, [f.key]: url }));
                         } catch (error) {
-                          alert(
+                          addToast(
                             error instanceof Error
                               ? error.message
                               : "Image upload failed",
+                            "error",
                           );
                         } finally {
                           setUploadingField(null);
                         }
                       }}
-                      style={{ fontSize: "0.85rem", cursor: isBirthday1Locked ? "not-allowed" : "pointer" }}
+                    className="text-sm"
+                  />
+                  <input
+                    value={fields[f.key] ?? ""}
+                    placeholder="Or paste an image URL"
+                    disabled={isBirthday1Locked}
+                    onChange={(e) =>
+                      setFields((s) => ({ ...s, [f.key]: e.target.value }))
+                    }
+                    className={fieldStyle(isBirthday1Locked)}
+                  />
+                  {uploadingField === f.key && (
+                    <span className="text-sm text-primary">Uploading image...</span>
+                  )}
+                  {fields[f.key] && (
+                    <img
+                      src={fields[f.key]}
+                      alt="preview"
+                      className="max-w-full max-h-[180px] rounded-md object-cover mt-1 border border-border"
                     />
-                    <input
-                      value={fields[f.key] ?? ""}
-                      placeholder="Or paste an image URL"
-                      disabled={isBirthday1Locked}
-                      onChange={(e) =>
-                        setFields((s) => ({ ...s, [f.key]: e.target.value }))
-                      }
-                      style={{
-                        width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: 12,
-                        border: "1px solid var(--line)",
-                        background: isBirthday1Locked ? "#f7f7f7" : "white",
-                        cursor: isBirthday1Locked ? "not-allowed" : "text",
-                        fontSize: "0.92rem",
-                        color: isBirthday1Locked ? "#888" : "var(--text)",
-                        outline: "none",
-                        boxSizing: "border-box"
-                      }}
-                    />
-                    {uploadingField === f.key && (
-                      <span style={{ fontSize: "0.85rem", color: "var(--accent)" }}>Uploading image...</span>
-                    )}
-                    {fields[f.key] && (
-                      <img
-                        src={fields[f.key]}
-                        alt="preview"
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: 180,
-                          borderRadius: 12,
-                          objectFit: "cover",
-                          marginTop: 4,
-                          border: "1px solid var(--line)"
-                        }}
-                      />
-                    )}
+                  )}
                   </div>
                 ) : (
                   <input
@@ -827,37 +679,16 @@ export default function Editor() {
                     onChange={(e) =>
                       setFields((s) => ({ ...s, [f.key]: e.target.value }))
                     }
-                    style={{
-                      width: "100%",
-                      padding: "12px 16px",
-                      borderRadius: 14,
-                      border: "1px solid var(--line)",
-                      background: isBirthday1Locked ? "#f7f7f7" : "white",
-                      cursor: isBirthday1Locked ? "not-allowed" : "text",
-                      fontSize: "0.95rem",
-                      color: isBirthday1Locked ? "#888" : "var(--text)",
-                      outline: "none",
-                      boxSizing: "border-box"
-                    }}
+                    className={fieldStyle(isBirthday1Locked)}
                   />
                 )}
               </div>
             ))}
           </div>
 
-          {/* Fixed common URL selection field */}
-          <div
-            style={{
-              marginTop: 16,
-              paddingTop: 24,
-              borderTop: "1px solid var(--line)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 8
-            }}
-          >
-            <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text)" }}>
-              Desired page URL {isUrlLocked ? <span style={{ color: "var(--muted)", fontSize: "0.8rem", fontWeight: 500 }}>(Locked after claiming)</span> : <span style={{ color: "var(--accent)" }}>*</span>}
+          <div className="mt-4 pt-6 border-t border-border flex flex-col gap-2">
+            <span className="text-base font-medium text-heading">
+              Desired page URL {isUrlLocked ? <span className="text-muted text-xs font-medium">(Locked after claiming)</span> : <span className="text-primary">*</span>}
             </span>
             <input
               value={fields.requested_slug ?? ""}
@@ -869,42 +700,20 @@ export default function Editor() {
                   requested_slug: e.target.value,
                 }))
               }
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                borderRadius: 14,
-                border: "1px solid var(--line)",
-                background: (isUrlLocked || isBirthday1Locked) ? "#f7f7f7" : "white",
-                cursor: (isUrlLocked || isBirthday1Locked) ? "not-allowed" : "text",
-                fontSize: "0.95rem",
-                fontWeight: 600,
-                color: (isUrlLocked || isBirthday1Locked) ? "#888" : "var(--text)",
-                outline: "none",
-                boxSizing: "border-box"
-              }}
+              className={`${fieldInputBase} ${(isUrlLocked || isBirthday1Locked) ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "bg-white text-body cursor-text"} font-medium`}
             />
-            <p style={{ margin: 0, color: "var(--muted)", fontSize: 11.5, lineHeight: 1.4 }}>
+            <p className="m-0 text-muted text-xs leading-relaxed">
               Your final published link will be built from your account name, this URL path, and the template slug.
             </p>
           </div>
 
           {pageId && fields.requested_slug && (
-            <div
-              style={{
-                marginTop: 16,
-                padding: 20,
-                borderRadius: 20,
-                border: "1px solid rgba(188,83,91,0.12)",
-                background: "rgba(255,255,255,0.7)",
-                display: "grid",
-                gap: 12
-              }}
-            >
+            <div className="mt-4 p-5 rounded-md border border-border bg-white grid gap-3">
               <div>
-                <strong style={{ display: "block", color: "var(--text)", fontSize: "0.95rem", marginBottom: 4 }}>
+                <strong className="block text-heading text-base mb-1">
                   Claimed QR Code:
                 </strong>
-                <p style={{ margin: "0 0 12px", color: "var(--muted)", fontSize: "0.85rem", lineHeight: 1.4 }}>
+                <p className="m-0 mb-3 text-muted text-sm leading-relaxed">
                   Scan this QR to view your interactive card on any mobile device (works both for drafts and published pages).
                 </p>
                 <PageQrCode pageId={pageId} />
@@ -912,82 +721,43 @@ export default function Editor() {
             </div>
           )}
 
-          <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+          <div className="flex gap-3 mt-4">
             <button
-              className="secondary-btn"
+              className="flex-1 px-5 py-3.5 rounded-md bg-white border border-border text-heading text-sm font-medium hover:bg-background transition-all duration-200"
               onClick={handleSave}
               disabled={saving || isBirthday1Locked}
-              style={{
-                flex: 1,
-                padding: "14px 20px",
-                borderRadius: 16,
-                fontSize: "0.95rem",
-                cursor: (saving || isBirthday1Locked) ? "not-allowed" : "pointer",
-                opacity: isBirthday1Locked ? 0.6 : 1
-              }}
             >
               {saving ? "Saving..." : "Save Draft"}
             </button>
             <button
-              className="primary-btn"
+              className="flex-[1.2] px-5 py-3.5 rounded-md bg-primary text-white text-sm font-medium hover:bg-[#A64850] transition-all duration-200"
               onClick={handlePayAndPublish}
               disabled={isBirthday1Locked}
-              style={{
-                flex: 1.2,
-                padding: "14px 20px",
-                borderRadius: 16,
-                fontSize: "0.95rem",
-                cursor: isBirthday1Locked ? "not-allowed" : "pointer",
-                opacity: isBirthday1Locked ? 0.6 : 1
-              }}
             >
               {isFreeTemplate ? "Claim for free" : "Pay & Publish"}
             </button>
           </div>
 
           {publishInfo && (
-            <div
-              style={{
-                marginTop: 16,
-                padding: 20,
-                borderRadius: 24,
-                border: "1px solid rgba(188,83,91,0.15)",
-                background: "rgba(255,239,240,0.85)",
-                display: "grid",
-                gap: 12,
-              }}
-            >
+            <div className="mt-4 p-5 rounded-md border border-border bg-white grid gap-3">
               <div>
-                <strong style={{ display: "block", marginBottom: 4, color: "var(--text)" }}>Published page link:</strong>
+                <strong className="block mb-1 text-heading">Published page link:</strong>
                 <a
                   href={publishInfo.fullUrl}
                   target="_blank"
                   rel="noreferrer"
-                  style={{
-                    color: "var(--accent)",
-                    fontWeight: 600,
-                    textDecoration: "underline",
-                    wordBreak: "break-all"
-                  }}
+                  className="text-primary font-medium underline break-all"
                 >
                   {publishInfo.fullUrl}
                 </a>
               </div>
               {publishInfo.qr && (
-                <div style={{ display: "grid", gap: 8, justifyItems: "start" }}>
-                  <strong style={{ color: "var(--text)" }}>QR code:</strong>
+                <div className="grid gap-2 justify-items-start">
+                  <strong className="text-heading">QR code:</strong>
                   <img
                     src={publishInfo.qr}
                     alt="QR code for published page"
-                    style={{
-                      width: 160,
-                      height: 160,
-                      padding: 10,
-                      borderRadius: 18,
-                      background: "white",
-                      boxShadow: "0 8px 24px rgba(188,83,91,0.08)",
-                      border: "1px solid var(--line)"
-                    }}
+                    className="w-40 h-40 p-2.5 rounded-md bg-white border border-border"
                   />
                 </div>
               )}
@@ -995,22 +765,11 @@ export default function Editor() {
           )}
         </div>
 
-        {/* Live Preview Panel */}
         <div className="editor-preview-panel">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 12,
-              flexWrap: "wrap",
-              marginBottom: 20,
-            }}
-          >
-            <h3 style={{ margin: 0, color: "var(--accent)", fontSize: "1.35rem", fontWeight: 700 }}>Live Preview</h3>
+          <div className="flex items-center justify-between gap-3 flex-wrap mb-5">
+            <h3 className="m-0 text-heading text-xl font-heading font-medium">Live Preview</h3>
             <button
-              className="primary-btn"
-              style={{ padding: "8px 18px", fontSize: "0.85rem", borderRadius: 12 }}
+              className="px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-[#A64850] transition-all duration-200"
               onClick={handleOpenLivePreview}
               disabled={!templateSlug}
             >
@@ -1055,7 +814,7 @@ export function PageQrCode({ pageId }: { pageId: number }) {
 
   if (!qr) {
     return (
-      <div style={{ fontSize: "0.85rem", color: "var(--muted)", padding: "12px 0" }}>
+      <div className="text-sm text-muted py-3">
         Loading QR Code...
       </div>
     );
@@ -1065,16 +824,7 @@ export function PageQrCode({ pageId }: { pageId: number }) {
     <img
       src={qr}
       alt="QR Code"
-      style={{
-        width: 140,
-        height: 140,
-        borderRadius: 16,
-        padding: 8,
-        background: "white",
-        border: "1px solid var(--line)",
-        boxShadow: "0 8px 24px rgba(188,83,91,0.08)",
-        display: "block"
-      }}
+      className="w-[140px] h-[140px] rounded-md p-2 bg-white border border-border block"
     />
   );
 }
