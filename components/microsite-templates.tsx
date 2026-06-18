@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import type { Template } from "@/lib/site-data";
 
 function TemplateFrame({
@@ -13,7 +13,6 @@ function TemplateFrame({
   fullSize?: boolean;
 }) {
   const frameRef = useRef<HTMLIFrameElement | null>(null);
-  // use the bundle from template.assets if available, otherwise default fallback
   const bundle = (template as any).assets?.bundle ?? "/assets/birthday-template-1/index.html";
 
   useEffect(() => {
@@ -28,18 +27,9 @@ function TemplateFrame({
     );
   }, [values]);
 
-  const heightVal = fullSize ? "100vh" : "760px";
-
   return (
-    <div
-      style={{
-        width: "100%",
-        height: heightVal,
-        minHeight: heightVal,
-        background: "white",
-        overflow: "hidden",
-      }}
-    >
+    <div className={`w-full ${fullSize ? "h-screen min-h-screen" : ""} bg-white overflow-hidden`}
+      style={fullSize ? undefined : { height: "760px", minHeight: "760px" }}>
       <iframe
         ref={frameRef}
         src={bundle}
@@ -53,13 +43,8 @@ function TemplateFrame({
             window.location.origin,
           );
         }}
-        style={{
-          width: "100%",
-          height: heightVal,
-          minHeight: heightVal,
-          border: "none",
-          display: "block",
-        }}
+        className="w-full border-none block"
+        style={{ height: fullSize ? "100vh" : "760px", minHeight: fullSize ? "100vh" : "760px" }}
         sandbox="allow-scripts allow-same-origin allow-modals allow-downloads"
       />
     </div>
@@ -82,26 +67,9 @@ export function TemplatePreview({
   values: Record<string, any>;
 }) {
   return (
-    <div
-      style={{
-        borderRadius: 28,
-        padding: 12,
-        background:
-          "linear-gradient(180deg, rgba(17,17,17,0.08), rgba(17,17,17,0.02))",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "center", padding: 8 }}>
-        <div
-          style={{
-            width: "100%",
-            maxWidth: 560,
-            borderRadius: 20,
-            overflow: "hidden",
-            boxShadow: "0 18px 50px rgba(0,0,0,0.22)",
-            background: "white",
-            pointerEvents: "auto",
-          }}
-        >
+    <div className="rounded-md p-3 bg-background border border-border">
+      <div className="flex justify-center p-2">
+        <div className="w-full max-w-[560px] rounded-md overflow-hidden border border-border bg-white pointer-events-auto">
           {renderMicrositeTemplate(template, values)}
         </div>
       </div>

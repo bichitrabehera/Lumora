@@ -1,20 +1,13 @@
-import Editor from "./editor";
-import React from "react";
-import Topbar from "@/components/topbar";
-import { siteData } from "@/lib/site-data";
+import Editor from "@/components/editor/Editor";
 
 export const metadata = {
   title: "Editor",
 };
 
-export default async function EditorPage() {
+export default function EditorPage() {
   return (
-    <main className="page-shell">
-      <Topbar
-        logo={siteData.brand.logo}
-        brandName={siteData.brand.name}
-      />
-      <div style={{ marginTop: 40 }}>
+    <main>
+      <div className="pt-16">
         <Editor />
       </div>
     </main>

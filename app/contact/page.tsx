@@ -1,68 +1,34 @@
-import Link from "next/link";
-import Topbar from "@/components/topbar";
-
 import { loadSiteData } from "@/lib/api";
-
 import LeadForm from "./lead-form";
 
-export default async function ContactPage({
-  searchParams,
-}: {
-  searchParams?: { template?: string | string[] };
-}) {
+export default async function ContactPage({ searchParams }: { searchParams?: { template?: string | string[] } }) {
   const data = await loadSiteData();
-  const templateSlug = Array.isArray(searchParams?.template)
-    ? searchParams.template[0]
-    : (searchParams?.template ?? "");
+  const templateSlug = Array.isArray(searchParams?.template) ? searchParams.template[0] : (searchParams?.template ?? "");
 
   return (
-    <main className="page-shell">
-      <Topbar
-        logo={data.brand.logo}
-        brandName={data.brand.name}
-        nav={
-          <>
-            <Link href="/">Home</Link>
-            <Link href="/templates">Templates</Link>
-            <a href="#request">Contact</a>
-          </>
-        }
-      />
+    <main>
+      <section className="px-4 md:px-6 lg:px-8 pt-20 pb-16 md:pb-20">
+        <div className="max-w-7xl mx-auto w-full px-0 md:px-8">
+          <div className="mb-12">
+            <p className="text-sm font-medium tracking-wider uppercase text-muted mb-3">{data.contact.title}</p>
+            <h1 className="text-4xl md:text-5xl leading-tight font-heading font-medium text-heading tracking-tight mb-4">Tell us about your project.</h1>
+            <p className="text-base text-muted max-w-xl leading-relaxed">{data.contact.lead}</p>
+          </div>
 
-      <section className="section" id="request">
-        <div className="section-heading">
-          <span className="eyebrow">{data.contact.title}</span>
-          <h2>Tell us what you want to launch.</h2>
-          <p>{data.contact.lead}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="p-6 rounded-md border border-border bg-white">
+              <h3 className="text-base font-medium text-heading mb-2">What happens next?</h3>
+              <p className="text-sm text-muted leading-relaxed mb-5">Submitting the form sends your request to the team. You&apos;ll hear back about your custom page, usually within a day.</p>
+              <div className="flex flex-wrap gap-2">
+                {["Custom page", "Occasion", "Contact info", "Timeline"].map((label) => (
+                  <span key={label} className="text-xs font-medium px-3 py-1.5 rounded-md border border-border bg-background text-body">{label}</span>
+                ))}
+              </div>
+            </div>
+
+            <LeadForm templates={data.templates} initialTemplateSlug={templateSlug} />
+          </div>
         </div>
-      </section>
-
-      <section className="split-section">
-        <article className="template-card">
-          <div className="template-top">
-            <span>What happens next</span>
-            <span>FastAPI</span>
-          </div>
-          <h3>Lead capture, ready for a real workflow.</h3>
-          <p>
-            Submitting the form sends JSON to the backend. You can later attach
-            the response to email automation, analytics, or a checkout system.
-          </p>
-          <div
-            className="feature-list"
-            style={{ justifyContent: "flex-start" }}
-          >
-            <span>Template request</span>
-            <span>Occasion</span>
-            <span>Contact email</span>
-            <span>Project message</span>
-          </div>
-        </article>
-
-        <LeadForm
-          templates={data.templates}
-          initialTemplateSlug={templateSlug}
-        />
       </section>
     </main>
   );
