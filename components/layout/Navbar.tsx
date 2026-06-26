@@ -33,9 +33,8 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 h-16 flex items-center bg-background border-b border-border">
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
-        {/* Logo */}
+    <header className="sticky top-0 z-50 bg-white border-b border-border">
+      <div className="mx-auto flex max-w-7xl items-center px-4 py-4 md:px-6">
         <Link href="/">
           <Image
             src="/assets/logo.png"
@@ -45,44 +44,37 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav
-          className="hidden sm:flex items-center gap-1"
-          aria-label="Main navigation"
-        >
+        <div className="ml-auto hidden sm:flex items-center gap-2">
           {NAVIGATION.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="px-4 py-2 rounded-md text-sm text-body hover:bg-background transition-colors"
+              className="px-2 py-1 rounded-md text text-neutral-700 hover:bg-background transition-colors"
             >
               {item.label}
             </Link>
           ))}
-        </nav>
 
-        {/* Right Side */}
-        <div className="flex items-center gap-3">
           {token ? (
-            <div className="hidden sm:flex items-center gap-3">
+            <>
               <Link
                 href="/profile"
-                className="text-sm text-body hover:text-primary"
+                className="px-2 py-1 rounded-md text text-neutral-700 hover:text-primary transition-colors"
               >
                 My Pages
               </Link>
 
               <button
                 onClick={handleLogout}
-                className="text-sm border-none bg-transparent cursor-pointer text-muted hover:text-primary"
+                className="px-4 py-2 rounded-md bg-transparent border-none cursor-pointer text text-neutral-700 hover:text-primary transition-colors"
               >
                 Logout
               </button>
-            </div>
+            </>
           ) : (
             <Link
               href={AUTH_LINKS.signIn.href}
-              className="hidden sm:inline text-sm text-body hover:text-primary px-6 py-2 rounded-md border border-border hover:bg-background transition-colors"
+              className="px-6 py-2 rounded-md border border-border text-sm hover:bg-background transition-colors"
             >
               {AUTH_LINKS.signIn.label}
             </Link>
@@ -90,39 +82,23 @@ export default function Navbar() {
 
           <Link
             href="/editor"
-            className="hidden md:inline px-6 py-2 rounded-md bg-primary text-white text font-medium"
+            className="px-6 py-2 rounded-md bg-primary text-white font-medium"
           >
             Create Page
           </Link>
-
-          <button
-            type="button"
-            className="sm:hidden flex items-center justify-center w-10 h-10 rounded-md border border-border"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              {mobileOpen ? (
-                <path d="M5 15L15 5M5 5l10 10" />
-              ) : (
-                <path d="M3 5h14M3 10h14M3 15h14" />
-              )}
-            </svg>
-          </button>
         </div>
+
+        <button
+          type="button"
+          className="ml-auto sm:hidden flex items-center justify-center px-2 py-1 rounded-md border border-border"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          Menu
+        </button>
       </div>
 
       {mobileOpen && (
-        <div
-          className="fixed top-16 left-0 right-0 bottom-0 z-40 sm:hidden"
-          style={{ backgroundColor: "#ffeff0" }}
-        >
+        <div className="fixed top-16 left-0 right-0 bottom-0 z-40 sm:hidden bg-background">
           <div className="flex h-full flex-col px-6 py-8">
             <nav className="flex flex-col gap-6">
               {NAVIGATION.map((item) => (
@@ -136,7 +112,7 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              <div className="mt-auto flex flex-col gap-6 pt-8">
+              <div className="mt-auto flex flex-col gap-6">
                 {token ? (
                   <>
                     <Link
@@ -152,7 +128,7 @@ export default function Navbar() {
                         handleLogout();
                         setMobileOpen(false);
                       }}
-                      className="text-left text font-medium bg-transparent border-none p-0 cursor-pointer text-body"
+                      className="text-center text font-medium bg-transparent border border-neutral-300 px-6 py-3 cursor-pointer text-body rounded"
                     >
                       Logout
                     </button>

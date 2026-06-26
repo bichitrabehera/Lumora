@@ -485,8 +485,8 @@ export default function Editor() {
         </div>
       </div>
 
-      <div className="editor-container">
-        <div className="editor-sidebar flex flex-col gap-6">
+      <div className="editor-container flex justify-between gap-8">
+        <div className="editor-sidebar flex flex-col gap-6 w-full ">
           {isBirthday1Locked && (
             <div className="bg-error-bg border border-error-text/20 p-5 rounded-md flex flex-col gap-2">
               <div className="flex items-center gap-2">
@@ -765,7 +765,7 @@ export default function Editor() {
           )}
         </div>
 
-        <div className="editor-preview-panel">
+        <div className="editor-preview-panel w-full ">
           <div className="flex items-center justify-between gap-3 flex-wrap mb-5">
             <h3 className="m-0 text-heading text-xl font-heading font-medium">Live Preview</h3>
             <button

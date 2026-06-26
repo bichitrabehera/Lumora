@@ -1,34 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @import "tailwindcss";
-
 
 html {
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   line-height: 1.5;
-} 
+}
 
 @theme {
-  --color-background: #ffeff0;
-  --color-heading: #2D1B1D;
-  --color-body: #5F4A4D;
-  --color-muted: #86696D;
-  --color-primary: #BC535B;
-  --color-primary-hover: #A64850;
-  --color-card: #FFFFFF;
-  --color-border: #F1D6D8;
-  --color-success-bg: #ECFDF5;
-  --color-success-text: #065F46;
-  --color-error-bg: #FEF2F2;
-  --color-error-text: #991B1B;
+  --color-background: ##f8f8f8;
+  --color-heading: #2d1b1d;
+  --color-body: #5f4a4d;
+  --color-muted: #86696d;
+  --color-primary: #bc535b;
+  --color-primary-hover: #a64850;
+  --color-card: #ffffff;
+  --color-border: #f1d6d8;
+  --color-success-bg: #ecfdf5;
+  --color-success-text: #065f46;
+  --color-error-bg: #fef2f2;
+  --color-error-text: #991b1b;
 }
 
 @layer base {
   *,
   *::before,
-  *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     margin: 0;
     color: var(--color-body);
@@ -37,12 +40,24 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     color: var(--color-heading);
   }
-  a { color: inherit; text-decoration: none; }
-  img { max-width: 100%; height: auto; display: block; }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
   :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;

@@ -11,7 +11,7 @@ export default async function Home() {
   const data = await loadSiteData();
 
   return (
-    <main className="max-w-7xl mx-auto">
+    <main className="mx-auto">
       <Hero />
       <HowItWorks />
       <Templates templates={data.templates} />
